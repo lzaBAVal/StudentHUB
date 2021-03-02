@@ -20,6 +20,7 @@ async def pgsql_conn(request = None, request_l: list = None):
 
 def async_get_loop(func):
     asyncio.get_event_loop().run_until_complete(func())
+
 '''
 
 import psycopg2

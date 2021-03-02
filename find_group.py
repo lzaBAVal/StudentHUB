@@ -1,15 +1,17 @@
 '''
 
-    Функция search_shed_using_group принимает строковое значение (наименование группы) и отдает id_inc БД в случае
-     точного нахождения группы, в случае если найдено несколько групп, отдает список кортежей
+    Функция group_search принимает строковое значение (наименование группы) и отдает id_inc БД в случае
+     точного нахождения группы, в случае если найдено несколько групп, отдает списки
 
 '''
 
-from bs4 import BeautifulSoup
+from DB.pgsql_conn import pgsql_conn
+from DB.pgsql_requests import get_all_groups
 
-import requests
 import re
+import asyncio
 
+'''
 def search_shed_using_group(require_group: str):
     require_group = require_group.lower().strip()
     url = 'https://aues.arhit.kz/rasp/start3.php'
@@ -56,8 +58,7 @@ def search_shed_using_group(require_group: str):
         return str(result)
     else:
         return list(matched_group_list)
-
-
+'''
 
 '''
     for opt in soup.find_all('option'):
@@ -96,5 +97,26 @@ def search_shed_using_group(require_group: str):
         return str(result)
     else:
         return list(matched_group_list)
-
+        
 '''
+
+
+def group_search(group: str):
+    comp_match = {}
+    match = {}
+    other_match = {}
+    req_g_list = list(re.findall(r'([a-zA-zа-яА-Я\(\)\-\w]{1,10})[\-|" *"]+(\d{2})[\-|" *"]+(\d{1,2})', group)[0])
+    branch_mame = "".join(re.findall(r'^[а-я А-Я a-z A-Z]{2}', group))
+    response = asyncio.get_event_loop().run_until_complete(pgsql_conn(get_all_groups()))
+    for i in response:
+        id = dict(i)['id_inc']
+        name = dict(i)['group_name']
+        if re.search(rf"{req_g_list[1]}", name) and re.search(rf"{req_g_list[2]}", name):
+            if re.search(rf"{req_g_list[0]}", name):
+                comp_match.setdefault(id, name)
+            elif re.search(rf"{branch_mame}", name):
+                match.setdefault(id, name)
+            else:
+                other_match.setdefault(id, name)
+
+    return comp_match, match, other_match

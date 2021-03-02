@@ -14,6 +14,10 @@ def get_group_name(id_inc: int) -> str:
     result = "select group_name from groups_students where id_inc={0}".format(id_inc)
     return result
 
+def get_all_groups():
+    result = "select id_inc, group_name from groups_students"
+    return result
+
 def get_institution(id_inc: int):
     result = 'select sched from institution where id_inc = {0}'.format(id_inc)
     return result
