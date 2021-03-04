@@ -1,7 +1,7 @@
 import asyncio
 import base64
 
-from DB.pgsql_conn import pgsql_conn, async_get_loop
+from DB.pgsql import pgsql_conn, async_get_loop
 from DB.pgsql_requests import get_institution, get_institution_ids, insert_group,\
     get_institution_url_groups, get_groups_values, insert_schedule
 from harvest.harvest_groups import search_group

@@ -9,20 +9,30 @@ rating_btn = KeyboardButton("Расчитать итоговую оценку")
 alert_btn = KeyboardButton("Настройка уведомлений")
 find_group_btn = KeyboardButton("Найти группу")
 register_btn = KeyboardButton("Регистрация")
+register_yes = KeyboardButton("Да")
+register_no = KeyboardButton("Нет")
+
+cat = '🐈'
 
 greet_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 greet_kb.row(all_shedule_btn, next_lesson_btn, todays_shedule_btn)
 greet_kb.add(rating_btn, find_group_btn)
 greet_kb.row(alert_btn)
 
-anon_kb = ReplyKeyboardMarkup(resize_keyboard=True)
+anon_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 anon_kb.row(register_btn, rating_btn)
 
+question_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+question_kb.row(register_yes, register_no)
 
-def createButtons(btns_l):
+cat_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+cat_kb.row(cat)
+
+
+def createButtons(btns_l: list):
     group = []
     for i in btns_l:
-        group.append("-".join(list(i[0])))
+        group.append(i)
     test = ReplyKeyboardMarkup(resize_keyboard=True)
     for i in range(len(group)):
         if i % 2 == 0:

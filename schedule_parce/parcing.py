@@ -1,18 +1,11 @@
-'''
+"""
 
     schedule_for_today принимает словар shed_dict и отдает строку, в которой содержится расписание на сегодняшний день
 
-'''
+"""
 
-import requests
 import datetime as dt
 import re
-import asyncio
-
-from bs4 import BeautifulSoup
-from schedule_parce.group_by_days import create_group_days
-from DB.pgsql_conn import pgsql_conn
-#from DB.pgsql_requests import
 
 WeekDays_RU = ('понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье')
 WeekDays_EN = ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday')
@@ -21,14 +14,9 @@ now = dt.datetime.now()
 weekday = now.isoweekday() - 1
 day = WeekDays_EN[weekday]
 
-def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
 
-    resp = requests.get(sched)
-    soup = BeautifulSoup(resp.text, 'lxml')
-    todays_shed = []
-    result = ''
-    shed_dict = create_group_days(soup)
-    todays_shed = shed_dict[day]
+def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
+    todays_shed = sched[day]
 
     result = '-------------------' + '\n' + str(WeekDays_RU[weekday]).title() + '\n' + '-------------------'
     for i in todays_shed:
@@ -49,21 +37,7 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
     return result
 
 
-'''
-
-Почему то все уже рассортировано...
-
-def sort_dicts(dicts):
-    result = []
-    tmp = []
-    for i in dicts:
-        for k, v in i.items():
-            tmp.append(k)
-    print(tmp)
-    return True
-'''
-
-def all_shedule(sched, time=True, subgroup=False, lesson=True, teacher=False, classroom=False):
+def all_schedule(sched, time=True, subgroup=False, lesson=True, teacher=False, classroom=False):
     result = ''
     for k, v in sched.items():
         result += '\n' + str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n' + '-------------------'
@@ -86,15 +60,14 @@ def all_shedule(sched, time=True, subgroup=False, lesson=True, teacher=False, cl
 
 
 def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, classroom=True):
-
-    todays_shed = sched[day]
+    result, delta = None, None
+    todays_sched = sched[day]
     current_time = now.strptime(now.strftime('%H:%M'), '%H:%M')
-    amount_lessons = len(todays_shed)
+    amount_lessons = len(todays_sched)
     counter_lessons = 0
     end = 0
 
-    for i in todays_shed:
-        biggest_diff = 0
+    for i in todays_sched:
         for k, v in i.items():
             counter_lessons += 1
             tmp_time = now.strptime(re.search(r'\d{2}:\d{2}', i[k]['time']).group(), '%H:%M')
@@ -110,10 +83,10 @@ def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, c
         if end == 1:
             break
 
-    future_lesson = todays_shed[counter_lessons - 1]
+    future_lesson = todays_sched[counter_lessons - 1]
 
     for k, v in future_lesson.items():
-        result = 'Следующая пара наченется через ' + str(delta.seconds//60) + ' минуты'
+        result = 'Следующая пара наченется через ' + str(delta.seconds // 60) + ' минуты'
         if time:
             result += '\n' + 'Время: ' + future_lesson[k]['time']
         if subgroup:

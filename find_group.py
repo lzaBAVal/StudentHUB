@@ -5,11 +5,8 @@
 
 '''
 
-from DB.pgsql_conn import pgsql_conn
-from DB.pgsql_requests import get_all_groups
-
 import re
-import asyncio
+from loader import db
 
 '''
 def search_shed_using_group(require_group: str):
@@ -101,22 +98,19 @@ def search_shed_using_group(require_group: str):
 '''
 
 
-def group_search(group: str):
-    comp_match = {}
-    match = {}
-    other_match = {}
-    req_g_list = list(re.findall(r'([a-zA-zа-яА-Я\(\)\-\w]{1,10})[\-|" *"]+(\d{2})[\-|" *"]+(\d{1,2})', group)[0])
+async def group_search(group: str):
+    comp_match, match, other_match = [], [], []
+    req_g_list = list(re.findall(r'([a-z а-я \(\)\-\w]{1,10})[\-|" *"]+(\d{2})[\-|" *"]+(\d{1,2})', group.lower())[0])
     branch_mame = "".join(re.findall(r'^[а-я А-Я a-z A-Z]{2}', group))
-    response = asyncio.get_event_loop().run_until_complete(pgsql_conn(get_all_groups()))
+    response = await db.get_all_groups()
     for i in response:
-        id = dict(i)['id_inc']
         name = dict(i)['group_name']
         if re.search(rf"{req_g_list[1]}", name) and re.search(rf"{req_g_list[2]}", name):
             if re.search(rf"{req_g_list[0]}", name):
-                comp_match.setdefault(id, name)
+                comp_match.append(name)
             elif re.search(rf"{branch_mame}", name):
-                match.setdefault(id, name)
+                match.append(name)
             else:
-                other_match.setdefault(id, name)
+                other_match.append(name)
 
     return comp_match, match, other_match

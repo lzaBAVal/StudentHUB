@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from DB.pgsql_conn import pgsql_conn
+from DB.pgsql import pgsql_conn
 from DB.pgsql_requests import insert_institution
 
 import requests

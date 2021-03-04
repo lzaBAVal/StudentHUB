@@ -1,4 +1,3 @@
-from aiogram.utils.helper import Helper, HelperMode, ListItem
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 '''
@@ -13,13 +12,10 @@ class TestStates(Helper):
     TEST_STATE_5 = ListItem()
 '''
 
-class Group(StatesGroup):
-    name = State()
-    inst = State()
-
 
 class AnonStates(StatesGroup):
     anon = State()
+
 
 class StudentStates(StatesGroup):
     student = State()
@@ -30,6 +26,6 @@ class RegistrationStates(StatesGroup):
     name = State()
     surname = State()
     find_group = State()
+    accept_all_data = State()
+    insert_sql = State()
     final = State()
-    check_group = State()
-
