@@ -44,11 +44,8 @@ class Database:
         sql_query = "select id_inc from groups_students where group_name = $1"
         return await self.pool.fetchrow(sql_query, group_name)
 
-    async def get_all_groups(self):
-        return await self.pool.fetch("select group_name from groups_students")
-
     async def get_institution(self, id_inc: int):
-        sql_query = 'select sched from institution where id_inc = $1'
+        sql_query = 'select url from institution where id_inc = $1'
         return await self.pool.fetch(sql_query, id_inc)
 
     async def get_institution_url_groups(self, id_inc: int):
@@ -59,16 +56,24 @@ class Database:
         sql_query = 'select group_url_value, id_inc from groups_students where institution_id = $1'
         return await self.pool.fetch(sql_query, institution_id)
 
+    async def get_all_groups(self):
+        sql_query = 'select group_name from groups_students'
+        return await self.pool.fetch(sql_query)
+
+    async def get_groups_name(self, id_inc):
+        sql_query = 'select group_name from groups_students'
+        return await self.pool.fetch(sql_query)
+
+    async def get_groups_sched_nm_gr(self, id_inc: int):
+        sql_query = 'select group_name, sched_arhit from groups_students where id_inc = $1'
+        return await self.pool.fetch(sql_query, id_inc)
+
     async def get_institution_ids(self):
         return await self.pool.fetch('select id_inc from institution')
 
     async def update_privilege(self, privilege: int, chat_id: int) -> str:
         sql_query = "update student set privilege = b\'$1\' where id_chat = $2"
         return await self.pool.execute(sql_query, privilege, chat_id)
-
-    async def insert_schedule(self, group_id, sched_dict):
-        sql_query = "insert into sched_stud(group_id, sched_dict) values ($1, $2);"
-        return await self.pool.execute(sql_query, group_id, sched_dict)
 
     async def insert_group(self, group_name: str, id: int, url_value: str):
         sql_query = 'insert into groups_students(group_name, institution_id, group_url_value) values ($1, $2, $3);'
@@ -77,6 +82,10 @@ class Database:
     async def insert_institution(self, instit_name: str, url: str, url_for_groups: str):
         sql_query = 'insert into institution(instit_name, sched, url_for_groups) values ($1, $2, $3)'
         return await self.pool.execute(sql_query, instit_name, url, url_for_groups)
+
+    async def update_group_sched(self, sched: str, id_inc: int):
+        sql_query = 'update groups_students set sched_arhit = $1 where id_inc = $2;'
+        return await self.pool.execute(sql_query, sched, id_inc)
 
     async def test_connect(self):
         return await self.pool.execute('select version();')

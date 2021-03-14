@@ -1,15 +1,17 @@
-from loader import dp, bot
-
-import handlers
-
+import loader
+from logging_core import init_logger
 # ----------------------------------------------------------------------------------------------------
-
-bot = bot
-dp = dp
 
 
 if __name__ == '__main__':
-    from aiogram import executor
-    from handlers import dp
+    bot = loader.bot
+    dp = loader.dp
+    logger = init_logger()
 
-    executor.start_polling(dp, skip_updates=True)
+    from aiogram import executor
+    from bot.handlers import dp
+
+    logger.debug('Bot started')
+    executor.start_polling(dp, skip_updates=False, on_startup=loader.on_startup, on_shutdown=loader.on_shutdown)
+    #executor.start_polling(dp, skip_updates=False, on_shutdown=loader.on_shutdown)
+
