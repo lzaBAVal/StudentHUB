@@ -1,6 +1,7 @@
 import aiogram.utils.markdown as md
+import keys
 
-from logging_core import init_logger
+from logs.logging_core import init_logger
 from bot import keyboard as kb
 from functions.find_group import group_search
 from aiogram.dispatcher import FSMContext
@@ -8,16 +9,21 @@ from aiogram.utils.markdown import text, bold
 from aiogram.types import ParseMode
 from loader import dp, db, bot
 from aiogram import types
-from bot.states.states import AnonStates, RegistrationStates, StudentStates
+from bot.states.states import AnonStates, RegistrationStates, StudentStates, TesterState
 from schedule.output.get_schedule_object import get_sched
-from schedule.harvest.harvest_main import harvest_groups, harvest_groups_arhit_sched
 
 logger = init_logger()
 
+
 @dp.message_handler(commands=['start'], state=None)
 async def start(message: types.Message):
-    await AnonStates.anon.set()
-    await message.answer(text='Привет, чел! Я тестовый бот.', reply_markup=kb.anon_kb)
+    await TesterState.tester.set()
+    await message.answer(text='Привет, студент! Я бот \nНа данный момент идет тестовый период моей работы.\
+    \nЯ могу ошибаться, тормозить в общем работать не так как нужно)\
+    \nЕсли ты хочешь пользоваться моим функционалом или помочь мне, тогда тебе нужен ключик для входа\
+    \nЕго можно взять у моего разработчика или админов \
+    \nЕсли уже есть ключик то жмакай на кнопку ввести ключ и вводи его)\
+    \nРазработчик будет очень рад если ты будешь отправлять ему замечания по поводу моей работы!', reply_markup=kb.tester_kb)
 
 
 @dp.message_handler(state=AnonStates.anon, text='Регистрация')
@@ -57,18 +63,18 @@ async def search_group(message: types.Message, state: FSMContext):
         if comp_match:
             kboard = kb.createButtons(comp_match)
             await message.answer(text='Это наименование твоей группы?', reply_markup=kboard)
-            #await RegistrationStates.next()
+            await RegistrationStates.next()
         elif match:
             kboard = kb.createButtons(match)
             await message.answer(text='Не найденно точной группы. Твоя группа есть в этом списке?', reply_markup=kboard)
-            #await RegistrationStates.next()
+            await RegistrationStates.next()
         elif other_match:
             kboard = kb.createButtons(other_match)
             await message.answer(text='Я не нашел ничего похожего. Только это', reply_markup=kboard)
-            #await RegistrationStates.next()
+            await RegistrationStates.next()
         else:
-            await message.answer(text='Вашей группы у меня нет. Напишите разработчику, он все исправит')
-            #await RegistrationStates.find_group.set()
+            await message.answer(text='Вашей группы у меня нет. Напишите разработчику, он все исправит', reply_markup=kb.anon_kb)
+            await AnonStates.anon.set()
 
 
 @dp.message_handler(state=RegistrationStates.accept_all_data)
@@ -155,7 +161,6 @@ async def todays_shedule(message: types.Message):
     resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
     await message.answer(text=resp)
 
-
 # @dp.message_handler(commands=['linebut'])
 # async def inlinebutton(message: types.Message):
 #    await message.reply('Первая инлайн кнопка', reply_markup=kb.inline_kb1)
@@ -190,18 +195,53 @@ async def process_help_command(message: types.Message):
                '/voice test', '/photo', '/group', '/note', '/file, /testpre', sep='\n')
     await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
 
+
 @dp.message_handler(state=StudentStates.student)
 async def get_menu(message: types.Message):
     await message.answer(text=message.text, reply_markup=kb.greet_kb)
 
+
+@dp.message_handler(commands=['addhash'], state='*')
+async def add_hash(message: types.Message):
+    hash = await keys.create_hashes(db)
+    await message.answer(text=hash)
+
+
+@dp.message_handler(text='Ввести ключ', state=TesterState.tester)
+async def start_add_tester(message: types.Message):
+    await TesterState.start_add.set()
+    await message.answer(text='Жду ключа')
+
+
+@dp.message_handler(state=TesterState.start_add)
+async def start_add_tester(message: types.Message):
+    try:
+        await keys.add_tester(db, message.chat.id, message.text)
+        await TesterState.finish_add.set()
+    except Exception:
+        await message.answer(text='Проверьте еще раз вводимый ключ. Что то пошло не так.')
+    await message.answer(text='Для подтверждения жмакните на котика', reply_markup=kb.cat)
+
+
+@dp.message_handler(state=TesterState.finish_add)
+async def start_add_tester(message: types.Message):
+    await message.answer(text='Отлично теперь Вы являетесь членом команды тестировщиков, спасибо Вам!\
+    \nДалее чтобы получить доступ к моему функционалу нужно лишь пройти простую регистрацию для того \
+     чтобы подкрепить вас к группе, пройдите регистрацию.', reply_markup=kb.anon_kb)
+    await AnonStates.anon.set()
+
+
 @dp.message_handler(state=None)
 async def def_user(message: types.Message):
     try:
-        if (await db.check_user(message.chat.id)) == []:
-            await AnonStates.anon.set()
-            await message.answer(text='Привет Анон', reply_markup=kb.anon_kb)
+        if (await db.check_tester(message.chat.id)) == []:
+            await TesterState.tester.set()
+            await message.answer(text='Привет тестер', reply_markup=kb.tester_kb)
         else:
-            await StudentStates.student.set()
+            if (await db.check_user(message.chat.id)) == []:
+                await AnonStates.anon.set()
+            else:
+                await StudentStates.student.set()
     except Exception as e:
-        await AnonStates.anon.set()
-        await message.answer(text='Привет Анон', reply_markup=kb.anon_kb)
+        await TesterState.tester.set()
+        await message.answer(text='Привет тестер', reply_markup=kb.anon_kb)

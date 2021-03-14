@@ -10,7 +10,7 @@ def init_logger():
     formatter = logging.Formatter(
         '[%(asctime)s:%(module)s:%(lineno)s:%(levelname)s] %(message)s'
     )
-    filehandler = logging.FileHandler('logs/core.log')
+    filehandler = logging.FileHandler('core.log')
     filehandler.setLevel(logging.DEBUG)
     filehandler.setFormatter(formatter)
     logger.addHandler(filehandler)

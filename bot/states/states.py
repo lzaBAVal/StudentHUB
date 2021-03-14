@@ -12,6 +12,10 @@ class TestStates(Helper):
     TEST_STATE_5 = ListItem()
 '''
 
+class TesterState(StatesGroup):
+    tester = State()
+    start_add = State()
+    finish_add = State()
 
 class AnonStates(StatesGroup):
     anon = State()

@@ -1,5 +1,5 @@
 import loader
-from logging_core import init_logger
+from logs.logging_core import init_logger
 # ----------------------------------------------------------------------------------------------------
 
 

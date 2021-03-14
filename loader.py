@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from DB.pgsql import Database
 from schedule.harvest.harvest_main import Harvest, scheduler
 from config import token
-from logging_core import init_logger
+from logs.logging_core import init_logger
 
 API_TOKEN = token
 

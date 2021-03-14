@@ -32,6 +32,10 @@ class Database:
         sql_query = "select * from student where id_chat = $1"
         return await self.pool.fetch(sql_query, chat_id)
 
+    async def check_tester(self, chat_id: int):
+        sql_query = "select * from student where id_chat = $1"
+        return await self.pool.fetch(sql_query, chat_id)
+
     async def get_group_sched(self, id_chat: int):
         sql_query = 'select sched_dict from sched_stud where group_id=(select group_id from student where id_chat = $1)'
         return await self.pool.fetchrow(sql_query, id_chat)
@@ -71,6 +75,9 @@ class Database:
     async def get_institution_ids(self):
         return await self.pool.fetch('select id_inc from institution')
 
+    async def get_free_hashes(self):
+        return await self.pool.fetch('select key_md5 from keys where id_chat = None')
+
     async def update_privilege(self, privilege: int, chat_id: int) -> str:
         sql_query = "update student set privilege = b\'$1\' where id_chat = $2"
         return await self.pool.execute(sql_query, privilege, chat_id)
@@ -83,9 +90,17 @@ class Database:
         sql_query = 'insert into institution(instit_name, sched, url_for_groups) values ($1, $2, $3)'
         return await self.pool.execute(sql_query, instit_name, url, url_for_groups)
 
+    async def insert_hash(self, hash: str):
+        sql_query = 'insert into keys(key_md5) values ($1)'
+        return await self.pool.execute(sql_query, hash)
+
     async def update_group_sched(self, sched: str, id_inc: int):
         sql_query = 'update groups_students set sched_arhit = $1 where id_inc = $2;'
         return await self.pool.execute(sql_query, sched, id_inc)
+
+    async def update_tester(self, chat_id: str, hash: str):
+        sql_query = 'update keys set id_chat = $1 where key_md5 = $2;'
+        return await self.pool.execute(sql_query, chat_id, hash)
 
     async def test_connect(self):
         return await self.pool.execute('select version();')

@@ -12,6 +12,8 @@ register_btn = KeyboardButton("Регистрация")
 register_yes = KeyboardButton("Да")
 register_no = KeyboardButton("Нет")
 
+keys_btn = KeyboardButton("Ввести ключ")
+
 cat = '🐈'
 
 greet_kb = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -19,8 +21,11 @@ greet_kb.row(all_shedule_btn, next_lesson_btn, todays_shedule_btn)
 greet_kb.add(rating_btn, find_group_btn)
 greet_kb.row(alert_btn)
 
+tester_kb = ReplyKeyboardMarkup(resize_keyboard=True)
+tester_kb.add(keys_btn)
+
 anon_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-anon_kb.row(register_btn, rating_btn)
+anon_kb.row(register_btn)
 
 question_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 question_kb.row(register_yes, register_no)

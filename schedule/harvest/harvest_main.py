@@ -4,8 +4,7 @@ import aioschedule
 from datetime import datetime
 from schedule.harvest.harvest_schedules import search_schedule
 from schedule.harvest.harvest_groups import search_group
-from logging_core import init_logger
-from config import delay_check_arhit
+from logs.logging_core import init_logger
 
 logger = init_logger()
 
@@ -67,12 +66,12 @@ async def harvest_groups(db):
             if list(name)[0] in groups:
                 groups.pop(str(list(name)[0]))
         if groups == {}:
-            logger.debug('No changes in harvest of the groups')
-            logger.debug('Harvest groups has been ended')
-            return 0
-        for group in groups:
-            logger.debug('New groups - ' + group + ' ' + i + ' ' + groups[group])
-            await db.insert_group(group, i, groups[group])
+            logger.debug('No changes in harvest of the groups of the institution - (id) ' + str(i))
+        else:
+            for group in groups:
+                logger.debug('New groups - ' + str(group.encode('utf-8')) + ' ' + str(str(i).encode('utf-8') )+ \
+                             ' ' + str(groups[group].encode('utf-8')))
+                await db.insert_group(group, i, groups[group])
     logger.debug('Harvest groups has been ended')
 
 
@@ -88,17 +87,17 @@ async def harvest_groups_arhit_sched(db):
             sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
             exist_sched = dict(list(await db.get_groups_sched_nm_gr(list(j)[1]))[0])
             if sched64 != exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
-                logger.debug('Changed the schedule - id = ' + list(j)[1])
+                logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
                 await db.update_group_sched(str(sched64), list(j)[1])
     logger.debug('Harvest schedule has been ended')
 
 
 async def scheduler(db):
-    aioschedule.every().hour.do(harvest_groups, db)
-    aioschedule.every().hour.do(harvest_groups_arhit_sched, db)
+    aioschedule.every(12).hours.do(harvest_groups, db)
+    aioschedule.every(5).hours.do(harvest_groups_arhit_sched, db)
     while True:
         await aioschedule.run_pending()
-        await asyncio.sleep(5)
+        await asyncio.sleep(1)
 
 
 

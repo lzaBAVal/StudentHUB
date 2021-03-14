@@ -6,7 +6,7 @@
 '''
 
 import re
-from logging_core import init_logger
+from logs.logging_core import init_logger
 
 '''
 def search_shed_using_group(require_group: str):
