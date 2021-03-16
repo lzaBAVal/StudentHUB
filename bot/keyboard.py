@@ -9,17 +9,18 @@ rating_btn = KeyboardButton("Расчитать итоговую оценку")
 alert_btn = KeyboardButton("Настройка уведомлений")
 find_group_btn = KeyboardButton("Найти группу")
 register_btn = KeyboardButton("Регистрация")
+register_cancel = KeyboardButton("Отменить регистрацию")
 register_yes = KeyboardButton("Да")
 register_no = KeyboardButton("Нет")
 
-keys_btn = KeyboardButton("Ввести ключ")
+keys_btn = KeyboardButton("У меня есть ключ")
 
 cat = '🐈'
 
-greet_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-greet_kb.row(all_shedule_btn, next_lesson_btn, todays_shedule_btn)
-greet_kb.add(rating_btn, find_group_btn)
-greet_kb.row(alert_btn)
+stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
+stud_kb.row(all_shedule_btn, next_lesson_btn, todays_shedule_btn)
+stud_kb.add(rating_btn, find_group_btn)
+stud_kb.row(alert_btn)
 
 tester_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 tester_kb.add(keys_btn)
@@ -29,6 +30,9 @@ anon_kb.row(register_btn)
 
 question_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 question_kb.row(register_yes, register_no)
+
+register_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+register_kb.add(register_cancel)
 
 cat_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 cat_kb.row(cat)
@@ -44,7 +48,7 @@ def createButtons(btns_l: list):
             test.row(KeyboardButton(str(group[i])))
         else:
             test.add(KeyboardButton(str(group[i])))
-
+        test.add(register_cancel)
     return test
 
 

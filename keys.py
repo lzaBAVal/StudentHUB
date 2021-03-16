@@ -8,7 +8,6 @@ logger = init_logger()
 async def create_hashes(db):
     hash = hashlib.md5(bytes(str((datetime.now())).encode('utf-16'))).hexdigest()
     await db.insert_hash(hash)
-    logger.debug('New hash has benn added')
     return hash
 
 

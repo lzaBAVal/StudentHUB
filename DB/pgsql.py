@@ -33,11 +33,11 @@ class Database:
         return await self.pool.fetch(sql_query, chat_id)
 
     async def check_tester(self, chat_id: int):
-        sql_query = "select * from student where id_chat = $1"
+        sql_query = "select * from keys where id_chat = $1"
         return await self.pool.fetch(sql_query, chat_id)
 
     async def get_group_sched(self, id_chat: int):
-        sql_query = 'select sched_dict from sched_stud where group_id=(select group_id from student where id_chat = $1)'
+        sql_query = 'select sched_arhit from groups_students where id_inc=cast((select group_id from student where id_chat = $1) as INT)'
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_name(self, id_inc: int) -> str:
@@ -101,6 +101,10 @@ class Database:
     async def update_tester(self, chat_id: str, hash: str):
         sql_query = 'update keys set id_chat = $1 where key_md5 = $2;'
         return await self.pool.execute(sql_query, chat_id, hash)
+
+    async def delete_account(self, chat_id: str):
+        sql_query = 'delete from student where  id_chat = $1;'
+        return await self.pool.execute(sql_query, chat_id)
 
     async def test_connect(self):
         return await self.pool.execute('select version();')

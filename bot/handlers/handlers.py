@@ -14,7 +14,7 @@ from schedule.output.get_schedule_object import get_sched
 
 logger = init_logger()
 
-
+# NONE
 @dp.message_handler(commands=['start'], state=None)
 async def start(message: types.Message):
     await TesterState.tester.set()
@@ -26,6 +26,71 @@ async def start(message: types.Message):
     \nРазработчик будет очень рад если ты будешь отправлять ему замечания по поводу моей работы!', reply_markup=kb.tester_kb)
 
 
+@dp.message_handler(state=None)
+async def def_user(message: types.Message):
+    try:
+        if (await db.check_tester(message.chat.id)) == []:
+            await TesterState.tester.set()
+            await message.answer(text='Тестер', reply_markup=kb.tester_kb)
+        else:
+            if (await db.check_user(message.chat.id)) == []:
+                await AnonStates.anon.set()
+                await message.answer(text='Анон', reply_markup=kb.anon_kb)
+            else:
+                await StudentStates.student.set()
+                await message.answer(text='Привет :)', reply_markup=kb.stud_kb)
+    except Exception as e:
+        await TesterState.tester.set()
+        await message.answer(text='Тестер ошибка', reply_markup=kb.tester_kb)
+
+# ALL ------------------------------------------------------------------------
+'''
+@dp.message_handler(commands=['help'], state='*')
+async def process_help_command(message: types.Message):
+    msg = text(bold('Я могу ответить на следующие команды:'),
+               '/voice test', '/photo', '/group', '/note', '/file, /testpre', sep='\n')
+    await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
+'''
+
+'''
+@dp.message_handler(commands=['addhash'], state='*')
+async def add_hash(message: types.Message):
+    hash = await keys.create_hashes(db)
+    await message.answer(text=hash)
+'''
+
+
+@dp.message_handler(commands=['id'], state='*')
+async def chat_id(message: types.Message):
+    await message.answer(text=message.chat.id)
+
+
+# TESTER ------------------------------------------------------------------------
+@dp.message_handler(text='У меня есть ключ', state=TesterState.tester)
+async def start_add_tester(message: types.Message):
+    await TesterState.start_add.set()
+    await message.answer(text='Вводите его')
+
+
+@dp.message_handler(state=TesterState.start_add)
+async def start_add_tester(message: types.Message):
+    try:
+        await keys.add_tester(db, message.chat.id, message.text)
+        await TesterState.next()
+    except Exception:
+        await message.answer(text='Проверьте еще раз вводимый ключ. Что то пошло не так.')
+    await message.answer(text='Для подтверждения нажмите на котика', reply_markup=kb.cat_kb)
+
+
+@dp.message_handler(state=TesterState.finish_add)
+async def start_add_tester(message: types.Message):
+    logger.debug('New hash has benn added. User - ' + str(message.chat.id))
+    await message.answer(text='Отлично теперь Вы являетесь членом команды тестировщиков, спасибо Вам!\
+    \nДалее чтобы получить доступ к моему функционалу нужно лишь пройти простую регистрацию.', reply_markup=kb.anon_kb)
+    await AnonStates.anon.set()
+
+
+# ANON ------------------------------------------------------------------------
 @dp.message_handler(state=AnonStates.anon, text='Регистрация')
 async def reg_start(message: types.Message):
     await RegistrationStates.name.set()
@@ -34,7 +99,51 @@ async def reg_start(message: types.Message):
 
 @dp.message_handler(state=AnonStates.anon)
 async def anon_message(message: types.Message):
-    await message.answer(text='Что тебе анон?', reply_markup=kb.anon_kb)
+    await message.answer(text='На данный момент я вас не знаю, пройдите регистрацию чтобы получить доступ к моему функционалу', reply_markup=kb.anon_kb)
+
+# STUDENT ------------------------------------------------------------------------
+@dp.message_handler(text='Все расписание', state=StudentStates.student)
+async def all_shedule(message: types.Message):
+    print('it\'s works')
+    resp = await get_sched(id_chat=message.chat.id, type_of_shed=1)
+    await message.answer(text=resp)
+
+
+@dp.message_handler(text='Расписание на сегодня', state=StudentStates.student)
+async def todays_shedule(message: types.Message):
+    resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
+    await message.answer(text=resp)
+
+
+@dp.message_handler(text='Cледующая пара', state=StudentStates.student)
+async def next_lesson(message: types.Message):
+    resp = await get_sched(id_chat=message.chat.id, type_of_shed=3)
+    await message.answer(text=resp)
+
+
+@dp.message_handler(commands=['addhash'], state=StudentStates.student)
+async def add_hash(message: types.Message):
+    if message.chat.id == 690976128 or message.chat.id == 842781422:
+        hash = await keys.create_hashes(db)
+        await message.answer(text=hash)
+
+@dp.message_handler(commands=['deleteme'], state=StudentStates.student)
+async def next_lesson(message: types.Message):
+    await db.delete_account(message.chat.id)
+    await AnonStates.anon.set()
+    await message.answer('Ваш аккаунт был удален.', reply_markup=kb.anon_kb)
+
+@dp.message_handler(state=StudentStates.student)
+async def get_menu(message: types.Message):
+    await message.answer(text='На данный момент доступен только просмотр расписания!', reply_markup=kb.stud_kb)
+
+
+# REGISTRATION ------------------------------------------------------------------------
+@dp.message_handler(state=RegistrationStates, text='Отменить регистрацию')
+async def reg_cancel(message: types.Message, state: FSMContext):
+    await state.finish()
+    await AnonStates.anon.set()
+    await message.answer('Регистрация отменена', reply_markup=kb.anon_kb)
 
 
 @dp.message_handler(state=RegistrationStates.name)
@@ -42,7 +151,7 @@ async def reg_name(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['name'] = message.text
     await RegistrationStates.next()
-    await message.answer(text='Введите вашу фамилию')
+    await message.answer(text='Введите вашу фамилию', reply_markup=kb.register_kb)
 
 
 @dp.message_handler(state=RegistrationStates.surname)
@@ -56,24 +165,25 @@ async def reg_surname(message: types.Message, state: FSMContext):
 @dp.message_handler(state=RegistrationStates.find_group)
 async def search_group(message: types.Message, state: FSMContext):
     result = await group_search(message.text)
+    logger.debug('Client is finding himself group - ' + str(str(message.text).encode('utf-8')))
     if result == -1:
-        await message.answer(text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, вводить наименование группы должно быть такого формата - "cиб 19 6"')
+        await message.answer(text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, наименование группы должно быть такого формата - "cиб 19 6"')
     else:
         comp_match, match, other_match = result
         if comp_match:
             kboard = kb.createButtons(comp_match)
-            await message.answer(text='Это наименование твоей группы?', reply_markup=kboard)
+            await message.answer(text='Это наименование вашей группы?', reply_markup=kboard)
             await RegistrationStates.next()
         elif match:
             kboard = kb.createButtons(match)
-            await message.answer(text='Не найденно точной группы. Твоя группа есть в этом списке?', reply_markup=kboard)
-            await RegistrationStates.next()
+            await message.answer(text='Не найдено точное наименование вашей группы. Ваша группа есть в этом списке?', reply_markup=kboard)
+            #await RegistrationStates.next()
         elif other_match:
             kboard = kb.createButtons(other_match)
-            await message.answer(text='Я не нашел ничего похожего. Только это', reply_markup=kboard)
-            await RegistrationStates.next()
+            await message.answer(text='Я не нашел ничего похожего. Посмотрите список групп который я вам предоставил. Возможно там будет то что вам нужно', reply_markup=kboard)
+            #await RegistrationStates.next()
         else:
-            await message.answer(text='Вашей группы у меня нет. Напишите разработчику, он все исправит', reply_markup=kb.anon_kb)
+            await message.answer(text='Вашей группы у меня нет. Если вы уверены что верно вводите название группы, напишите об этом разработчику, он вам поможет', reply_markup=kb.anon_kb)
             await AnonStates.anon.set()
 
 
@@ -108,27 +218,27 @@ async def reg_final(message: types.Message, state: FSMContext):
         await message.answer(text='Произошла ошибка, обратитесь к разработчику)', reply_markup=kb.anon_kb)
         await state.finish()
         await AnonStates.anon.set()
-    await message.answer(text='Идет процесс регистрации...\n для завершения тыкни на котика)', reply_markup=kb.cat_kb)
+    await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)', reply_markup=kb.cat_kb)
     await RegistrationStates.next()
 
 
 @dp.message_handler(state=RegistrationStates.final)
 async def reg_final(message: types.Message, state: FSMContext):
-    await message.answer(text='Все отлично! Теперь вы зарегестрированы.', reply_markup=kb.greet_kb)
+    await message.answer(text='Все отлично! Теперь вы зарегестрированы.', reply_markup=kb.stud_kb)
+    data = await state.get_data()
+    logger.debug('New user: Name - ' + str(str(data['name']).encode('utf-8')) + ', surname - ' + str(str(data['surname']).encode('utf-8')) + ', group - ' + str(str(data['group_id']).encode('utf-8')))
     await state.finish()
     await StudentStates.student.set()
 
 
 @dp.message_handler(state=RegistrationStates.insert_sql, text='Нет')
 async def reg_final(message: types.Message, state: FSMContext):
-    await message.answer(text='Пройдите регистрацию заново!')
+    await message.answer(text='Пройдите регистрацию заново!', reply_markup=kb.anon_kb)
     await state.finish()
     await AnonStates.anon.set()
 
+# END -----------------------------------------------------------
 
-@dp.message_handler(commands=['id'], state='*')
-async def chat_id(message: types.Message):
-    await message.answer(text=message.chat.id)
 
 '''
 # This block of code is a test harvest the groups and schedules 
@@ -143,23 +253,6 @@ async def chat_id(message: types.Message):
     await harvest_groups_arhit_sched(db)
 '''
 
-@dp.message_handler(text='Все расписание', state=StudentStates.student)
-async def all_shedule(message: types.Message):
-    print('it\'s works')
-    resp = await get_sched(id_chat=message.chat.id, type_of_shed=1)
-    await message.answer(text=resp)
-
-
-@dp.message_handler(text='Cледующая пара', state=StudentStates.student)
-async def next_lesson(message: types.Message):
-    resp = await get_sched(id_chat=message.chat.id, type_of_shed=3)
-    await message.answer(text=resp)
-
-
-@dp.message_handler(text='Расписание на сегодня', state=StudentStates.student)
-async def todays_shedule(message: types.Message):
-    resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
-    await message.answer(text=resp)
 
 # @dp.message_handler(commands=['linebut'])
 # async def inlinebutton(message: types.Message):
@@ -182,66 +275,14 @@ async def process_setstate(message: types.Message):
     await message.reply(MESSAGES['state_change'], reply=False)
 '''
 
-
+'''
 @dp.callback_query_handler(lambda c: c.data == 'button1')
 async def process_callback_query(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     await bot.send_message(callback_query.from_user.id, 'Нажата первая кнопка!')
+'''
 
 
-@dp.message_handler(commands=['help'], state='*')
-async def process_help_command(message: types.Message):
-    msg = text(bold('Я могу ответить на следующие команды:'),
-               '/voice test', '/photo', '/group', '/note', '/file, /testpre', sep='\n')
-    await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
 
 
-@dp.message_handler(state=StudentStates.student)
-async def get_menu(message: types.Message):
-    await message.answer(text=message.text, reply_markup=kb.greet_kb)
 
-
-@dp.message_handler(commands=['addhash'], state='*')
-async def add_hash(message: types.Message):
-    hash = await keys.create_hashes(db)
-    await message.answer(text=hash)
-
-
-@dp.message_handler(text='Ввести ключ', state=TesterState.tester)
-async def start_add_tester(message: types.Message):
-    await TesterState.start_add.set()
-    await message.answer(text='Жду ключа')
-
-
-@dp.message_handler(state=TesterState.start_add)
-async def start_add_tester(message: types.Message):
-    try:
-        await keys.add_tester(db, message.chat.id, message.text)
-        await TesterState.finish_add.set()
-    except Exception:
-        await message.answer(text='Проверьте еще раз вводимый ключ. Что то пошло не так.')
-    await message.answer(text='Для подтверждения жмакните на котика', reply_markup=kb.cat)
-
-
-@dp.message_handler(state=TesterState.finish_add)
-async def start_add_tester(message: types.Message):
-    await message.answer(text='Отлично теперь Вы являетесь членом команды тестировщиков, спасибо Вам!\
-    \nДалее чтобы получить доступ к моему функционалу нужно лишь пройти простую регистрацию для того \
-     чтобы подкрепить вас к группе, пройдите регистрацию.', reply_markup=kb.anon_kb)
-    await AnonStates.anon.set()
-
-
-@dp.message_handler(state=None)
-async def def_user(message: types.Message):
-    try:
-        if (await db.check_tester(message.chat.id)) == []:
-            await TesterState.tester.set()
-            await message.answer(text='Привет тестер', reply_markup=kb.tester_kb)
-        else:
-            if (await db.check_user(message.chat.id)) == []:
-                await AnonStates.anon.set()
-            else:
-                await StudentStates.student.set()
-    except Exception as e:
-        await TesterState.tester.set()
-        await message.answer(text='Привет тестер', reply_markup=kb.anon_kb)
