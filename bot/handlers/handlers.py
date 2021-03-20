@@ -1,18 +1,26 @@
 import aiogram.utils.markdown as md
-import keys
+import keys, datetime
+#import bot.handlers.errors
 
 from logs.logging_core import init_logger
 from bot import keyboard as kb
 from functions.find_group import group_search
 from aiogram.dispatcher import FSMContext
-from aiogram.utils.markdown import text, bold
 from aiogram.types import ParseMode
 from loader import dp, db, bot
 from aiogram import types
+from aiogram.utils.exceptions import Throttled
 from bot.states.states import AnonStates, RegistrationStates, StudentStates, TesterState
 from schedule.output.get_schedule_object import get_sched
 
 logger = init_logger()
+
+'''
+# ERRORS
+@dp.errors_handler()
+async def errors_handler(update, exception, message: types.Message):
+    logger.exception(f'Update: {update} \n{exception}')
+'''
 
 # NONE
 @dp.message_handler(commands=['start'], state=None)
@@ -38,10 +46,11 @@ async def def_user(message: types.Message):
                 await message.answer(text='Анон', reply_markup=kb.anon_kb)
             else:
                 await StudentStates.student.set()
-                await message.answer(text='Привет :)', reply_markup=kb.stud_kb)
+                await message.answer(text='Я проснулся.', reply_markup=kb.stud_kb)
     except Exception as e:
         await TesterState.tester.set()
-        await message.answer(text='Тестер ошибка', reply_markup=kb.tester_kb)
+        logger.exception()
+        await message.answer(text='Ошибка', reply_markup=kb.tester_kb)
 
 # ALL ------------------------------------------------------------------------
 '''
@@ -64,6 +73,24 @@ async def add_hash(message: types.Message):
 async def chat_id(message: types.Message):
     await message.answer(text=message.chat.id)
 
+'''
+@dp.message_handler(commands=['error'], state='*')
+async def chat_id(message: types.Message):
+    await message.answer(text=str(0/0))
+'''
+
+@dp.message_handler(commands=['trot'], state='*')
+async def send_welcome(message: types.Message):
+    try:
+        # Execute throttling manager with rate-limit equal to 2 seconds for key "start"
+        await dp.throttle('start', rate=5)
+    except Throttled:
+        # If request is throttled, the `Throttled` exception will be raised
+        await message.reply('Too many requests!')
+    else:
+        # Otherwise do something
+        await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
+
 
 # TESTER ------------------------------------------------------------------------
 @dp.message_handler(text='У меня есть ключ', state=TesterState.tester)
@@ -84,7 +111,7 @@ async def start_add_tester(message: types.Message):
 
 @dp.message_handler(state=TesterState.finish_add)
 async def start_add_tester(message: types.Message):
-    logger.debug('New hash has benn added. User - ' + str(message.chat.id))
+    logger.info('New hash has benn added. User - ' + str(message.chat.id))
     await message.answer(text='Отлично теперь Вы являетесь членом команды тестировщиков, спасибо Вам!\
     \nДалее чтобы получить доступ к моему функционалу нужно лишь пройти простую регистрацию.', reply_markup=kb.anon_kb)
     await AnonStates.anon.set()
@@ -101,37 +128,69 @@ async def reg_start(message: types.Message):
 async def anon_message(message: types.Message):
     await message.answer(text='На данный момент я вас не знаю, пройдите регистрацию чтобы получить доступ к моему функционалу', reply_markup=kb.anon_kb)
 
+
 # STUDENT ------------------------------------------------------------------------
 @dp.message_handler(text='Все расписание', state=StudentStates.student)
 async def all_shedule(message: types.Message):
-    print('it\'s works')
-    resp = await get_sched(id_chat=message.chat.id, type_of_shed=1)
-    await message.answer(text=resp)
+    try:
+        resp = await get_sched(id_chat=message.chat.id, type_of_shed=1)
+    except Exception:
+        logger.exception()
+        await message.answer('Не удалось показать расписание, сообщите об этом админу.')
+    else:
+        await message.answer(text=resp)
 
 
 @dp.message_handler(text='Расписание на сегодня', state=StudentStates.student)
 async def todays_shedule(message: types.Message):
-    resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
-    await message.answer(text=resp)
+    try:
+        resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
+    except Exception:
+        logger.exception()
+        await message.answer('Не удалось показать расписание, сообщите об этом админу.')
+    else:
+        await message.answer(text=resp)
 
 
 @dp.message_handler(text='Cледующая пара', state=StudentStates.student)
 async def next_lesson(message: types.Message):
-    resp = await get_sched(id_chat=message.chat.id, type_of_shed=3)
-    await message.answer(text=resp)
+    try:
+        resp = await get_sched(id_chat=message.chat.id, type_of_shed=3)
+    except Exception:
+        logger.exception()
+        await message.answer('Не удалось показать расписание, сообщите об этом админу.')
+    else:
+        await message.answer(text=resp)
 
 
 @dp.message_handler(commands=['addhash'], state=StudentStates.student)
 async def add_hash(message: types.Message):
     if message.chat.id == 690976128 or message.chat.id == 842781422:
-        hash = await keys.create_hashes(db)
-        await message.answer(text=hash)
+        try:
+            hash = await keys.create_hashes(db)
+        except Exception:
+            logger.exception()
+            await message.answer('ERROR: Не удалось создать хэш.')
+        else:
+            await message.answer(text=hash)
+
 
 @dp.message_handler(commands=['deleteme'], state=StudentStates.student)
 async def next_lesson(message: types.Message):
-    await db.delete_account(message.chat.id)
-    await AnonStates.anon.set()
-    await message.answer('Ваш аккаунт был удален.', reply_markup=kb.anon_kb)
+    try:
+        await db.delete_account(message.chat.id)
+    except Exception:
+        logger.exception()
+        await message.answer('Мне не удалось удалить ваш аккаунт, сообщите об этом админу')
+    else:
+        await AnonStates.anon.set()
+        await message.answer('Ваш аккаунт был удален.', reply_markup=kb.anon_kb)
+
+
+@dp.message_handler(commands=['time'], state=StudentStates.student)
+async def next_lesson(message: types.Message):
+    await message.answer(str(datetime.datetime.now()), reply_markup=kb.anon_kb)
+
 
 @dp.message_handler(state=StudentStates.student)
 async def get_menu(message: types.Message):
@@ -165,7 +224,7 @@ async def reg_surname(message: types.Message, state: FSMContext):
 @dp.message_handler(state=RegistrationStates.find_group)
 async def search_group(message: types.Message, state: FSMContext):
     result = await group_search(message.text)
-    logger.debug('Client is finding himself group - ' + str(str(message.text).encode('utf-8')))
+    logger.info('Client is finding himself group - ' + str(str(message.text).encode('utf-8')))
     if result == -1:
         await message.answer(text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, наименование группы должно быть такого формата - "cиб 19 6"')
     else:
@@ -189,23 +248,30 @@ async def search_group(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=RegistrationStates.accept_all_data)
 async def accept_all_data(message: types.Message, state: FSMContext):
-    group_id = await db.get_group_id(message.text)
-    group_id = dict(group_id)['id_inc']
-    async with state.proxy() as data:
-        data['group_name'] = message.text
-        data['group_id'] = group_id
-    await message.answer(text='Проверьте все ваши данные. Все правильно?', reply_markup=kb.question_kb)
-    await bot.send_message(
-        message.chat.id,
-        md.text(
-            md.text('Имя,', data['name']),
-            md.text('Фамилия:', data['surname']),
-            md.text('Группа:', data['group_name']),
-            sep='\n',
-        ),
-        parse_mode=ParseMode.MARKDOWN,
-    )
-    await RegistrationStates.next()
+    try:
+        group_id = await db.get_group_id(message.text)
+    except Exception:
+        logger.exception()
+        await message.answer('ERROR: произошла ошибка. Регистрация отменена')
+        await state.finish()
+        await AnonStates.anon.set()
+    else:
+        group_id = dict(group_id)['id_inc']
+        async with state.proxy() as data:
+            data['group_name'] = message.text
+            data['group_id'] = group_id
+        await message.answer(text='Проверьте все ваши данные. Все правильно?', reply_markup=kb.question_kb)
+        await bot.send_message(
+            message.chat.id,
+            md.text(
+                md.text('Имя,', data['name']),
+                md.text('Фамилия:', data['surname']),
+                md.text('Группа:', data['group_name']),
+                sep='\n',
+            ),
+            parse_mode=ParseMode.MARKDOWN,
+        )
+        await RegistrationStates.next()
 
 
 @dp.message_handler(state=RegistrationStates.insert_sql, text='Да')
@@ -216,17 +282,19 @@ async def reg_final(message: types.Message, state: FSMContext):
     except Exception as e:
         print(e)
         await message.answer(text='Произошла ошибка, обратитесь к разработчику)', reply_markup=kb.anon_kb)
+        logger.exception()
         await state.finish()
         await AnonStates.anon.set()
-    await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)', reply_markup=kb.cat_kb)
-    await RegistrationStates.next()
+    else:
+        await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)', reply_markup=kb.cat_kb)
+        await RegistrationStates.next()
 
 
 @dp.message_handler(state=RegistrationStates.final)
 async def reg_final(message: types.Message, state: FSMContext):
     await message.answer(text='Все отлично! Теперь вы зарегестрированы.', reply_markup=kb.stud_kb)
     data = await state.get_data()
-    logger.debug('New user: Name - ' + str(str(data['name']).encode('utf-8')) + ', surname - ' + str(str(data['surname']).encode('utf-8')) + ', group - ' + str(str(data['group_id']).encode('utf-8')))
+    logger.info('New user: Name - ' + str(str(data['name']).encode('utf-8')) + ', surname - ' + str(str(data['surname']).encode('utf-8')) + ', group - ' + str(str(data['group_id']).encode('utf-8')))
     await state.finish()
     await StudentStates.student.set()
 

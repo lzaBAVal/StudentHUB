@@ -1,2 +1,2 @@
-token = '1533907938:AAFdL_sf1pH_FwNZqxihjX7JqDUcOk5bXKE'
+token = '1772267916:AAGgWfubaeStMlzPFYyrfJbJtinVxkZgxM4'
 delay_check_arhit = 180

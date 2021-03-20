@@ -8,6 +8,7 @@ if __name__ == '__main__':
     dp = loader.dp
     logger = init_logger()
 
+
     from aiogram import executor
     from bot.handlers import dp
 

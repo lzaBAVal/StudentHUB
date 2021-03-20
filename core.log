@@ -497,3 +497,26 @@
 [2021-03-16 22:54:01,789:handlers:167:DEBUG] Client is finding himself group - b'\xd1\x81\xd0\xb8\xd0\xb1 19 6'
 [2021-03-16 22:54:10,421:handlers:228:DEBUG] New user: Name - b'\xd0\x90\xd1\x80\xd1\x82\xd1\x83\xd1\x80', surname - b'\xd0\x91\xd1\x80\xd0\xbe\xd0\xb2\xd0\xb8\xd0\xbd', group - b'396'
 [2021-03-16 22:54:31,213:handlers:167:DEBUG] Client is finding himself group - b'\xd1\x81\xd0\xb8\xd0\xb1 19 6'
+[2021-03-17 09:37:19,451:main:14:DEBUG] Bot started
+[2021-03-17 09:38:47,300:handlers:87:DEBUG] New hash has benn added. User - 690976128
+[2021-03-17 09:39:06,848:handlers:174:DEBUG] Client is finding himself group - b'\xd1\x81\xd0\xb8\xd0\xb1 19 6'
+[2021-03-17 09:39:12,558:handlers:235:DEBUG] New user: Name - b'qwe', surname - b'qwe', group - b'396'
+[2021-03-17 09:43:31,766:main:14:DEBUG] Bot started
+[2021-03-17 09:48:10,050:main:14:DEBUG] Bot started
+[2021-03-17 14:14:47,614:main:14:DEBUG] Bot started
+[2021-03-17 14:18:03,867:main:14:DEBUG] Bot started
+[2021-03-17 14:19:20,621:main:14:DEBUG] Bot started
+[2021-03-17 19:19:30,075:harvest_main:90:DEBUG] Changed the schedule - id = b'69'
+[2021-03-17 19:19:32,646:harvest_main:90:DEBUG] Changed the schedule - id = b'126'
+[2021-03-17 19:19:34,799:harvest_main:90:DEBUG] Changed the schedule - id = b'144'
+[2021-03-17 19:20:03,850:harvest_main:90:DEBUG] Changed the schedule - id = b'128'
+[2021-03-17 19:20:05,312:harvest_main:90:DEBUG] Changed the schedule - id = b'134'
+[2021-03-17 19:20:38,965:harvest_main:90:DEBUG] Changed the schedule - id = b'70'
+[2021-03-17 19:20:43,111:harvest_main:90:DEBUG] Changed the schedule - id = b'127'
+[2021-03-17 19:20:43,897:harvest_main:90:DEBUG] Changed the schedule - id = b'136'
+[2021-03-17 19:22:06,775:harvest_main:90:DEBUG] Changed the schedule - id = b'440'
+[2021-03-17 19:22:07,740:harvest_main:92:DEBUG] Harvest schedule has been ended
+[2021-03-18 02:26:58,272:main:15:DEBUG] Bot started
+[2021-03-18 02:28:48,836:main:15:DEBUG] Bot started
+[2021-03-18 02:30:12,960:main:15:DEBUG] Bot started
+[2021-03-18 02:32:22,774:main:15:DEBUG] Bot started
