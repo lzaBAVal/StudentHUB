@@ -36,8 +36,12 @@ class Database:
         sql_query = "select * from keys where id_chat = $1"
         return await self.pool.fetch(sql_query, chat_id)
 
-    async def get_group_sched(self, id_chat: int):
+    async def get_arh_sched(self, id_chat: int):
         sql_query = 'select sched_arhit from groups_students where id_inc=cast((select group_id from student where id_chat = $1) as INT)'
+        return await self.pool.fetchrow(sql_query, id_chat)
+
+    async def get_group_sched(self, id_chat: int):
+        sql_query = 'select sched_group from groups_students where id_inc=cast((select group_id from student where id_chat = $1) as INT)'
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_name(self, id_inc: int) -> str:
@@ -68,8 +72,12 @@ class Database:
         sql_query = 'select group_name from groups_students'
         return await self.pool.fetch(sql_query)
 
-    async def get_groups_sched_nm_gr(self, id_inc: int):
+    async def get_groups_sched_nm_arh(self, id_inc: int):
         sql_query = 'select group_name, sched_arhit from groups_students where id_inc = $1'
+        return await self.pool.fetch(sql_query, id_inc)
+
+    async def get_groups_sched_nm_gr(self, id_inc: int):
+        sql_query = 'select group_name, sched_group from groups_students where id_inc = $1'
         return await self.pool.fetch(sql_query, id_inc)
 
     async def get_institution_ids(self):
@@ -90,12 +98,16 @@ class Database:
         sql_query = 'insert into institution(instit_name, sched, url_for_groups) values ($1, $2, $3)'
         return await self.pool.execute(sql_query, instit_name, url, url_for_groups)
 
-    async def insert_hash(self, hash: str):
+    async def insert_key(self, hash: str):
         sql_query = 'insert into keys(key_md5) values ($1)'
         return await self.pool.execute(sql_query, hash)
 
-    async def update_group_sched(self, sched: str, id_inc: int):
+    async def update_arhit_sched(self, sched: str, id_inc: int):
         sql_query = 'update groups_students set sched_arhit = $1 where id_inc = $2;'
+        return await self.pool.execute(sql_query, sched, id_inc)
+
+    async def update_group_sched(self, sched: str, id_inc: int):
+        sql_query = 'update groups_students set sched_group = $1 where id_inc = $2;'
         return await self.pool.execute(sql_query, sched, id_inc)
 
     async def update_tester(self, chat_id: str, hash: str):

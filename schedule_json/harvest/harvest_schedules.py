@@ -6,31 +6,17 @@
 
 import re
 import requests
+
 from bs4 import BeautifulSoup
-
-days = {
-    'monday': 'понедельник',
-    'tuesday': 'вторник',
-    'wednesday': 'среда',
-    'thursday': 'четверг',
-    'friday': 'пятница',
-    'saturday': 'суббота'
-}
-
+from schedule_json.vars import days, Sched, Time, Day_of_week, Lesson
 
 def search_schedule(url: str):
-    '''
-        loop = asyncio.get_event_loop()
-        response = loop.run_until_complete(pgsql_conn(get_group_value( \
-            dict(loop.run_until_complete(pgsql_conn(get_group_name(1)))[0])['group_name'])))
 
-        print(response)
-    '''
     resp = requests.get(url)
     shed = BeautifulSoup(resp.text, 'lxml')
 
     matrix = []
-    shed_dict = {}
+    sched_json = {}
 
     for th in shed.find_all('th'):
         matrix.append(th.string)
@@ -42,29 +28,41 @@ def search_schedule(url: str):
         matrix.append(" ".join(tmp_composer))
 
     for i in range(len(matrix)):
-        flag = 0
         current_day = matrix[i].lower()
-        if current_day in list(days.values()):
-            for j in range(i, len(matrix), 6):
-                order = int(re.search(r'\d{1,2}', re.search(r'\[.*\]', matrix[j + 1]).group()).group())
-                current_day_j = list(days.keys())[list(days.values()).index(current_day)]
-                tmp_dict = {
-                    current_day_j: {
-                        order: {
-                            'time': re.search(r'\d{1,2}[.:]\d{2}[- ]*\d{1,2}[.:]\d{2}', matrix[j + 1]).group(),
-                            'subgroup': re.search(r'.*', matrix[j + 2]).group(),
-                            'lesson': re.search(r'.*', matrix[j + 3]).group(),
-                            'teacher': re.search(r'.*', matrix[j + 4]).group(),
-                            'classroom': re.search(r'.*', matrix[j + 5]).group()
-                        }
-                    }
-                }
-                if matrix[j].lower() != current_day and matrix[j].lower() != '':
-                    break
-                elif flag == 0:
-                    shed_dict.setdefault(current_day_j, [tmp_dict[current_day_j]])
-                    flag = 1
-                else:
-                    shed_dict[current_day_j].append(tmp_dict[current_day_j])
 
-    return shed_dict
+        if current_day in list(days.values()):
+            lessons = []
+            for j in range(i, len(matrix), 6):
+                get_time = re.findall(r'(\d{1,2})[.:](\d{2})[- ]*(\d{1,2})[.:](\d{2})', matrix[j + 1])[0]
+                time = {
+                    "start": str(get_time[0] + ':' + get_time[1]),
+                    "end": str(get_time[2] + ':' + get_time[3])
+                }
+                time = Time(**time)
+
+                lesson = {
+                    'time': time,
+                    'subgroup': str(re.search(r'.*', matrix[j + 2]).group()),
+                    'lesson': str(re.search(r'.*', matrix[j + 3]).group()),
+                    'teacher': str(re.search(r'.*', matrix[j + 4]).group()),
+                    'classroom': str(re.search(r'.*', matrix[j + 5]).group())
+                }
+                lesson = Lesson(**lesson)
+                if matrix[j].lower() != current_day and matrix[j].lower() != '':
+                    day = {
+                        "lessons": lessons
+                    }
+                    day_o = Day_of_week(**day)
+                    sched_json.setdefault(list(days.keys())[list(days.values()).index(current_day)], day_o)
+                else:
+                    lessons.append(lesson)
+                    if len(matrix) - j < 7:
+                        day = {
+                            "lessons": lessons
+                        }
+                        day_o = Day_of_week(**day)
+                        sched_json.setdefault(list(days.keys())[list(days.values()).index(current_day)], day_o)
+
+    sched_json = Sched(**sched_json)
+
+    return sched_json

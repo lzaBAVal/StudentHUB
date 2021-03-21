@@ -19,6 +19,8 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
     now = dt.datetime.now()
     weekday = now.isoweekday() - 1
     day = WeekDays_EN[weekday]
+    if day == 'sunday':
+        return -1, 'Сегодня выходной'
     todays_shed = sched[day]
 
     result = '-------------------' + '\n' + str(WeekDays_RU[weekday]).title() + '\n' + '-------------------'
@@ -69,6 +71,8 @@ def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, c
     now = dt.datetime.now()
     weekday = now.isoweekday() - 1
     day = WeekDays_EN[weekday]
+    if day == 'sunday':
+        return -1, 'Сегодня выходной'
     result, delta = None, None
     todays_sched = sched[day]
     current_time = now.strptime(now.strftime('%H:%M'), '%H:%M')

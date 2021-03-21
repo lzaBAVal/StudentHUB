@@ -1,45 +1,9 @@
-import re, asyncio, json, requests
+import re, requests
 
-from typing import Optional
-from pydantic import BaseModel
 from bs4 import BeautifulSoup
+from schedule_json.vars import days, Sched, Time, Day_of_week, Lesson
 
-days = {
-    'monday': 'понедельник',
-    'tuesday': 'вторник',
-    'wednesday': 'среда',
-    'thursday': 'четверг',
-    'friday': 'пятница',
-    'saturday': 'суббота'
-}
-
-class Time(BaseModel):
-    start: str
-    end: str
-
-class Lesson(BaseModel):
-    time: Time
-    subgroup: str
-    lesson: str
-    teacher: str
-    classroom: str
-
-class Day_of_week(BaseModel):
-    lessons: list[Lesson]
-
-class Sched(BaseModel):
-    monday: Optional[Day_of_week]
-    tuesday: Optional[Day_of_week]
-    wednesday: Optional[Day_of_week]
-    thursday: Optional[Day_of_week]
-    friday: Optional[Day_of_week]
-    saturday: Optional[Day_of_week]
-
-
-def search_schedule(url: str = 'https://aues.arhit.kz/rasp/scheduleNew.php?sg=2017&schedule=32'):
-
-    resp = requests.get(url)
-    shed = BeautifulSoup(resp.text, 'lxml')
+def search_schedule(shed: BeautifulSoup):
 
     matrix = []
     shed_json = {}
@@ -96,7 +60,3 @@ def search_schedule(url: str = 'https://aues.arhit.kz/rasp/scheduleNew.php?sg=20
 
     shed_json = Sched(**shed_json)
     return shed_json
-
-sched = search_schedule()
-print(len(sched.dict()['tuesday']['lessons'])) # 2
-print(sched.json())

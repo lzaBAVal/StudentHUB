@@ -85,10 +85,10 @@ async def harvest_groups_arhit_sched(db):
             url = str(url_group.replace('{value}', list(j)[0]))
             sched = str(search_schedule(url))
             sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
-            exist_sched = dict(list(await db.get_groups_sched_nm_gr(list(j)[1]))[0])
+            exist_sched = dict(list(await db.get_groups_sched_nm_arh(list(j)[1]))[0])
             if sched64 != exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
                 logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
-                await db.update_group_sched(str(sched64), list(j)[1])
+                await db.update_arhit_sched(str(sched64), list(j)[1])
     logger.debug('Harvest schedule has been ended')
 
 

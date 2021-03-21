@@ -1,3 +1,5 @@
+import base64
+
 import aiogram.utils.markdown as md
 import keys, datetime
 #import bot.handlers.errors
@@ -10,8 +12,14 @@ from aiogram.types import ParseMode
 from loader import dp, db, bot
 from aiogram import types
 from aiogram.utils.exceptions import Throttled
-from bot.states.states import AnonStates, RegistrationStates, StudentStates, TesterState
-from schedule.output.get_schedule_object import get_sched
+from bot.states.states import AnonStates, RegistrationStates, StudentStates, TesterState, AddLesson
+from schedule_json.output.get_schedule_object import get_sched
+from schedule_json.change.change_sched import get_free_time
+from aiogram.dispatcher.handler import SkipHandler
+from schedule_json.change.change_sched import add_lesson
+from schedule_json.vars import WeekDays_RU
+from schedule_json.harvest.harvest_main import harvest_arhit_sched
+from schedule_json.vars import Sched
 
 logger = init_logger()
 
@@ -60,6 +68,10 @@ async def process_help_command(message: types.Message):
                '/voice test', '/photo', '/group', '/note', '/file, /testpre', sep='\n')
     await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
 '''
+
+@dp.message_handler(commands=['update_sched'], state='*')
+async def process_help_command(message: types.Message):
+    await harvest_arhit_sched(db)
 
 '''
 @dp.message_handler(commands=['addhash'], state='*')
@@ -145,6 +157,9 @@ async def all_shedule(message: types.Message):
 async def todays_shedule(message: types.Message):
     try:
         resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
+        if -1 in resp:
+            await message.answer(text=resp[1])
+            return 0
     except Exception:
         logger.exception()
         await message.answer('Не удалось показать расписание, сообщите об этом админу.')
@@ -156,11 +171,107 @@ async def todays_shedule(message: types.Message):
 async def next_lesson(message: types.Message):
     try:
         resp = await get_sched(id_chat=message.chat.id, type_of_shed=3)
+        if -1 in resp:
+            await message.answer(text=resp[1])
+            return 0
     except Exception:
         logger.exception()
         await message.answer('Не удалось показать расписание, сообщите об этом админу.')
     else:
         await message.answer(text=resp)
+
+
+@dp.message_handler(text='Изменить расписание', state=StudentStates.student)
+async def change_sched(message: types.message):
+    await message.answer('Что вы хотите сделать с расписанием?', reply_markup=kb.change_sched_kb)
+
+
+@dp.message_handler(text='Добавить урок', state=StudentStates.student)
+async def add_lesson_start(message: types.message):
+    await message.answer('В какой день вы хотите добавить урок?', reply_markup=kb.days())
+    await AddLesson.time.set()
+
+
+@dp.message_handler(state=AddLesson.time)
+async def add_lesson_time(message: types.message, state: FSMContext):
+    sched = dict(await db.get_arh_sched(message.chat.id))['sched_arhit']
+    sched = eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+    async with state.proxy() as data:
+        data['day'] = message.text
+        data['sched'] = sched
+
+    free_time = await get_free_time(data['day'], sched)
+    print(free_time)
+    print(data['day'])
+    await message.answer('Есть свободные часы в этот день: ', reply_markup=kb.free_time(free_time))
+    await AddLesson.next()
+
+
+@dp.message_handler(state=AddLesson.lesson)
+async def add_lesson_lesson(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        data['time'] = message.text
+    await message.answer('Введите название урока')
+    await AddLesson.next()
+
+
+@dp.message_handler(state=AddLesson.teacher)
+async def add_lesson_teacher(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        data['lesson'] = message.text
+    await message.answer('Введите имя преподавателя')
+    await AddLesson.next()
+
+
+@dp.message_handler(state=AddLesson.subgroup)
+async def add_lesson_subgroup(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        data['teacher'] = message.text
+    await message.answer('Введите подгруппу', reply_markup=kb.subgroup_kb)
+    await AddLesson.next()
+
+
+@dp.message_handler(state=AddLesson.classroom)
+async def add_lesson_classroom(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        data['subgroup'] = message.text
+    await message.answer('Введите номер кабинета')
+    await AddLesson.next()
+
+
+@dp.message_handler(state=AddLesson.check)
+async def add_lesson_check(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        data['classroom'] = message.text
+    await message.answer(f"Проверьте данные: \nДень: {data['day']}\nВремя: {data['time']}\nУрок: {data['lesson']}\nПреподаватель: {data['teacher']}"
+                         f"\nПодгруппа: {data['subgroup']}\n\nВсе верно?", reply_markup=kb.question_kb)
+    await AddLesson.next()
+
+
+@dp.message_handler(text="Да", state=AddLesson.process)
+async def add_lesson_process(message: types.message, state: FSMContext):
+    data = await state.get_data()
+    sched = await add_lesson(sched=data['sched'], day=WeekDays_RU.index(data['day']), complex_time=data['time'],
+                                classroom=data['classroom'], name_lesson=data['lesson'])
+    sched = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
+    await db.update_group_sched(sched, message.chat.id)
+    await AddLesson.next()
+    await message.answer('Идет процесс занесения урока в базу! Для завершения тыкните на котика',
+                         reply_markup=kb.cat_kb)
+
+
+@dp.message_handler(text="Нет", state=AddLesson.process)
+async def add_lesson_process_no(message: types.message, state: FSMContext):
+    await message.answer(text='Добавьте урок заново')
+    await state.finish()
+    await StudentStates.student
+
+
+@dp.message_handler(state=AddLesson.final)
+async def add_lesson_process_yes(message: types.message, state: FSMContext):
+    await message.answer('Урок добавлен', reply_markup=kb.stud_kb)
+    await state.finish()
+    await StudentStates.student
 
 
 @dp.message_handler(commands=['addhash'], state=StudentStates.student)
@@ -318,7 +429,7 @@ async def chat_id(message: types.Message):
 
 @dp.message_handler(commands=['update2'], state='*')
 async def chat_id(message: types.Message):
-    await harvest_groups_arhit_sched(db)
+    await harvest_arhit_sched(db)
 '''
 
 

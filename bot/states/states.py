@@ -33,3 +33,16 @@ class RegistrationStates(StatesGroup):
     accept_all_data = State()
     insert_sql = State()
     final = State()
+
+class AddLesson(StatesGroup):
+    day = State()
+    time = State()
+    lesson = State()
+    teacher = State()
+    subgroup = State()
+    classroom = State()
+    check = State()
+    process= State()
+    final = State()
+
+
