@@ -22,12 +22,15 @@ class Harvest:
         else:
             await asyncio.sleep(70)
 
+
 async def get_ids(db):
     instit_ids = await db.get_institution_ids()
     ids = []
     for i in instit_ids:
         ids.append(dict(i)['id_inc'])
     return ids
+
+
 '''
 async def harvest_groups(db):
     from schedule.harvest.harvest_groups import search_group
@@ -55,6 +58,7 @@ async def harvest_schedule(db, id: int = None):
             sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
             await db.insert_schedule((list(i)[1], sched64))
 '''
+
 
 async def harvest_groups(db):
     instit_ids = await get_ids(db)
@@ -89,8 +93,8 @@ async def harvest_arhit_sched(db):
             sched = str(sched.dict())
             sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
             exist_sched = dict(list(await db.get_groups_sched_nm_arh(list(j)[1]))[0])
-            #if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
-                #logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
+            if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
+                logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
             await db.update_arhit_sched(str(sched64), list(j)[1])
     logger.debug('Harvest schedule has been ended')
 

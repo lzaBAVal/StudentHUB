@@ -5,6 +5,8 @@ from vars import WeekDays_RU
 all_shedule_btn = KeyboardButton("Все расписание")
 next_lesson_btn = KeyboardButton("Cледующая пара")
 todays_shedule_btn = KeyboardButton("Расписание на сегодня")
+tommorow_shedule_btn = KeyboardButton("Расписание на завтра")
+back_to_menu_btn = KeyboardButton("Вернуться на главное меню")
 
 rating_btn = KeyboardButton("Расчитать итоговую оценку")
 alert_btn = KeyboardButton("Настройка уведомлений")
@@ -32,9 +34,9 @@ classroom_online_btn = KeyboardButton("Онлайн")
 cat_btn = '🐈'
 
 stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-stud_kb.row(all_shedule_btn, next_lesson_btn, todays_shedule_btn)
+stud_kb.row(next_lesson_btn, todays_shedule_btn,tommorow_shedule_btn, all_shedule_btn)
 stud_kb.add(change_sched_btn)
-stud_kb.row(alert_btn, rating_btn)
+#stud_kb.row(alert_btn, rating_btn)
 
 tester_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 tester_kb.add(keys_btn)
@@ -49,7 +51,8 @@ register_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 register_kb.add(cancel_btn)
 
 change_sched_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-change_sched_kb.row(add_lesson_btn, delete_lesson_btn, replace_lesson_btn)
+change_sched_kb.row(add_lesson_btn, delete_lesson_btn)
+change_sched_kb.add(back_to_menu_btn)
 
 subgroup_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 subgroup_kb.row(subgroup_no_btn, subgroup1_btn, subgroup2_btn, subgroup3_btn)

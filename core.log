@@ -1782,3 +1782,38 @@ Traceback (most recent call last):
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0x89 in position 1: invalid start byte
 [2021-03-23 18:11:43,154:main:15:DEBUG] Bot started
 [2021-03-23 18:12:44,356:harvest_main:155:DEBUG] Harvest schedule has been ended
+[2021-03-23 18:30:52,744:main:15:DEBUG] Bot started
+[2021-03-23 18:32:24,868:main:15:DEBUG] Bot started
+[2021-03-23 18:38:27,826:main:15:DEBUG] Bot started
+[2021-03-23 18:41:09,498:main:15:DEBUG] Bot started
+[2021-03-23 18:48:35,600:main:15:DEBUG] Bot started
+[2021-03-23 18:52:04,463:main:15:DEBUG] Bot started
+[2021-03-23 18:55:57,216:main:15:DEBUG] Bot started
+[2021-03-23 18:57:30,353:main:15:DEBUG] Bot started
+[2021-03-23 18:59:28,304:main:15:DEBUG] Bot started
+[2021-03-23 19:02:31,949:main:15:DEBUG] Bot started
+[2021-03-23 19:03:35,691:main:15:DEBUG] Bot started
+[2021-03-23 19:23:46,699:main:15:DEBUG] Bot started
+[2021-03-23 19:36:53,250:main:15:DEBUG] Bot started
+[2021-03-23 19:38:54,550:main:15:DEBUG] Bot started
+[2021-03-23 19:39:36,915:main:15:DEBUG] Bot started
+[2021-03-23 19:43:16,165:main:15:DEBUG] Bot started
+[2021-03-23 19:44:41,679:main:15:DEBUG] Bot started
+[2021-03-23 19:53:17,256:main:15:DEBUG] Bot started
+[2021-03-23 19:54:13,238:main:15:DEBUG] Bot started
+[2021-03-23 19:54:40,802:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:54:41,970:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:54:43,069:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:54:47,629:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:54:48,969:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:54:51,454:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:13,325:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:20,428:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:21,001:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:21,682:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:22,177:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:24,444:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 19:55:29,139:ratelimit:88:WARNING] User - 690976128 send many messages
+[2021-03-23 21:17:52,573:handlers:469:INFO] Client is finding himself group - b'\xd1\x81\xd0\xb8\xd0\xb1 19 6'
+[2021-03-23 21:17:57,605:handlers:549:INFO] New user: Name - b'\xd0\x90\xd1\x80\xd1\x82\xd1\x83\xd1\x80', surname - b'\xd0\x91\xd1\x80\xd0\xbe\xd0\xb2\xd0\xb8\xd0\xbd', group - b'463'
+[2021-03-23 21:20:26,731:ratelimit:88:WARNING] User - 690976128 send many messages

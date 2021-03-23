@@ -1,6 +1,7 @@
 import asyncpg, asyncio
 
 
+
 class Database:
     def __init__(self, loop: asyncio.AbstractEventLoop):
         self.pool = loop.run_until_complete(

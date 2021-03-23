@@ -47,20 +47,15 @@ async def start(message: types.Message):
 @dp.message_handler(state=None)
 async def def_user(message: types.Message):
     try:
-        if not (await db.check_tester(message.chat.id)):
-            await TesterState.tester.set()
-            await message.answer(text='Тестер', reply_markup=kb.tester_kb)
+        if not (await db.check_user(message.chat.id)):
+            await AnonStates.anon.set()
+            await message.answer(text='Анон.', reply_markup=kb.anon_kb)
         else:
-            if not (await db.check_user(message.chat.id)):
-                await AnonStates.anon.set()
-                await message.answer(text='Анон', reply_markup=kb.anon_kb)
-            else:
-                await StudentStates.student.set()
-                await message.answer(text='Я проснулся.', reply_markup=kb.stud_kb)
+            await StudentStates.student.set()
+            await message.answer(text='Повторите ваш запрос', reply_markup=kb.stud_kb)
     except Exception as exc:
-        await TesterState.tester.set()
         logger.exception(exc)
-        await message.answer(text='Ошибка', reply_markup=kb.tester_kb)
+        await message.answer(text='Что то пошло не так! Ошибка', reply_markup=kb.anon_kb)
 
 
 # ALL ------------------------------------------------------------------------
@@ -72,7 +67,7 @@ async def process_help_command(message: types.Message):
     await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
 '''
 
-
+'''
 @dp.message_handler(commands=['update_spec_group'], state='*')
 async def update_spec_group(message: types.Message):
     await harvest_spec_group(db)
@@ -81,6 +76,8 @@ async def update_spec_group(message: types.Message):
 @dp.message_handler(commands=['update_spec_sched'], state='*')
 async def update_spec_sched(message: types.Message):
     await harvest_spec_arhit_sched(db)
+'''
+
 
 '''
 @dp.message_handler(commands=['addhash'], state='*')
@@ -116,6 +113,7 @@ async def send_welcome(message: types.Message):
 
 
 # TESTER ------------------------------------------------------------------------
+'''
 @dp.message_handler(text='У меня есть ключ', state=TesterState.tester)
 async def start_add_tester(message: types.Message):
     await TesterState.start_add.set()
@@ -139,7 +137,7 @@ async def start_add_tester(message: types.Message):
     await message.answer(text='Отлично теперь Вы являетесь членом команды тестировщиков, спасибо Вам!\
     \nДалее чтобы получить доступ к моему функционалу нужно лишь пройти простую регистрацию.', reply_markup=kb.anon_kb)
     await AnonStates.anon.set()
-
+'''
 
 # ANON ------------------------------------------------------------------------
 @dp.message_handler(state=AnonStates.anon, text='Регистрация')
@@ -156,6 +154,10 @@ async def anon_message(message: types.Message):
 
 
 # STUDENT ------------------------------------------------------------------------
+@dp.message_handler(text='Вернуться на главное меню', state=StudentStates.student)
+async def all_shedule(message: types.Message):
+    await message.answer('Вы в главном меню', reply_markup=kb.stud_kb)
+
 @dp.message_handler(text='Все расписание', state=StudentStates.student)
 async def all_shedule(message: types.Message):
     try:
@@ -185,6 +187,20 @@ async def todays_shedule(message: types.Message):
 async def next_lesson(message: types.Message):
     try:
         resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=3)
+        if resp == -1:
+            await message.answer('Не удалось показать расписание, сообщите об этом админу.')
+            return 0
+    except Exception as exc:
+        logger.exception(exc)
+        await message.answer('Не удалось показать расписание, сообщите об этом админу.')
+    else:
+        await message.answer(text=resp)
+
+
+@dp.message_handler(text='Расписание на завтра', state=StudentStates.student)
+async def tommorow_lesson(message: types.Message):
+    try:
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4)
         if resp == -1:
             await message.answer('Не удалось показать расписание, сообщите об этом админу.')
             return 0
@@ -357,11 +373,11 @@ async def delete_lesson_check(message: types.message, state: FSMContext):
         data['deletelesson'] = message.text
 
     await message.answer('Вы уверены что вы хотите удалить "' + data['deletelesson'] + '" из расписания?',
-                         reply_markup=kb.register_kb)
+                         reply_markup=kb.question_kb)
     await DeleteLesson.next()
 
 
-@dp.message_handler(text='Да', state=DeleteLesson.process)
+@dp.message_handler(lambda message: message.text.lower() == "да", state=DeleteLesson.process)
 async def delete_lesson_check(message: types.message, state: FSMContext):
     data = await state.get_data()
     await message.answer(
@@ -373,7 +389,7 @@ async def delete_lesson_check(message: types.message, state: FSMContext):
     await DeleteLesson.next()
 
 
-@dp.message_handler(text='Нет', state=DeleteLesson.process)
+@dp.message_handler(lambda message: message.text.lower() == "нет", state=DeleteLesson.process)
 async def delete_lesson_check(message: types.message, state: FSMContext):
     await message.answer('Вы отменили процесс удаления',
                          reply_markup=kb.stud_kb)
@@ -415,7 +431,7 @@ async def next_lesson(message: types.Message):
 
 @dp.message_handler(commands=['time'], state=StudentStates.student)
 async def next_lesson(message: types.Message):
-    await message.answer(str(datetime.datetime.now()), reply_markup=kb.anon_kb)
+    await message.answer(str(datetime.datetime.now()), reply_markup=kb.stud_kb)
 
 
 @dp.message_handler(state=StudentStates.student)

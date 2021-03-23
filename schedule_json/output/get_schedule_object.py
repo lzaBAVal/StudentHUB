@@ -11,6 +11,8 @@ async def get_sched_type(id_chat: int, type_of_shed: int):
         return type_of_sched.schedule_for_today(sched)
     elif type_of_shed == 3:
         return type_of_sched.current_lesson(sched)
+    elif type_of_shed == 4:
+        return type_of_sched.schedule_for_tommorow(sched)
     else:
         print('get_sched_type WTF!!!')
         return -1

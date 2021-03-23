@@ -3,6 +3,7 @@ import logging, asyncio
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram import Bot, Dispatcher
 from DB.pgsql import Database
+from bot.middleware.ratelimit import ThrottlingMiddleware
 from schedule.harvest.harvest_main import Harvest, scheduler
 from config import token
 from logs.logging_core import init_logger
@@ -20,7 +21,7 @@ dp = Dispatcher(bot, storage=storage)
 loop = asyncio.get_event_loop()
 db = Database(loop)
 hrvst = Harvest(db)
-
+dp.middleware.setup(ThrottlingMiddleware())
 
 async def on_startup(x):
     asyncio.create_task(scheduler(db))
