@@ -5,7 +5,7 @@ from datetime import datetime
 from schedule_json.harvest.harvest_schedules import search_schedule
 from schedule.harvest.harvest_groups import search_group
 from logs.logging_core import init_logger
-from schedule_json.vars import Sched
+from vars import Sched
 
 logger = init_logger()
 
@@ -37,7 +37,7 @@ async def harvest_groups(db):
         instit_url = dict(db.get_institution(int(i)))['sched']
         groups = search_group(instit_url)
         for group in groups:
-            await db.insert_group(group, i, groups[group])
+            await db.add_group(group, i, groups[group])
 
 async def harvest_schedule(db, id: int = None):
     if id:
@@ -72,7 +72,7 @@ async def harvest_groups(db):
             for group in groups:
                 logger.debug('New groups - ' + str(group.encode('utf-8')) + ' ' + str(str(i).encode('utf-8') )+ \
                              ' ' + str(groups[group].encode('utf-8')))
-                await db.insert_group(group, i, groups[group])
+                await db.add_group(group, i, groups[group])
     logger.debug('Harvest groups has been ended')
 
 
@@ -110,6 +110,50 @@ async def harvest_group_sched(db):
                 logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
                 await db.update_group_sched(str(sched64), list(j)[1])
     logger.debug('Harvest schedule has been ended')
+
+
+async def harvest_spec_group(db):
+    instit_ids = await get_ids(db)
+    exist_groups = await db.get_all_groups()
+    for i in instit_ids:
+        if int(i) != 5:
+            continue
+        instit_url = dict(list(await db.get_institution(int(i)))[0])['url']
+        groups = search_group(instit_url)
+        print(groups)
+        for name in exist_groups:
+            if list(name)[0] in groups:
+                groups.pop(str(list(name)[0]))
+        if groups == {}:
+            logger.debug('No changes in harvest of the groups of the institution - (id) ' + str(i))
+        else:
+            for group in groups:
+                logger.debug('New groups - ' + str(group.encode('utf-8')) + ' ' + str(str(i).encode('utf-8'))+ \
+                             ' ' + str(groups[group].encode('utf-8')))
+                await db.add_group(group, i, groups[group])
+    logger.debug('Harvest specific group has been ended')
+
+
+async def harvest_spec_arhit_sched(db):
+    instit_ids = await get_ids(db)
+
+    for i in instit_ids:
+        if int(i) != 5:
+            continue
+        print('Instit: ' + str(i))
+        url_group = str(dict(list(await db.get_institution_url_groups(i))[0])['url_for_groups'])
+        groups_values = await db.get_groups_values(i)
+        for j in groups_values:
+            url = str(url_group.replace('{value}', list(j)[0]))
+            sched: Sched = search_schedule(url)
+            sched = str(sched.dict())
+            sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
+            exist_sched = dict(list(await db.get_groups_sched_nm_arh(list(j)[1]))[0])
+            #if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
+                #logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
+            await db.update_arhit_sched(str(sched64), list(j)[1])
+    logger.debug('Harvest schedule has been ended')
+
 
 
 async def scheduler(db):

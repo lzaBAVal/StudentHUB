@@ -35,7 +35,6 @@ class RegistrationStates(StatesGroup):
     final = State()
 
 class AddLesson(StatesGroup):
-    day = State()
     time = State()
     lesson = State()
     teacher = State()
@@ -45,4 +44,9 @@ class AddLesson(StatesGroup):
     process= State()
     final = State()
 
+class DeleteLesson(StatesGroup):
+    lesson = State()
+    check = State()
+    process = State()
+    final = State()
 

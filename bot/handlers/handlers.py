@@ -1,25 +1,25 @@
 import base64
+import re
 
 import aiogram.utils.markdown as md
-import keys, datetime
-#import bot.handlers.errors
-
-from logs.logging_core import init_logger
-from bot import keyboard as kb
-from functions.find_group import group_search
+from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.types import ParseMode
-from loader import dp, db, bot
-from aiogram import types
 from aiogram.utils.exceptions import Throttled
-from bot.states.states import AnonStates, RegistrationStates, StudentStates, TesterState, AddLesson
-from schedule_json.output.get_schedule_object import get_sched
-from schedule_json.change.change_sched import get_free_time
-from aiogram.dispatcher.handler import SkipHandler
+
+import datetime
+import keys
+from bot import keyboard as kb
+from bot.states.states import AnonStates, RegistrationStates, StudentStates, TesterState, AddLesson, DeleteLesson
+from functions.find_group import group_search
+from loader import dp, db, bot
+from logs.logging_core import init_logger
 from schedule_json.change.change_sched import add_lesson
-from schedule_json.vars import WeekDays_RU
-from schedule_json.harvest.harvest_main import harvest_arhit_sched
-from schedule_json.vars import Sched
+from schedule_json.change.change_sched import get_free_time, get_lessons_time, delete_lesson
+from schedule_json.harvest.harvest_main import harvest_arhit_sched, harvest_spec_group, harvest_spec_arhit_sched
+from schedule_json.output.get_schedule_object import get_sched_type, get_sched
+from vars import WeekDays_RU, special_chars, special_chars_digit
+
 
 logger = init_logger()
 
@@ -30,6 +30,7 @@ async def errors_handler(update, exception, message: types.Message):
     logger.exception(f'Update: {update} \n{exception}')
 '''
 
+
 # NONE
 @dp.message_handler(commands=['start'], state=None)
 async def start(message: types.Message):
@@ -39,39 +40,47 @@ async def start(message: types.Message):
     \nЕсли ты хочешь пользоваться моим функционалом или помочь мне, тогда тебе нужен ключик для входа\
     \nЕго можно взять у моего разработчика или админов \
     \nЕсли уже есть ключик то жмакай на кнопку ввести ключ и вводи его)\
-    \nРазработчик будет очень рад если ты будешь отправлять ему замечания по поводу моей работы!', reply_markup=kb.tester_kb)
+    \nРазработчик будет очень рад если ты будешь отправлять ему замечания по поводу моей работы!',
+                         reply_markup=kb.tester_kb)
 
 
 @dp.message_handler(state=None)
 async def def_user(message: types.Message):
     try:
-        if (await db.check_tester(message.chat.id)) == []:
+        if not (await db.check_tester(message.chat.id)):
             await TesterState.tester.set()
             await message.answer(text='Тестер', reply_markup=kb.tester_kb)
         else:
-            if (await db.check_user(message.chat.id)) == []:
+            if not (await db.check_user(message.chat.id)):
                 await AnonStates.anon.set()
                 await message.answer(text='Анон', reply_markup=kb.anon_kb)
             else:
                 await StudentStates.student.set()
                 await message.answer(text='Я проснулся.', reply_markup=kb.stud_kb)
-    except Exception as e:
+    except Exception as exc:
         await TesterState.tester.set()
-        logger.exception()
+        logger.exception(exc)
         await message.answer(text='Ошибка', reply_markup=kb.tester_kb)
+
 
 # ALL ------------------------------------------------------------------------
 '''
 @dp.message_handler(commands=['help'], state='*')
 async def process_help_command(message: types.Message):
     msg = text(bold('Я могу ответить на следующие команды:'),
-               '/voice test', '/photo', '/group', '/note', '/file, /testpre', sep='\n')
+               '/voice test', '/photo', '/group', '/note', '/file', sep='\n')
     await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
 '''
 
-@dp.message_handler(commands=['update_sched'], state='*')
-async def process_help_command(message: types.Message):
-    await harvest_arhit_sched(db)
+
+@dp.message_handler(commands=['update_spec_group'], state='*')
+async def update_spec_group(message: types.Message):
+    await harvest_spec_group(db)
+
+
+@dp.message_handler(commands=['update_spec_sched'], state='*')
+async def update_spec_sched(message: types.Message):
+    await harvest_spec_arhit_sched(db)
 
 '''
 @dp.message_handler(commands=['addhash'], state='*')
@@ -85,11 +94,13 @@ async def add_hash(message: types.Message):
 async def chat_id(message: types.Message):
     await message.answer(text=message.chat.id)
 
+
 '''
 @dp.message_handler(commands=['error'], state='*')
 async def chat_id(message: types.Message):
     await message.answer(text=str(0/0))
 '''
+
 
 @dp.message_handler(commands=['trot'], state='*')
 async def send_welcome(message: types.Message):
@@ -116,7 +127,8 @@ async def start_add_tester(message: types.Message):
     try:
         await keys.add_tester(db, message.chat.id, message.text)
         await TesterState.next()
-    except Exception:
+    except Exception as exc:
+        logger.exception(exc)
         await message.answer(text='Проверьте еще раз вводимый ключ. Что то пошло не так.')
     await message.answer(text='Для подтверждения нажмите на котика', reply_markup=kb.cat_kb)
 
@@ -138,16 +150,18 @@ async def reg_start(message: types.Message):
 
 @dp.message_handler(state=AnonStates.anon)
 async def anon_message(message: types.Message):
-    await message.answer(text='На данный момент я вас не знаю, пройдите регистрацию чтобы получить доступ к моему функционалу', reply_markup=kb.anon_kb)
+    await message.answer(
+        text='На данный момент я вас не знаю, пройдите регистрацию чтобы получить доступ к моему функционалу',
+        reply_markup=kb.anon_kb)
 
 
 # STUDENT ------------------------------------------------------------------------
 @dp.message_handler(text='Все расписание', state=StudentStates.student)
 async def all_shedule(message: types.Message):
     try:
-        resp = await get_sched(id_chat=message.chat.id, type_of_shed=1)
-    except Exception:
-        logger.exception()
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1)
+    except Exception as exc:
+        logger.exception(exc)
         await message.answer('Не удалось показать расписание, сообщите об этом админу.')
     else:
         await message.answer(text=resp)
@@ -156,12 +170,12 @@ async def all_shedule(message: types.Message):
 @dp.message_handler(text='Расписание на сегодня', state=StudentStates.student)
 async def todays_shedule(message: types.Message):
     try:
-        resp = await get_sched(id_chat=message.chat.id, type_of_shed=2)
-        if -1 in resp:
-            await message.answer(text=resp[1])
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=2)
+        if resp == -1:
+            await message.answer('Не удалось показать расписание, сообщите об этом админу.')
             return 0
-    except Exception:
-        logger.exception()
+    except Exception as exc:
+        logger.exception(exc)
         await message.answer('Не удалось показать расписание, сообщите об этом админу.')
     else:
         await message.answer(text=resp)
@@ -170,12 +184,12 @@ async def todays_shedule(message: types.Message):
 @dp.message_handler(text='Cледующая пара', state=StudentStates.student)
 async def next_lesson(message: types.Message):
     try:
-        resp = await get_sched(id_chat=message.chat.id, type_of_shed=3)
-        if -1 in resp:
-            await message.answer(text=resp[1])
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=3)
+        if resp == -1:
+            await message.answer('Не удалось показать расписание, сообщите об этом админу.')
             return 0
-    except Exception:
-        logger.exception()
+    except Exception as exc:
+        logger.exception(exc)
         await message.answer('Не удалось показать расписание, сообщите об этом админу.')
     else:
         await message.answer(text=resp)
@@ -193,74 +207,120 @@ async def add_lesson_start(message: types.message):
 
 
 @dp.message_handler(state=AddLesson.time)
-async def add_lesson_time(message: types.message, state: FSMContext):
-    sched = dict(await db.get_arh_sched(message.chat.id))['sched_arhit']
-    sched = eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
-    async with state.proxy() as data:
-        data['day'] = message.text
-        data['sched'] = sched
-
-    free_time = await get_free_time(data['day'], sched)
-    print(free_time)
-    print(data['day'])
-    await message.answer('Есть свободные часы в этот день: ', reply_markup=kb.free_time(free_time))
+async def add_lesson_time(message: types.message, state: FSMContext, completed: bool = False):
+    if not completed:
+        if message.text.lower() not in WeekDays_RU:
+            await message.answer(text='Введите день недели!')
+            await add_lesson_start(message)
+            return 0
+        sched = await get_sched(message.chat.id)
+        free_time = await get_free_time(message.text.lower(), sched)
+        async with state.proxy() as data:
+            data['day'] = message.text.lower()
+            data['sched'] = sched
+            data['free_time'] = free_time
+    data = await state.get_data()
+    await message.answer('Есть свободные часы в этот день: ', reply_markup=kb.free_time(data['free_time']))
     await AddLesson.next()
 
 
 @dp.message_handler(state=AddLesson.lesson)
-async def add_lesson_lesson(message: types.message, state: FSMContext):
-    async with state.proxy() as data:
-        data['time'] = message.text
+async def add_lesson_lesson(message: types.message, state: FSMContext, completed: bool = False):
+    if not completed:
+        data = await state.get_data()
+        if message.text not in data['free_time']:
+            await message.answer(text='Введите время на которое хотите назначить урок!')
+            await AddLesson.time.set()
+            await add_lesson_time(message, state, completed=True)
+            return 0
+
+        async with state.proxy() as data:
+            data['time'] = message.text
     await message.answer('Введите название урока')
     await AddLesson.next()
 
 
 @dp.message_handler(state=AddLesson.teacher)
-async def add_lesson_teacher(message: types.message, state: FSMContext):
-    async with state.proxy() as data:
-        data['lesson'] = message.text
+async def add_lesson_teacher(message: types.message, state: FSMContext, completed: bool = False):
+    if not completed:
+        if len(message.text) <= 30 and not re.match(special_chars, message.text):
+            async with state.proxy() as data:
+                data['lesson'] = message.text
+        else:
+            await message.answer(text='Название урока должно быть меньше 30 символов и состоять только из букв и цифр!')
+            await AddLesson.lesson.set()
+            await add_lesson_lesson(message, state, completed=True)
+            return 0
     await message.answer('Введите имя преподавателя')
     await AddLesson.next()
 
 
 @dp.message_handler(state=AddLesson.subgroup)
-async def add_lesson_subgroup(message: types.message, state: FSMContext):
-    async with state.proxy() as data:
-        data['teacher'] = message.text
+async def add_lesson_subgroup(message: types.message, state: FSMContext, completed: bool = False):
+    if not completed:
+        if len(message.text) <= 30 and not re.match(special_chars_digit, message.text):
+            async with state.proxy() as data:
+                data['teacher'] = message.text
+        else:
+            await message.answer(text='Имя преподавателя должно быть меньше 30 символов и состоять только из букв!')
+            await AddLesson.teacher.set()
+            await add_lesson_teacher(message, state, completed=True)
+            return 0
     await message.answer('Введите подгруппу', reply_markup=kb.subgroup_kb)
     await AddLesson.next()
 
 
 @dp.message_handler(state=AddLesson.classroom)
-async def add_lesson_classroom(message: types.message, state: FSMContext):
-    async with state.proxy() as data:
-        data['subgroup'] = message.text
-    await message.answer('Введите номер кабинета')
+async def add_lesson_classroom(message: types.message, state: FSMContext, completed: bool = False):
+    if not completed:
+        if message.text.lower() == 'нет подгрупп' and not re.match(special_chars, message.text) or \
+                re.match(r'\d', message.text):
+            async with state.proxy() as data:
+                data['subgroup'] = message.text
+        else:
+            await message.answer(text='Введите либо номер подгруппы либо укажите что подгрупп нет')
+            await AddLesson.subgroup.set()
+            await add_lesson_subgroup(message, state, completed=True)
+            return 0
+    await message.answer('Введите номер кабинета или укажите что вы учитесь онлайн', reply_markup=kb.classroom_kb)
     await AddLesson.next()
 
 
 @dp.message_handler(state=AddLesson.check)
-async def add_lesson_check(message: types.message, state: FSMContext):
-    async with state.proxy() as data:
-        data['classroom'] = message.text
-    await message.answer(f"Проверьте данные: \nДень: {data['day']}\nВремя: {data['time']}\nУрок: {data['lesson']}\nПреподаватель: {data['teacher']}"
-                         f"\nПодгруппа: {data['subgroup']}\n\nВсе верно?", reply_markup=kb.question_kb)
+async def add_lesson_check(message: types.message, state: FSMContext, completed: bool = False):
+    if not completed:
+        if len(message.text) <= 10 and not re.match(special_chars, message.text) or \
+                message.text.lower() == 'онлайн':
+            async with state.proxy() as data:
+                data['classroom'] = message.text
+            await message.answer(
+                f"Проверьте данные: \nДень: {data['day']}\nВремя: {data['time']}\nУрок: {data['lesson']}\n"
+                f"Преподаватель: {data['teacher']} "
+                f"\nПодгруппа: {data['subgroup']}\nКабинет: {data['classroom']}\n\nВсе верно?",
+                reply_markup=kb.question_kb)
+        else:
+            await message.answer(
+                text='Требуется наименование кабинет. Не более 10 символов или укажите что вы учитесь онлайн')
+            await AddLesson.classroom.set()
+            await add_lesson_classroom(message, state, completed=True)
+            return 0
+
     await AddLesson.next()
 
 
-@dp.message_handler(text="Да", state=AddLesson.process)
+@dp.message_handler(lambda message: message.text.lower() == "да", state=AddLesson.process)
 async def add_lesson_process(message: types.message, state: FSMContext):
     data = await state.get_data()
     sched = await add_lesson(sched=data['sched'], day=WeekDays_RU.index(data['day']), complex_time=data['time'],
-                                classroom=data['classroom'], name_lesson=data['lesson'])
-    sched = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
+                             classroom=data['classroom'], name_lesson=data['lesson'], teacher=data['teacher'])
+    sched = str(base64.b64encode(str(sched.dict()).encode('utf-8')))[2:-1]
     await db.update_group_sched(sched, message.chat.id)
     await AddLesson.next()
     await message.answer('Идет процесс занесения урока в базу! Для завершения тыкните на котика',
                          reply_markup=kb.cat_kb)
 
 
-@dp.message_handler(text="Нет", state=AddLesson.process)
+@dp.message_handler(lambda message: message.text.lower() == "нет", state=AddLesson.process)
 async def add_lesson_process_no(message: types.message, state: FSMContext):
     await message.answer(text='Добавьте урок заново')
     await state.finish()
@@ -271,7 +331,62 @@ async def add_lesson_process_no(message: types.message, state: FSMContext):
 async def add_lesson_process_yes(message: types.message, state: FSMContext):
     await message.answer('Урок добавлен', reply_markup=kb.stud_kb)
     await state.finish()
-    await StudentStates.student
+    await StudentStates.student.set()
+
+
+@dp.message_handler(text='Убрать урок', state=StudentStates.student)
+async def add_lesson_process_yes(message: types.message):
+    await message.answer('Выберите день:', reply_markup=kb.days())
+    await DeleteLesson.lesson.set()
+
+
+@dp.message_handler(state=DeleteLesson.lesson)
+async def add_lesson_process_yes(message: types.message, state: FSMContext):
+    sched = await get_sched(message.chat.id)
+    async with state.proxy() as data:
+        data['day'] = message.text.lower()
+        data['sched'] = sched
+    lessons_time: list = await get_lessons_time(data['day'], sched)
+    await message.answer('Какой предмет вы желаете удалить?', reply_markup=kb.free_time(lessons_time))
+    await DeleteLesson.next()
+
+
+@dp.message_handler(state=DeleteLesson.check)
+async def delete_lesson_check(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        data['deletelesson'] = message.text
+
+    await message.answer('Вы уверены что вы хотите удалить "' + data['deletelesson'] + '" из расписания?',
+                         reply_markup=kb.register_kb)
+    await DeleteLesson.next()
+
+
+@dp.message_handler(text='Да', state=DeleteLesson.process)
+async def delete_lesson_check(message: types.message, state: FSMContext):
+    data = await state.get_data()
+    await message.answer(
+        'Идет процесс удаления урока из расписания... \n Тыкните на котика чтобы завержить процесс удаления',
+        reply_markup=kb.cat_kb)
+    new_sched = delete_lesson(data['sched'], data['deletelesson'], day=data['day'])
+    print(new_sched)
+    await db.update_group_sched(new_sched, message.chat.id)
+    await DeleteLesson.next()
+
+
+@dp.message_handler(text='Нет', state=DeleteLesson.process)
+async def delete_lesson_check(message: types.message, state: FSMContext):
+    await message.answer('Вы отменили процесс удаления',
+                         reply_markup=kb.stud_kb)
+    await state.finish()
+    await StudentStates.student.set()
+
+
+@dp.message_handler(state=DeleteLesson.final)
+async def delete_lesson_check(message: types.message, state: FSMContext):
+    await message.answer('Вы удалили урок из расписания',
+                         reply_markup=kb.stud_kb)
+    await state.finish()
+    await StudentStates.student.set()
 
 
 @dp.message_handler(commands=['addhash'], state=StudentStates.student)
@@ -279,8 +394,8 @@ async def add_hash(message: types.Message):
     if message.chat.id == 690976128 or message.chat.id == 842781422:
         try:
             hash = await keys.create_hashes(db)
-        except Exception:
-            logger.exception()
+        except Exception as exc:
+            logger.exception(exc)
             await message.answer('ERROR: Не удалось создать хэш.')
         else:
             await message.answer(text=hash)
@@ -290,8 +405,8 @@ async def add_hash(message: types.Message):
 async def next_lesson(message: types.Message):
     try:
         await db.delete_account(message.chat.id)
-    except Exception:
-        logger.exception()
+    except Exception as exc:
+        logger.exception(exc)
         await message.answer('Мне не удалось удалить ваш аккаунт, сообщите об этом админу')
     else:
         await AnonStates.anon.set()
@@ -333,11 +448,13 @@ async def reg_surname(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=RegistrationStates.find_group)
-async def search_group(message: types.Message, state: FSMContext):
+async def search_group(message: types.Message):
     result = await group_search(message.text)
     logger.info('Client is finding himself group - ' + str(str(message.text).encode('utf-8')))
     if result == -1:
-        await message.answer(text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, наименование группы должно быть такого формата - "cиб 19 6"')
+        await message.answer(
+            text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, наименование группы должно быть такого '
+                 'формата - "cиб 19 6"')
     else:
         comp_match, match, other_match = result
         if comp_match:
@@ -346,14 +463,21 @@ async def search_group(message: types.Message, state: FSMContext):
             await RegistrationStates.next()
         elif match:
             kboard = kb.createButtons(match)
-            await message.answer(text='Не найдено точное наименование вашей группы. Ваша группа есть в этом списке?', reply_markup=kboard)
-            #await RegistrationStates.next()
+            await message.answer(text='Не найдено точное наименование вашей группы. Ваша группа есть в этом списке?',
+                                 reply_markup=kboard)
+            # await RegistrationStates.next()
         elif other_match:
             kboard = kb.createButtons(other_match)
-            await message.answer(text='Я не нашел ничего похожего. Посмотрите список групп который я вам предоставил. Возможно там будет то что вам нужно', reply_markup=kboard)
-            #await RegistrationStates.next()
+            await message.answer(
+                text='Я не нашел ничего похожего. Посмотрите список групп который я вам предоставил. Возможно там '
+                     'будет то что вам нужно',
+                reply_markup=kboard)
+            # await RegistrationStates.next()
         else:
-            await message.answer(text='Вашей группы у меня нет. Если вы уверены что верно вводите название группы, напишите об этом разработчику, он вам поможет', reply_markup=kb.anon_kb)
+            await message.answer(
+                text='Вашей группы у меня нет. Если вы уверены что верно вводите название группы, напишите об этом '
+                     'разработчику, он вам поможет',
+                reply_markup=kb.anon_kb)
             await AnonStates.anon.set()
 
 
@@ -361,8 +485,8 @@ async def search_group(message: types.Message, state: FSMContext):
 async def accept_all_data(message: types.Message, state: FSMContext):
     try:
         group_id = await db.get_group_id(message.text)
-    except Exception:
-        logger.exception()
+    except Exception as exc:
+        logger.exception(exc)
         await message.answer('ERROR: произошла ошибка. Регистрация отменена')
         await state.finish()
         await AnonStates.anon.set()
@@ -397,7 +521,8 @@ async def reg_final(message: types.Message, state: FSMContext):
         await state.finish()
         await AnonStates.anon.set()
     else:
-        await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)', reply_markup=kb.cat_kb)
+        await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)',
+                             reply_markup=kb.cat_kb)
         await RegistrationStates.next()
 
 
@@ -405,7 +530,8 @@ async def reg_final(message: types.Message, state: FSMContext):
 async def reg_final(message: types.Message, state: FSMContext):
     await message.answer(text='Все отлично! Теперь вы зарегестрированы.', reply_markup=kb.stud_kb)
     data = await state.get_data()
-    logger.info('New user: Name - ' + str(str(data['name']).encode('utf-8')) + ', surname - ' + str(str(data['surname']).encode('utf-8')) + ', group - ' + str(str(data['group_id']).encode('utf-8')))
+    logger.info('New user: Name - ' + str(str(data['name']).encode('utf-8')) + ', surname - ' + str(
+        str(data['surname']).encode('utf-8')) + ', group - ' + str(str(data['group_id']).encode('utf-8')))
     await state.finish()
     await StudentStates.student.set()
 
@@ -415,6 +541,7 @@ async def reg_final(message: types.Message, state: FSMContext):
     await message.answer(text='Пройдите регистрацию заново!', reply_markup=kb.anon_kb)
     await state.finish()
     await AnonStates.anon.set()
+
 
 # END -----------------------------------------------------------
 
@@ -431,7 +558,6 @@ async def chat_id(message: types.Message):
 async def chat_id(message: types.Message):
     await harvest_arhit_sched(db)
 '''
-
 
 # @dp.message_handler(commands=['linebut'])
 # async def inlinebutton(message: types.Message):
@@ -460,8 +586,3 @@ async def process_callback_query(callback_query: types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     await bot.send_message(callback_query.from_user.id, 'Нажата первая кнопка!')
 '''
-
-
-
-
-

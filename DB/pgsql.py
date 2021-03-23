@@ -20,13 +20,9 @@ class Database:
         ])
         return sql, tuple(parameters.values())
 
-    async def add_user(self, chat_id: int, name: str, surname: str, group_id):
-        sql_query = "insert into student (id_chat, u_name, surname, group_id, privilege) values ($1, $2, $3, $4, b\'1\')"
-        await self.pool.execute(sql_query, chat_id, name, surname, group_id)
-
-    async def get_user(self, chat_id: int) -> str:
-        sql_query = "select * from student where id_chat = $1"
-        return await self.pool.fetch(sql_query, chat_id)
+    #########################
+    #        CHECK          #
+    #########################
 
     async def check_user(self, chat_id: int) -> str:
         sql_query = "select * from student where id_chat = $1"
@@ -36,12 +32,22 @@ class Database:
         sql_query = "select * from keys where id_chat = $1"
         return await self.pool.fetch(sql_query, chat_id)
 
+    #########################
+    #          GET          #
+    #########################
+
+    async def get_user(self, chat_id: int) -> str:
+        sql_query = "select * from student where id_chat = $1"
+        return await self.pool.fetch(sql_query, chat_id)
+
     async def get_arh_sched(self, id_chat: int):
-        sql_query = 'select sched_arhit from groups_students where id_inc=cast((select group_id from student where id_chat = $1) as INT)'
+        sql_query = 'select sched_arhit from groups_students where id_inc=cast((select group_id from student where ' \
+                    'id_chat = $1) as INT) '
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_sched(self, id_chat: int):
-        sql_query = 'select sched_group from groups_students where id_inc=cast((select group_id from student where id_chat = $1) as INT)'
+        sql_query = 'select sched_group from groups_students where id_inc=cast((select group_id from student where ' \
+                    'id_chat = $1) as INT) '
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_name(self, id_inc: int) -> str:
@@ -86,33 +92,51 @@ class Database:
     async def get_free_hashes(self):
         return await self.pool.fetch('select key_md5 from keys where id_chat = None')
 
-    async def update_privilege(self, privilege: int, chat_id: int) -> str:
-        sql_query = "update student set privilege = b\'$1\' where id_chat = $2"
-        return await self.pool.execute(sql_query, privilege, chat_id)
+    #########################
+    #          ADD          #
+    #########################
 
-    async def insert_group(self, group_name: str, id: int, url_value: str):
+    async def add_user(self, chat_id: int, name: str, surname: str, group_id):
+        sql_query = "insert into student (id_chat, u_name, surname, group_id, privilege) values ($1, $2, $3, $4, " \
+                    "b\'1\') "
+        await self.pool.execute(sql_query, chat_id, name, surname, group_id)
+
+    async def add_group(self, group_name: str, id: int, url_value: str):
         sql_query = 'insert into groups_students(group_name, institution_id, group_url_value) values ($1, $2, $3);'
         return await self.pool.execute(sql_query, group_name, id, url_value)
 
-    async def insert_institution(self, instit_name: str, url: str, url_for_groups: str):
+    async def add_institution(self, instit_name: str, url: str, url_for_groups: str):
         sql_query = 'insert into institution(instit_name, sched, url_for_groups) values ($1, $2, $3)'
         return await self.pool.execute(sql_query, instit_name, url, url_for_groups)
 
-    async def insert_key(self, hash: str):
+    async def add_key(self, hash: str):
         sql_query = 'insert into keys(key_md5) values ($1)'
         return await self.pool.execute(sql_query, hash)
+
+    #########################
+    #        UPDATE         #
+    #########################
 
     async def update_arhit_sched(self, sched: str, id_inc: int):
         sql_query = 'update groups_students set sched_arhit = $1 where id_inc = $2;'
         return await self.pool.execute(sql_query, sched, id_inc)
 
     async def update_group_sched(self, sched: str, id_inc: int):
-        sql_query = 'update groups_students set sched_group = $1 where id_inc = $2;'
+        sql_query = 'update groups_students set sched_group = $1 where id_inc=cast((select group_id from student ' \
+                    'where id_chat = $2) as INT) '
         return await self.pool.execute(sql_query, sched, id_inc)
 
     async def update_tester(self, chat_id: str, hash: str):
         sql_query = 'update keys set id_chat = $1 where key_md5 = $2;'
         return await self.pool.execute(sql_query, chat_id, hash)
+
+    async def update_privilege(self, privilege: int, chat_id: int) -> str:
+        sql_query = "update student set privilege = b\'$1\' where id_chat = $2"
+        return await self.pool.execute(sql_query, privilege, chat_id)
+
+    #########################
+    #          DEL          #
+    #########################
 
     async def delete_account(self, chat_id: str):
         sql_query = 'delete from student where  id_chat = $1;'
@@ -120,6 +144,7 @@ class Database:
 
     async def test_connect(self):
         return await self.pool.execute('select version();')
+
 
 '''
 

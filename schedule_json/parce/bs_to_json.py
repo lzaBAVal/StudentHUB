@@ -1,7 +1,7 @@
-import re, requests
+import re
 
 from bs4 import BeautifulSoup
-from schedule_json.vars import days, Sched, Time, Day_of_week, Lesson
+from vars import days, Sched, Time, Day_of_week, Lesson
 
 def search_schedule(shed: BeautifulSoup):
 

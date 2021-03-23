@@ -36,7 +36,7 @@ async def harvest_groups(db):
         instit_url = dict(db.get_institution(int(i)))['sched']
         groups = search_group(instit_url)
         for group in groups:
-            await db.insert_group(group, i, groups[group])
+            await db.add_group(group, i, groups[group])
 
 async def harvest_schedule(db, id: int = None):
     if id:
@@ -71,7 +71,7 @@ async def harvest_groups(db):
             for group in groups:
                 logger.debug('New groups - ' + str(group.encode('utf-8')) + ' ' + str(str(i).encode('utf-8') )+ \
                              ' ' + str(groups[group].encode('utf-8')))
-                await db.insert_group(group, i, groups[group])
+                await db.add_group(group, i, groups[group])
     logger.debug('Harvest groups has been ended')
 
 

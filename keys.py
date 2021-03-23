@@ -7,7 +7,7 @@ logger = init_logger()
 
 async def create_hashes(db):
     hash = hashlib.md5(bytes(str((datetime.now())).encode('utf-16'))).hexdigest()
-    await db.insert_key(hash)
+    await db.add_key(hash)
     return hash
 
 

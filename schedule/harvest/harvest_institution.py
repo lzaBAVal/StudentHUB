@@ -57,5 +57,5 @@ def get_all_institutions():
 
     institutions = eval(institutions)
     for i in institutions:
-        #asyncio.get_event_loop().run_until_complete(pgsql_conn(insert_institution(i, institutions[i][0], institutions[i][1])))
-        db.insert_institution(i, institutions[i][0], institutions[i][1])
+        #asyncio.get_event_loop().run_until_complete(pgsql_conn(add_institution(i, institutions[i][0], institutions[i][1])))
+        db.add_institution(i, institutions[i][0], institutions[i][1])
