@@ -6,13 +6,20 @@
 
 import re
 import requests
+import time as tm
 
 from bs4 import BeautifulSoup
 from vars import days, Sched, Time, Day_of_week, Lesson
+from logs.logging_core import init_logger
+
+
+logger = init_logger()
+
 
 def search_schedule(url: str):
 
     resp = requests.get(url)
+    tm.sleep(.5)
     shed = BeautifulSoup(resp.text, 'lxml')
 
     matrix = []
@@ -26,6 +33,10 @@ def search_schedule(url: str):
             if not re.match(r'<br/>', str(i)) and i != '\n' and i != ' ':
                 tmp_composer.append(str(i).strip())
         matrix.append(" ".join(tmp_composer))
+
+    if len(matrix) <= 6:
+        logger.debug('Empty url: ' + str(url))
+        return 0
 
     for i in range(len(matrix)):
         current_day = matrix[i].lower()

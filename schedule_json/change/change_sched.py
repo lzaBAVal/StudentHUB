@@ -1,7 +1,7 @@
 import re
 
 from datetime import datetime, time
-from schedule.output.type_of_sched import WeekDays_EN, WeekDays_RU
+from schedule_json.output.type_of_sched import WeekDays_RU
 from vars import WeekDays_EN, Time, Sched, Lesson, first_lesson
 
 
@@ -47,13 +47,9 @@ async def get_free_time(day_of_week: str, sched: dict):
     if check_input(day_of_week) == -1:
         return -1
     day = WeekDays_EN[day_of_week]
-    print(sched)
     sched: dict = Sched.parse_obj(sched).dict()
     start, end = [], []
     free_time = []
-    print('get_free_time: ' + str(sched[day]))
-    print(sched)
-    print(day)
     if sched[day] is None:
         for t in range(13):
             t_start = time(hour=first_lesson.hour + 1 * t, minute=first_lesson.minute)
@@ -81,7 +77,7 @@ async def get_lessons_time(day_of_week: str, sched: dict):
     start, end, lesson_time, lessons = [], [], [], []
     print('get_lessons_time: ' + str(sched[day]))
     if sched[day] is None:
-        return []
+        return -1, 'Нет занятий'
     else:
         for i in range(len(sched[day]['lessons'])):
             lessons.append(sched[day]['lessons'][i])
@@ -131,7 +127,7 @@ async def add_lesson(sched, day: int = None, complex_time: str = None, time_star
     }
     lesson = Lesson(**lesson)
 
-    if sched[day] != None:
+    if sched[day] is not None:
         for item_lesson in sched[day]['lessons']:
             if item_lesson['time']['start'] == time_start:
                 return -1
@@ -180,9 +176,7 @@ def update_lesson(sched, day: int = None, time_start: str = None, time_end: str 
     return -1
 
 
-def delete_lesson(sched, del_lesson, day: [int, str] = None, time_start: str = None, time_end: str = None,
-                  name_lesson: str = None,
-                  teacher: str = None, subgroup: int = None, classroom: str = None):
+def delete_lesson(sched, del_lesson, day: [int, str] = None):
     day_of_week = WeekDays_RU.index(day)
     if check_input(day_of_week) == -1:
         return -1
@@ -194,16 +188,13 @@ def delete_lesson(sched, del_lesson, day: [int, str] = None, time_start: str = N
     end = complex_time[2]
 
     if sched[day] is not None:
-        for l in range(len(sched[day]['lessons'])):
-            sched_local = sched[day]['lessons'][l]
-            if sched_local['time']['start'] == start and sched_local['time']['end'] == end and sched_local[
-                'lesson'] == lesson:
-                sched[day]['lessons'].pop(l)
+        for counter_lesson in range(len(sched[day]['lessons'])):
+            sched_local = sched[day]['lessons'][counter_lesson]
+            if sched_local['time']['start'] == start and \
+                    sched_local['time']['end'] == end and \
+                    sched_local['lesson'] == lesson:
+                sched[day]['lessons'].pop(counter_lesson)
                 sched = Sched(**sched)
                 return sched
     else:
-        return -1, 'В этот день нет пар!'
-
-
-def change_sched_manager():
-    pass
+        return -1

@@ -7,12 +7,22 @@
 import datetime as dt
 import re
 
-WeekDays_RU = ('понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье')
-WeekDays_EN = ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday')
+from vars import WeekDays_EN, WeekDays_RU
 
-now = dt.datetime.now()
-weekday = now.isoweekday() - 1
-day = WeekDays_EN[weekday]
+
+def construct_lesson(future_lesson, result, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
+    if lesson:
+        result += '\nПредмет: ' + str(future_lesson['lesson'])
+    if time:
+        result += '\nВремя: ' + str(future_lesson['time']['start'] + ' - ' + str(future_lesson['time']['end']))
+    if subgroup:
+        result += '\nПодгруппа: ' + str(future_lesson['subgroup'])
+    if teacher:
+        result += '\nПреподаватель: ' + str(future_lesson['teacher'])
+    if classroom:
+        result += '\nАудитория: ' + str(future_lesson['classroom'])
+        
+    return result
 
 
 def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
@@ -22,22 +32,13 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
     if day == 'sunday':
         return -1, 'Сегодня выходной'
     todays_shed = sched[day]
-    result = '-------------------' + '\n' + str(WeekDays_RU[weekday]).title() + '\n' + '-------------------' + '\n'
+    result = '-------------------\n' + str(WeekDays_RU[weekday]).title() + '\n-------------------\n'
     if todays_shed is None:
         result += 'Нет занятий'
     else:
         for i in todays_shed['lessons']:
-            if lesson:
-                result += 'Предмет: ' + i['lesson'] + '\n'
-            if time:
-                result += 'Время: ' + i['time']['start'] + ' - ' + i['time']['end'] + '\n'
-            if subgroup:
-                result += 'Подгруппа: ' + i['subgroup'] + '\n'
-            if teacher:
-                result += 'Преподаватель: ' + i['teacher'] + '\n'
-            if classroom:
-                result += 'Аудитория: ' + i['classroom'] + '\n'
-            result += '-------------------' + '\n'
+            result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
+            result += '-------------------\n'
     result = ''.join(result)
     return result
 
@@ -47,46 +48,29 @@ def schedule_for_tommorow(sched, time=True, subgroup=False, lesson=True, teacher
     weekday = now.isoweekday()
     day = WeekDays_EN[weekday]
     if day == 'sunday':
-        return -1, 'Сегодня выходной'
+        return -1, 'Завтра выходной'
     todays_shed = sched[day]
-    result = '-------------------' + '\n' + str(WeekDays_RU[weekday]).title() + '\n' + '-------------------' + '\n'
+    result = '-------------------\n' + str(WeekDays_RU[weekday]).title() + '\n-------------------\n'
     if todays_shed is None:
         result += 'Нет занятий'
     else:
         for i in todays_shed['lessons']:
-            if lesson:
-                result += 'Предмет: ' + i['lesson'] + '\n'
-            if time:
-                result += 'Время: ' + i['time']['start'] + ' - ' + i['time']['end'] + '\n'
-            if subgroup:
-                result += 'Подгруппа: ' + i['subgroup'] + '\n'
-            if teacher:
-                result += 'Преподаватель: ' + i['teacher'] + '\n'
-            if classroom:
-                result += 'Аудитория: ' + i['classroom'] + '\n'
-            result += '-------------------' + '\n'
+            result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
+            result += '-------------------\n'
     result = ''.join(result)
+
     return result
 
 
 def all_schedule(sched, time=True, subgroup=False, lesson=True, teacher=False, classroom=False):
     result = ''
     for k in sched:
-        result += str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n' + '-------------------' + '\n'
+        result += str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------\n'
         if sched[k] is None:
-            result += 'Нет занятий' + '\n\n'
+            result += 'Нет занятий\n\n'
             continue
         for i in sched[k]['lessons']:
-            if lesson:
-                result += 'Предмет: ' + i['lesson'] + '\n'
-            if time:
-                result += 'Время: ' + i['time']['start'] + ' - ' + i['time']['end'] + '\n'
-            if subgroup:
-                result += 'Подгруппа: ' + i['subgroup'] + '\n'
-            if teacher:
-                result += 'Преподаватель: ' + i['teacher'] + '\n'
-            if classroom:
-                result += 'Аудитория: ' + i['classroom'] + '\n'
+            result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
             result = ''.join(result) + '\n'
 
     return result
@@ -99,7 +83,7 @@ def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, c
     if day == 'sunday':
         return -1, 'Сегодня выходной'
     if sched[day] is None:
-        return -1
+        return -1, 'Сегодня нет занятий'
     result, delta = None, None
     today_sched = sched[day]
     current_time = now.strptime(now.strftime('%H:%M'), '%H:%M')
@@ -121,19 +105,7 @@ def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, c
             break
 
     future_lesson = today_sched['lessons'][counter_lessons - 1]
-
     result = 'Следующая пара наченется через ' + str(delta.seconds // 60) + ' минуты'
-    if lesson:
-        result += '\n' + 'Предмет: ' + str(future_lesson['lesson'])
-    if time:
-        result += '\n' + 'Время: ' + str(future_lesson['time']['start'] + ' - ' + str(future_lesson['time']['end']))
-    if subgroup:
-        result += '\n' + 'Подгруппа: ' + str(future_lesson['subgroup'])
-    if teacher:
-        result += '\n' + 'Преподаватель: ' + str(future_lesson['teacher'])
-    if classroom:
-        result += '\n' + 'Аудитория: ' + str(future_lesson['classroom'])
-    result = result
-    result = ''.join(result)
+    result = construct_lesson(future_lesson, result, time, subgroup, lesson, teacher, classroom)
 
     return result

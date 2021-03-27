@@ -1,5 +1,4 @@
-from aiogram.types import ReplyKeyboardMarkup, \
-    KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from vars import WeekDays_RU
 
 all_shedule_btn = KeyboardButton("Все расписание")
@@ -13,7 +12,7 @@ alert_btn = KeyboardButton("Настройка уведомлений")
 find_group_btn = KeyboardButton("Найти группу")
 
 register_btn = KeyboardButton("Регистрация")
-cancel_btn = KeyboardButton("Отменить регистрацию")
+cancel_btn = KeyboardButton("Отмена")
 yes_btn = KeyboardButton("Да")
 no_btn = KeyboardButton("Нет")
 
@@ -36,7 +35,6 @@ cat_btn = '🐈'
 stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 stud_kb.row(next_lesson_btn, todays_shedule_btn,tommorow_shedule_btn, all_shedule_btn)
 stud_kb.add(change_sched_btn)
-#stud_kb.row(alert_btn, rating_btn)
 
 tester_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 tester_kb.add(keys_btn)
@@ -46,6 +44,7 @@ anon_kb.row(register_btn)
 
 question_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 question_kb.row(yes_btn, no_btn)
+question_kb.add(cancel_btn)
 
 register_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 register_kb.add(cancel_btn)
@@ -78,7 +77,6 @@ def createButtons(btns_l: list):
     test.add(cancel_btn)
     return test
 
-
 def days():
     days_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     for i in range(len(WeekDays_RU) - 1):
@@ -87,7 +85,6 @@ def days():
             days_kb.row()
     days_kb.add(cancel_btn)
     return days_kb
-
 
 def free_time(time: list):
     free_time_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)

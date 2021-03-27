@@ -2,6 +2,11 @@ import base64
 
 from schedule_json.output import type_of_sched
 from loader import db
+from logs.logging_core import init_logger
+
+
+logger = init_logger()
+
 
 async def get_sched_type(id_chat: int, type_of_shed: int):
     sched = await get_sched(id_chat)
@@ -20,12 +25,15 @@ async def get_sched_type(id_chat: int, type_of_shed: int):
 
 async def get_sched(id_chat: int):
     sched = await db.get_group_sched(id_chat=id_chat)
-    if dict(sched)['sched_group'] is None:
-        sched = str(dict(await db.get_arh_sched(id_chat))['sched_arhit'])
-        await db.update_group_sched(sched, id_chat)
-        sched = dict(await db.get_group_sched(id_chat=id_chat))
-    sched = dict(sched)['sched_group']
-    sched = eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+    try:
+        if dict(sched)['sched_group'] is None:
+            sched = str(dict(await db.get_arh_sched(id_chat))['sched_arhit'])
+            await db.update_group_sched(sched, id_chat)
+            sched = dict(await db.get_group_sched(id_chat=id_chat))
+        sched = dict(sched)['sched_group']
+        sched = eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+    except Exception as exc:
+        logger.exception(exc)
     return sched
 
 

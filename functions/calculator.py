@@ -24,4 +24,4 @@ def calc_basic(rating: float, target: float = 0):
 def calc_advanced():
     pass
 
-print(calc_basic(50))
+print(calc_basic(50, 100))

@@ -3,7 +3,7 @@ import aioschedule
 
 from datetime import datetime
 from schedule_json.harvest.harvest_schedules import search_schedule
-from schedule.harvest.harvest_groups import search_group
+from schedule_json.harvest.harvest_groups import search_group
 from logs.logging_core import init_logger
 from vars import Sched
 
@@ -88,17 +88,23 @@ async def harvest_arhit_sched(db):
         url_group = str(dict(list(await db.get_institution_url_groups(i))[0])['url_for_groups'])
         groups_values = await db.get_groups_values(i)
         for j in groups_values:
-            url = str(url_group.replace('{value}', list(j)[0]))
-            sched: Sched = search_schedule(url)
-            sched = str(sched.dict())
-            sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
-            exist_sched = dict(list(await db.get_groups_sched_nm_arh(list(j)[1]))[0])
-            if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
-                logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
-            await db.update_arhit_sched(str(sched64), list(j)[1])
+            try:
+                url = str(url_group.replace('{value}', list(j)[0]))
+                sched = search_schedule(url)
+                if sched == 0:
+                    continue
+                sched = str(sched.dict())
+                sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
+                exist_sched = dict(list(await db.get_groups_sched_name_arhit(list(j)[1]))[0])
+                if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
+                    logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
+                await db.update_arhit_sched(str(sched64), list(j)[1])
+            except Exception as exc:
+                logger.warn('Institution id - ' + str(i) + ', group_value: ' + str(j))
+                logger.exception(exc)
     logger.debug('Harvest schedule has been ended')
 
-
+'''
 async def harvest_group_sched(db):
     instit_ids = await get_ids(db)
 
@@ -109,12 +115,12 @@ async def harvest_group_sched(db):
             url = str(url_group.replace('{value}', list(j)[0]))
             sched = str(search_schedule(url))
             sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
-            exist_sched = dict(list(await db.get_groups_sched_nm_gr(list(j)[1]))[0])
+            exist_sched = dict(list(await db.get_groups_sched_name_group(list(j)[1]))[0])
             if sched64 == exist_sched['sched_group'] or exist_sched['sched_group'] == None:
                 logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
                 await db.update_group_sched(str(sched64), list(j)[1])
     logger.debug('Harvest schedule has been ended')
-
+'''
 
 async def harvest_spec_group(db):
     instit_ids = await get_ids(db)
@@ -152,9 +158,9 @@ async def harvest_spec_arhit_sched(db):
             sched: Sched = search_schedule(url)
             sched = str(sched.dict())
             sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
-            exist_sched = dict(list(await db.get_groups_sched_nm_arh(list(j)[1]))[0])
-            #if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
-                #logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
+            exist_sched = dict(list(await db.get_groups_sched_name_arhit(list(j)[1]))[0])
+            if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
+                logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
             await db.update_arhit_sched(str(sched64), list(j)[1])
     logger.debug('Harvest schedule has been ended')
 

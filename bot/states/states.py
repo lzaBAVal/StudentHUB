@@ -50,3 +50,6 @@ class DeleteLesson(StatesGroup):
     process = State()
     final = State()
 
+class DiscoverFreeTime(StatesGroup):
+    output = State()
+

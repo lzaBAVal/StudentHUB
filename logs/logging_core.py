@@ -22,3 +22,6 @@ def init_logger():
     logger.addHandler(filehandler)
 
     return logger
+
+def log_encode(name):
+    return str(str(name).encode('utf-8'))

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, List
 from datetime import time
 
 first_lesson = time(hour=8, minute=40)
@@ -34,7 +34,7 @@ class Lesson(BaseModel):
 
 
 class Day_of_week(BaseModel):
-    lessons: list[Lesson]
+    lessons: List[Lesson]
 
 
 class Sched(BaseModel):

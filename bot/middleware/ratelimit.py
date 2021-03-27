@@ -9,14 +9,6 @@ from logs.logging_core import init_logger
 logger = init_logger()
 
 def rate_limit(limit: int, key=None):
-    """
-    Decorator for configuring rate limit and key in different functions.
-
-    :param limit:
-    :param key:
-    :return:
-    """
-
     def decorator(func):
         setattr(func, 'throttling_rate_limit', limit)
         if key:
@@ -24,6 +16,35 @@ def rate_limit(limit: int, key=None):
         return func
 
     return decorator
+
+
+def recognition(key=None):
+    def decorator(func):
+        if key:
+            setattr(func, 'recognition_key', key)
+        return func
+
+    return decorator()
+
+
+class CheckStateMiddleware(BaseMiddleware):
+    def __init__(self, key_prefix='norecognition_'):
+        self.prefix = key_prefix
+        super(CheckStateMiddleware, self).__init__()
+
+    async def on_process_recognition(self, state: types.Message, data: dict):
+        handler = current_handler.get()
+        dispatcher = Dispatcher.get_current()
+        logger.debug('test: ')
+        if handler:
+            key = getattr(handler, 'recognition_key', f"{self.prefix}_{handler.__name__}")
+        else:
+            key = f"{self.prefix}_message"
+
+        if await dispatcher.check_key(key):
+            logger.debug('True: ', key)
+        else:
+            logger.debug('False: ', key)
 
 
 class ThrottlingMiddleware(BaseMiddleware):
@@ -42,12 +63,10 @@ class ThrottlingMiddleware(BaseMiddleware):
 
         :param message:
         """
-        # Get current handler
-        handler = current_handler.get()
 
-        # Get dispatcher from context
+        handler = current_handler.get()
         dispatcher = Dispatcher.get_current()
-        # If handler was configured, get rate limit and key from handler
+
         if handler:
             limit = getattr(handler, 'throttling_rate_limit', self.rate_limit)
             key = getattr(handler, 'throttling_key', f"{self.prefix}_{handler.__name__}")
@@ -55,14 +74,10 @@ class ThrottlingMiddleware(BaseMiddleware):
             limit = self.rate_limit
             key = f"{self.prefix}_message"
 
-        # Use Dispatcher.throttle method.
         try:
             await dispatcher.throttle(key, rate=limit)
         except Throttled as t:
-            # Execute action
             await self.message_throttled(message, t)
-
-            # Cancel current handler
             raise CancelHandler()
 
     async def message_throttled(self, message: types.Message, throttled: Throttled):
@@ -83,7 +98,7 @@ class ThrottlingMiddleware(BaseMiddleware):
         delta = throttled.rate - throttled.delta
 
         # Prevent flooding
-        if throttled.exceeded_count <= 2:
+        if throttled.exceeded_count <= 3:
             await message.reply('Не отправляйте сообщения слишком часто!')
             logger.warn('User - ' + str(message.chat.id) + ' send many messages')
         # Sleep.
