@@ -9,7 +9,7 @@ from loader import dp, db
 from logs.logging_core import init_logger
 from schedule_json.change.change_sched import get_free_time
 from schedule_json.output.get_schedule_object import get_sched_type, get_sched
-from vars import WeekDays_RU, WeekDays_EN
+from vars import WeekDays_RU
 
 logger = init_logger()
 
@@ -22,7 +22,7 @@ async def all_shedule(message: types.Message):
 @dp.message_handler(text='Все расписание', state=StudentStates.student)
 async def all_shedule(message: types.Message):
     try:
-        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1)
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched='sched_user')
     except Exception as exc:
         logger.exception(exc)
         await message.answer('Не удалось показать расписание, сообщите об этом админу.')
@@ -33,7 +33,7 @@ async def all_shedule(message: types.Message):
 @dp.message_handler(text='Расписание на сегодня', state=StudentStates.student)
 async def todays_shedule(message: types.Message):
     try:
-        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=2)
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=2, whose_sched='sched_user')
         if isinstance(resp, tuple):
             # await message.answer('Не удалось показать расписание, сообщите об этом админу.')
             await message.answer(resp[1])
@@ -48,9 +48,9 @@ async def todays_shedule(message: types.Message):
 @dp.message_handler(text='Cледующая пара', state=StudentStates.student)
 async def next_lesson(message: types.Message):
     try:
-        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=3)
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=3, whose_sched='sched_user')
         if isinstance(resp, tuple):
-            #await message.answer('Не удалось показать расписание, сообщите об этом админу.')
+            # await message.answer('Не удалось показать расписание, сообщите об этом админу.')
             await message.answer(resp[1])
             return 0
     except Exception as exc:
@@ -63,9 +63,8 @@ async def next_lesson(message: types.Message):
 @dp.message_handler(text='Расписание на завтра', state=StudentStates.student)
 async def tommorow_lesson(message: types.Message):
     try:
-        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4)
+        resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched='sched_user')
         if isinstance(resp, tuple):
-            #await message.answer('Не удалось показать расписание, сообщите об этом админу.')
             await message.answer(resp[1])
             return 0
     except Exception as exc:
@@ -101,17 +100,19 @@ async def discover_free_time(message: types.message, state: FSMContext):
 @dp.message_handler(state=DiscoverFreeTime.output)
 async def output_free_time(message: types.message, state: FSMContext):
     if message.text.lower() in WeekDays_RU:
-        sched = await get_sched(message.chat.id)
+        sched = await get_sched(message.chat.id, 'sched_user')
         result = await get_free_time(message.text.lower(), sched)
         res = ''
         for i in range(len(result)):
             if i % 3 != 0:
                 res += str(result[i]) + ' | '
-            else: res += '\n| ' + str(result[i]) + ' | '
+            else:
+                res += '\n| ' + str(result[i]) + ' | '
         await message.answer(str(res), reply_markup=kb.stud_kb)
         await StudentStates.student.set()
     else:
         await message.answer('Введите день недели!')
+
 
 @dp.message_handler(commands=['deleteme'], state=StudentStates.student)
 async def next_lesson(message: types.Message):

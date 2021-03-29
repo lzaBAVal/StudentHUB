@@ -1,12 +1,14 @@
-import logging, asyncio
+import asyncio
+import logging
 
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram import Bot, Dispatcher
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+
 from DB.pgsql import Database
-from bot.middleware.ratelimit import ThrottlingMiddleware, CheckStateMiddleware
-from schedule_json.harvest.harvest_main import Harvest, scheduler
+from bot.middleware.ratelimit import ThrottlingMiddleware
 from config import token
 from logs.logging_core import init_logger
+from schedule_json.harvest.harvest_main import Harvest, scheduler
 
 API_TOKEN = token
 
@@ -22,10 +24,13 @@ loop = asyncio.get_event_loop()
 db = Database(loop)
 hrvst = Harvest(db)
 dp.middleware.setup(ThrottlingMiddleware())
-#dp.middleware.setup(CheckStateMiddleware())
+
+
+# dp.middleware.setup(CheckStateMiddleware())
 
 async def on_startup(x):
     asyncio.create_task(scheduler(db))
+
 
 async def on_shutdown(x):
     logger.info('Bot has stopped')

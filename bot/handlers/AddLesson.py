@@ -1,5 +1,4 @@
 import base64
-
 import re
 
 from aiogram import types
@@ -7,12 +6,11 @@ from aiogram.dispatcher import FSMContext
 
 from bot import keyboard as kb
 from bot.states.states import StudentStates, AddLesson
-from loader import dp, db
+from loader import dp
 from schedule_json.change.change_sched import add_lesson
 from schedule_json.change.change_sched import get_free_time
-from schedule_json.output.get_schedule_object import get_sched
+from schedule_json.output.get_schedule_object import get_sched, update_sched
 from vars import WeekDays_RU, special_chars, special_chars_digit
-
 
 
 @dp.message_handler(lambda message: message.text.lower() == "отмена", state=AddLesson.states)
@@ -28,7 +26,7 @@ async def add_lesson_time(message: types.message, state: FSMContext, completed: 
         if message.text.lower() not in WeekDays_RU:
             await message.answer(text='Введите день недели!')
             return 0
-        sched = await get_sched(message.chat.id)
+        sched = await get_sched(message.chat.id, 'sched_user')
         free_time = await get_free_time(message.text.lower(), sched)
         async with state.proxy() as data:
             data['day'] = message.text.lower()
@@ -128,8 +126,7 @@ async def add_lesson_process(message: types.message, state: FSMContext):
     data = await state.get_data()
     sched = await add_lesson(sched=data['sched'], day=WeekDays_RU.index(data['day']), complex_time=data['time'],
                              classroom=data['classroom'], name_lesson=data['lesson'], teacher=data['teacher'])
-    sched = str(base64.b64encode(str(sched.dict()).encode('utf-8')))[2:-1]
-    await db.update_group_sched(sched, message.chat.id)
+    await update_sched(message.chat.id, sched, 'sched_user')
     await AddLesson.next()
     await message.answer('Идет процесс занесения урока в базу! Для завершения тыкните на котика',
                          reply_markup=kb.cat_kb)

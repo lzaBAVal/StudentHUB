@@ -9,7 +9,9 @@ import requests
 import time as tm
 
 from bs4 import BeautifulSoup
-from vars import days, Sched, Time, Day_of_week, Lesson
+
+from schedule_json.output.get_schedule_object import check_sched
+from vars import days, Time, Day_of_week, Lesson
 from logs.logging_core import init_logger
 
 
@@ -36,7 +38,7 @@ def search_schedule(url: str):
 
     if len(matrix) <= 6:
         logger.debug('Empty url: ' + str(url))
-        return 0
+        return -1
 
     for i in range(len(matrix)):
         current_day = matrix[i].lower()
@@ -74,6 +76,7 @@ def search_schedule(url: str):
                         day_o = Day_of_week(**day)
                         sched_json.setdefault(list(days.keys())[list(days.values()).index(current_day)], day_o)
 
-    sched_json = Sched(**sched_json)
+    if not check_sched(sched_json):
+        return -1
 
     return sched_json

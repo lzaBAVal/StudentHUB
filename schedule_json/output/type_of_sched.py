@@ -33,7 +33,7 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
         return -1, 'Сегодня выходной'
     todays_shed = sched[day]
     result = '-------------------\n' + str(WeekDays_RU[weekday]).title() + '\n-------------------\n'
-    if todays_shed is None:
+    if todays_shed is None or len(todays_shed['lessons']) == 0:
         result += 'Нет занятий'
     else:
         for i in todays_shed['lessons']:
@@ -46,6 +46,8 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
 def schedule_for_tommorow(sched, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
     now = dt.datetime.now()
     weekday = now.isoweekday()
+    if weekday == 7:
+        weekday = 0
     day = WeekDays_EN[weekday]
     if day == 'sunday':
         return -1, 'Завтра выходной'
@@ -90,6 +92,10 @@ def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, c
     amount_lessons = len(today_sched['lessons'])
     counter_lessons = 0
     end = 0
+
+    if len(today_sched['lessons']) == 0:
+        result = 'Сегодня нет пар!'
+        return result
 
     for i in today_sched['lessons']:
         counter_lessons += 1

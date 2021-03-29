@@ -3,7 +3,6 @@ from loader import db
 
 import requests
 import datetime
-import asyncio
 
 url_arhit = 'https://aues.arhit.kz/rasp/'
 
@@ -57,5 +56,6 @@ def get_all_institutions():
 
     institutions = eval(institutions)
     for i in institutions:
-        #asyncio.get_event_loop().run_until_complete(pgsql_conn(add_institution(i, institutions[i][0], institutions[i][1])))
+        # asyncio.get_event_loop().run_until_complete(pgsql_conn(add_institution(i, institutions[i][0], institutions[
+        # i][1])))
         db.add_institution(i, institutions[i][0], institutions[i][1])

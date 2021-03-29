@@ -41,7 +41,7 @@ async def reg_surname(message: types.Message, state: FSMContext):
 @dp.message_handler(state=RegistrationStates.find_group)
 async def search_group(message: types.Message):
     result = await group_search(message.text)
-    logger.info('Client is finding himself group - ', log_encode(message.text))
+    logger.info('Client is finding himself group - ' + log_encode(message.text.encode('utf-8')))
     if result == -1:
         await message.answer(
             text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, наименование группы должно быть такого '

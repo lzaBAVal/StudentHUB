@@ -1,7 +1,7 @@
 import logging
 
-def init_logger():
 
+def init_logger():
     global logger
 
     logger = logging.getLogger(name='core_logger')
@@ -16,12 +16,13 @@ def init_logger():
     logger.addHandler(filehandler)
     logger.propagate = False
 
-    if (logger.hasHandlers()):
+    if logger.hasHandlers():
         logger.handlers.clear()
 
     logger.addHandler(filehandler)
 
     return logger
 
+
 def log_encode(name):
-    return str(str(name).encode('utf-8'))
+    return str(str(name).encode('utf-8'), 'utf-8')

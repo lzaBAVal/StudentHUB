@@ -5,32 +5,9 @@ from bot.states.states import AnonStates, StudentStates, TesterState
 from loader import dp, db
 from logs.logging_core import init_logger
 
-from schedule_json.harvest.harvest_main import harvest_spec_group, harvest_spec_arhit_sched
-
 logger = init_logger()
 
-# NONE
-'''
-@dp.register_message_handler(State=None)
-async def def_user(message: types.Message, state: FSMContext):
-    try:
-        if not (await db.check_user(message.chat.id)):
-            await AnonStates.anon.set()
-            await state.set_state(AnonStates.anon)
-            print('Anon_check')
-            # await message.answer(text='Анон.', reply_markup=kb.anon_kb)
-        else:
-            await StudentStates.student.set()
-            await state.set_state(StudentStates.student)
-            await state.reset_state()
-            print('Student_check')
-            # await message.answer(text='Повторите ваш запрос', reply_markup=kb.stud_kb)
-    except Exception as exc:
-        logger.exception(exc)
-        await message.answer(text='Что то пошло не так! Ошибка', reply_markup=kb.anon_kb)
-    print('Handler? check')
-    #raise SkipHandler()
-'''
+# NONE ------------------------------------------------------------------------
 
 @dp.message_handler(state=None)
 async def def_user(message: types.Message):
@@ -59,16 +36,6 @@ async def start(message: types.Message):
 
 
 # ALL ------------------------------------------------------------------------
-
-@dp.message_handler(commands=['update_spec_group'], state='*')
-async def update_spec_group(message: types.Message):
-    await harvest_spec_group(db)
-
-
-@dp.message_handler(commands=['update_spec_sched'], state='*')
-async def update_spec_sched(message: types.Message):
-    await harvest_spec_arhit_sched(db)
-
 
 @dp.message_handler(commands=['id'], state='*')
 async def chat_id(message: types.Message):

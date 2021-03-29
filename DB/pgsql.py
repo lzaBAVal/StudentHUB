@@ -1,6 +1,7 @@
-import asyncpg, asyncio
+import asyncio
+import asyncpg
 
-from logs.logging_core import init_logger, log_encode
+from logs.logging_core import init_logger
 
 logger = init_logger()
 
@@ -46,7 +47,7 @@ class Database:
         logger.info('User - {0} get_user'.format(id_chat))
         return await self.pool.fetch(sql_query, id_chat)
 
-    async def get_arh_sched(self, id_chat: int):
+    async def get_arhit_sched(self, id_chat: int):
         sql_query = 'select sched_arhit from groups_students where id_inc=cast((select group_id from student where ' \
                     'id_chat = $1) as INT) '
         logger.info('User - {0} get_arhit_sched'.format(id_chat))
@@ -56,6 +57,11 @@ class Database:
         sql_query = 'select sched_group from groups_students where id_inc=cast((select group_id from student where ' \
                     'id_chat = $1) as INT) '
         logger.info('User - {0} get_group_sched'.format(id_chat))
+        return await self.pool.fetchrow(sql_query, id_chat)
+
+    async def get_user_sched(self, id_chat: int):
+        sql_query = 'select sched_user from student where id_chat = $1'
+        logger.info(f'User - {0} get_user_sched'.format(id_chat))
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_name(self, id_inc: int) -> str:
@@ -130,11 +136,14 @@ class Database:
         sql_query = 'update groups_students set sched_arhit = $1 where id_inc = $2;'
         return await self.pool.execute(sql_query, sched, id_inc)
 
-    async def update_group_sched(self, sched: str, id_inc: int):
-        sql_query = 'update groups_students set sched_group = $1 where id_inc=cast((select group_id from student ' \
+    async def update_group_sched(self, sched: str, id_chat: int):
+        sql_query = 'update groups_students set sched_group = $1 where id_inc = cast((select group_id from student ' \
                     'where id_chat = $2) as INT) '
+        return await self.pool.execute(sql_query, sched, id_chat)
 
-        return await self.pool.execute(sql_query, sched, id_inc)
+    async def update_user_sched(self, sched: str, id_chat: int):
+        sql_query = 'update student set sched_user = $1 where id_chat = $2;'
+        return await self.pool.execute(sql_query, sched, id_chat)
 
     async def update_tester(self, id_chat: str, hash: str):
         sql_query = 'update keys set id_chat = $1 where key_md5 = $2;'
@@ -143,7 +152,7 @@ class Database:
 
     async def update_privilege(self, privilege: int, id_chat: int) -> str:
         sql_query = "update student set privilege = b\'$1\' where id_chat = $2"
-        logger.info('User - {0} update_privilege, privilege - {1}'.format(id_chat, privilege))
+        logger.info(f'User - {0} update_privilege, privilege - {1}'.format(id_chat, privilege))
         return await self.pool.execute(sql_query, privilege, id_chat)
 
     #########################

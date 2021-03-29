@@ -10,7 +10,7 @@ logger = init_logger()
 async def errors_handler(update, exception, message: types.Message):
     """
     Exceptions handler. Catches all exceptions within task factory tasks.
-    :param dispatcher:
+    :param message:
     :param update:
     :param exception:
     :return: stdout logging

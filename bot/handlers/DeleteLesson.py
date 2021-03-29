@@ -3,13 +3,14 @@ from aiogram.dispatcher import FSMContext
 
 from bot import keyboard as kb
 from bot.states.states import StudentStates, DeleteLesson
-from loader import dp, db
+from loader import dp
 from logs.logging_core import init_logger
 from schedule_json.change.change_sched import delete_lesson
-from schedule_json.output.get_schedule_object import get_sched
 from schedule_json.change.change_sched import get_lessons_time
+from schedule_json.output.get_schedule_object import get_sched, update_sched
 
 logger = init_logger()
+
 
 @dp.message_handler(lambda message: message.text.lower() == "отмена", state=DeleteLesson.states)
 async def cancel_delete_lesson(message: types.message, state: FSMContext):
@@ -17,9 +18,10 @@ async def cancel_delete_lesson(message: types.message, state: FSMContext):
     await state.finish()
     await StudentStates.student.set()
 
+
 @dp.message_handler(state=DeleteLesson.lesson)
-async def add_lesson_process_yes(message: types.message, state: FSMContext):
-    sched = await get_sched(message.chat.id)
+async def delete_lesson_lesson(message: types.message, state: FSMContext):
+    sched = await get_sched(message.chat.id, 'sched_user')
     async with state.proxy() as data:
         data['day'] = message.text.lower()
         data['sched'] = sched
@@ -55,7 +57,8 @@ async def delete_lesson_check(message: types.message, state: FSMContext):
         await state.finish()
         await StudentStates.student.set()
         return 0
-    await db.update_group_sched(new_sched, message.chat.id)
+    # await db.update_group_sched(new_sched, message.chat.id)
+    await update_sched(message.chat.id, new_sched, 'sched_user')
     await DeleteLesson.next()
 
 

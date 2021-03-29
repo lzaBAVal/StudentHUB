@@ -33,7 +33,7 @@ classroom_online_btn = KeyboardButton("Онлайн")
 cat_btn = '🐈'
 
 stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-stud_kb.row(next_lesson_btn, todays_shedule_btn,tommorow_shedule_btn, all_shedule_btn)
+stud_kb.row(next_lesson_btn, todays_shedule_btn, tommorow_shedule_btn, all_shedule_btn)
 stud_kb.add(change_sched_btn)
 
 tester_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
@@ -77,6 +77,7 @@ def createButtons(btns_l: list):
     test.add(cancel_btn)
     return test
 
+
 def days():
     days_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     for i in range(len(WeekDays_RU) - 1):
@@ -85,6 +86,7 @@ def days():
             days_kb.row()
     days_kb.add(cancel_btn)
     return days_kb
+
 
 def free_time(time: list):
     free_time_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)

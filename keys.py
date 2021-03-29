@@ -5,6 +5,7 @@ from logs.logging_core import init_logger
 
 logger = init_logger()
 
+
 async def create_hashes(db):
     hash = hashlib.md5(bytes(str((datetime.now())).encode('utf-16'))).hexdigest()
     await db.add_key(hash)

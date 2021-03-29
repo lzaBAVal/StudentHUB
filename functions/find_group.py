@@ -104,7 +104,7 @@ async def group_search(group: str):
     from loader import db
     comp_match, match, other_match = [], [], []
     try:
-        req_g_list = list(re.findall(r'([a-z а-я \(\)\-\w]{1,10})[\-|" *"]+(\d{2})[\-|" *"]+(\d{1,2})', group.lower())[0])
+        req_g_list = list(re.findall(r'([a-z а-я()\-\w]{1,10})[\-|" *]+(\d{2})[\-|" *]+(\d{1,2})', group.lower())[0])
         print(req_g_list)
         if len(req_g_list) > 3 or len(req_g_list) < 2:
             raise Exception
@@ -115,7 +115,7 @@ async def group_search(group: str):
     except Exception:
         logger.warn('Group value - ' + str(group.encode('utf-8')))
         return -1
-    branch_mame = "".join(re.findall(r'^[а-я А-Я a-z A-Z]{2}', group))
+    branch_mame = "".join(re.findall(r'^[а-я А-Яa-zA-Z]{2}', group))
     response = await db.get_all_groups()
     for i in response:
         name = dict(i)['group_name']

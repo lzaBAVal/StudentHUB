@@ -1,23 +1,26 @@
-import base64, asyncio
+import asyncio
+import base64
+from datetime import datetime
+
 import aioschedule
 
-from datetime import datetime
-from schedule_json.harvest.harvest_schedules import search_schedule
-from schedule_json.harvest.harvest_groups import search_group
 from logs.logging_core import init_logger
-from vars import Sched
+from schedule_json.harvest.harvest_groups import search_group
+from schedule_json.harvest.harvest_schedules import search_schedule
 
 logger = init_logger()
 
+
 class Harvest:
     def __init__(self, db):
-        t = datetime.now().timestamp()
+        self.t = datetime.now().timestamp()
+        self.db = db
 
-    async def update(self, db):
-        return await get_ids(db)
+    async def update(self):
+        return await get_ids(self.db)
 
     async def check_time(self, t):
-        if t - datetime.timestamp() > 60:
+        if self.t - datetime.timestamp() > 60:
             await Harvest.update(self)
         else:
             await asyncio.sleep(70)
@@ -63,20 +66,22 @@ async def harvest_schedule(db, id: int = None):
 async def harvest_groups(db):
     instit_ids = await get_ids(db)
 
-    for i in instit_ids:
-        instit_url = dict(list(await db.get_institution(int(i)))[0])['url']
+    for instit_id in instit_ids:
+        instit_url = dict(list(await db.get_institution(int(instit_id)))[0])['url']
         groups = search_group(instit_url)
         exist_groups = await db.get_all_groups()
         for name in exist_groups:
             if list(name)[0] in groups:
                 groups.pop(str(list(name)[0]))
         if groups == {}:
-            logger.debug('No changes in harvest of the groups of the institution - (id) ' + str(i))
+            logger.debug('No changes in harvest of the groups of the institution - (id) ' + str(instit_id))
         else:
             for group in groups:
-                logger.debug('New groups - ' + str(group.encode('utf-8')) + ' ' + str(str(i).encode('utf-8') )+ \
-                             ' ' + str(groups[group].encode('utf-8')))
-                await db.add_group(group, i, groups[group])
+                logger.debug('New groups - ' +
+                             str(group.encode('utf-8')) + ' ' +
+                             str(str(instit_id).encode('utf-8')) + ' ' +
+                             str(groups[group].encode('utf-8')))
+                await db.add_group(group, instit_id, groups[group])
     logger.debug('Harvest groups has been ended')
 
 
@@ -84,25 +89,29 @@ async def harvest_arhit_sched(db):
     instit_ids = await get_ids(db)
 
     for i in instit_ids:
-        print('Instit: ' + str(i))
+        print('Institution: ' + str(i))
         url_group = str(dict(list(await db.get_institution_url_groups(i))[0])['url_for_groups'])
+        # groups_values contains group_url_value and id_inc
         groups_values = await db.get_groups_values(i)
+
         for j in groups_values:
+            group_url_value: str = str(list(j)[0])
+            id_inc: int = list(j)[1]
             try:
-                url = str(url_group.replace('{value}', list(j)[0]))
-                sched = search_schedule(url)
-                if sched == 0:
+                url = str(url_group.replace('{value}', group_url_value))
+                sched = str(search_schedule(url))
+                if sched == -1:
                     continue
-                sched = str(sched.dict())
-                sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
-                exist_sched = dict(list(await db.get_groups_sched_name_arhit(list(j)[1]))[0])
-                if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
-                    logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
-                await db.update_arhit_sched(str(sched64), list(j)[1])
+                sched64 = str(base64.b64encode(sched.encode('utf-8')), 'utf-8')
+                exist_sched = dict(list(await db.get_groups_sched_name_arhit(id_inc))[0])
+                if sched64 != exist_sched['sched_arhit'] or exist_sched['sched_arhit'] is None:
+                    logger.debug('Changed the schedule id = ' + str(str(id_inc).encode('utf-8')))
+                await db.update_arhit_sched(sched64, id_inc)
             except Exception as exc:
-                logger.warn('Institution id - ' + str(i) + ', group_value: ' + str(j))
+                logger.warn('Institution id - ' + str(i) + ', group_value: ' + group_url_value)
                 logger.exception(exc)
     logger.debug('Harvest schedule has been ended')
+
 
 '''
 async def harvest_group_sched(db):
@@ -122,66 +131,9 @@ async def harvest_group_sched(db):
     logger.debug('Harvest schedule has been ended')
 '''
 
-async def harvest_spec_group(db):
-    instit_ids = await get_ids(db)
-    exist_groups = await db.get_all_groups()
-    for i in instit_ids:
-        if int(i) != 5:
-            continue
-        instit_url = dict(list(await db.get_institution(int(i)))[0])['url']
-        groups = search_group(instit_url)
-        print(groups)
-        for name in exist_groups:
-            if list(name)[0] in groups:
-                groups.pop(str(list(name)[0]))
-        if groups == {}:
-            logger.debug('No changes in harvest of the groups of the institution - (id) ' + str(i))
-        else:
-            for group in groups:
-                logger.debug('New groups - ' + str(group.encode('utf-8')) + ' ' + str(str(i).encode('utf-8'))+ \
-                             ' ' + str(groups[group].encode('utf-8')))
-                await db.add_group(group, i, groups[group])
-    logger.debug('Harvest specific group has been ended')
-
-
-async def harvest_spec_arhit_sched(db):
-    instit_ids = await get_ids(db)
-
-    for i in instit_ids:
-        if int(i) != 5:
-            continue
-        print('Instit: ' + str(i))
-        url_group = str(dict(list(await db.get_institution_url_groups(i))[0])['url_for_groups'])
-        groups_values = await db.get_groups_values(i)
-        for j in groups_values:
-            url = str(url_group.replace('{value}', list(j)[0]))
-            sched: Sched = search_schedule(url)
-            sched = str(sched.dict())
-            sched64 = str(base64.b64encode(sched.encode('utf-8')))[2:-1]
-            exist_sched = dict(list(await db.get_groups_sched_name_arhit(list(j)[1]))[0])
-            if sched64 == exist_sched['sched_arhit'] or exist_sched['sched_arhit'] == None:
-                logger.debug('Changed the schedule - id = ' + str(str(list(j)[1]).encode('utf-8')))
-            await db.update_arhit_sched(str(sched64), list(j)[1])
-    logger.debug('Harvest schedule has been ended')
-
-
-
 async def scheduler(db):
     aioschedule.every(12).hours.do(harvest_groups, db)
     aioschedule.every(5).hours.do(harvest_arhit_sched, db)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)
-
-
-
-
-
-
-
-
-
-
-
-
-

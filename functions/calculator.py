@@ -6,6 +6,7 @@
     ответ с несколькими оценками.
 '''
 
+
 def calc_basic(rating: float, target: float = 0):
     if (rating > 0) and (target >= 0) and (rating <= 100) and (target <= 100):
         if target == 0:
@@ -23,5 +24,6 @@ def calc_basic(rating: float, target: float = 0):
 
 def calc_advanced():
     pass
+
 
 print(calc_basic(50, 100))

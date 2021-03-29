@@ -8,6 +8,7 @@ from logs.logging_core import init_logger
 
 logger = init_logger()
 
+
 def rate_limit(limit: int, key=None):
     def decorator(func):
         setattr(func, 'throttling_rate_limit', limit)
@@ -61,6 +62,7 @@ class ThrottlingMiddleware(BaseMiddleware):
         """
         This handler is called when dispatcher receives a message
 
+        :param data:
         :param message:
         """
 
