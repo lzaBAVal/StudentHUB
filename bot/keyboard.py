@@ -1,27 +1,31 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from bot.strings.commands import *
 from vars import WeekDays_RU
 
-all_shedule_btn = KeyboardButton("Все расписание")
-next_lesson_btn = KeyboardButton("Cледующая пара")
-todays_shedule_btn = KeyboardButton("Расписание на сегодня")
-tommorow_shedule_btn = KeyboardButton("Расписание на завтра")
-back_to_menu_btn = KeyboardButton("Вернуться на главное меню")
+all_shedule_btn = KeyboardButton(all_schedule_str)
+next_lesson_btn = KeyboardButton(next_lesson_str)
+todays_shedule_btn = KeyboardButton(todays_shedule_str)
+tommorow_shedule_btn = KeyboardButton(tommorow_shedule_str)
+back_to_menu_btn = KeyboardButton(back_to_menu_str)
 
-rating_btn = KeyboardButton("Расчитать итоговую оценку")
-alert_btn = KeyboardButton("Настройка уведомлений")
-find_group_btn = KeyboardButton("Найти группу")
+rating_btn = KeyboardButton(rating_str)
+alert_btn = KeyboardButton(alert_str)
+find_group_btn = KeyboardButton(find_group_str)
 
-register_btn = KeyboardButton("Регистрация")
-cancel_btn = KeyboardButton("Отмена")
-yes_btn = KeyboardButton("Да")
-no_btn = KeyboardButton("Нет")
+register_btn = KeyboardButton(register_str)
+cancel_btn = KeyboardButton(cancel_str)
+yes_btn = KeyboardButton(yes_str)
+no_btn = KeyboardButton(no_str)
 
-keys_btn = KeyboardButton("У меня есть ключ")
+keys_btn = KeyboardButton(keys_str)
 
-change_sched_btn = KeyboardButton("Изменить расписание")
-add_lesson_btn = KeyboardButton("Добавить урок")
-delete_lesson_btn = KeyboardButton("Убрать урок")
-replace_lesson_btn = KeyboardButton("Заменить урок")
+change_sched_btn = KeyboardButton(change_sched_str)
+add_lesson_btn = KeyboardButton(add_lesson_str)
+delete_lesson_btn = KeyboardButton(delete_lesson_str)
+replace_lesson_btn = KeyboardButton(register_str)
+
+personal_schedule_btn = KeyboardButton(personal_schedule_str)
+group_schedule_btn = KeyboardButton(group_schedule_str)
 
 subgroup_no_btn = KeyboardButton("Нет подгрупп")
 subgroup1_btn = KeyboardButton("1")
@@ -52,6 +56,9 @@ register_kb.add(cancel_btn)
 change_sched_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 change_sched_kb.row(add_lesson_btn, delete_lesson_btn)
 change_sched_kb.add(back_to_menu_btn)
+
+which_sched_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+which_sched_kb.row(personal_schedule_btn, group_schedule_btn)
 
 subgroup_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 subgroup_kb.row(subgroup_no_btn, subgroup1_btn, subgroup2_btn, subgroup3_btn)

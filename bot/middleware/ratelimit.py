@@ -1,9 +1,16 @@
 import asyncio
 
+from aiogram.dispatcher import FSMContext
+
+import bot.keyboard as kb
+import loader
+
 from aiogram import Dispatcher, types
 from aiogram.dispatcher.handler import CancelHandler, current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 from aiogram.utils.exceptions import Throttled
+
+from bot.states.states import AnonStates, StudentStates, CaptainSchedule
 from logs.logging_core import init_logger
 
 logger = init_logger()
@@ -19,33 +26,35 @@ def rate_limit(limit: int, key=None):
     return decorator
 
 
-def recognition(key=None):
-    def decorator(func):
-        if key:
-            setattr(func, 'recognition_key', key)
-        return func
-
-    return decorator()
-
 
 class CheckStateMiddleware(BaseMiddleware):
-    def __init__(self, key_prefix='norecognition_'):
-        self.prefix = key_prefix
-        super(CheckStateMiddleware, self).__init__()
+    async def on_pre_process_message(self, message: types.Message, data: dict):
+        state = await loader.dp.current_state(user=message.from_user.id).get_state()
+        if state is None:
+            try:
+                if not (await loader.db.check_user(message.chat.id)):
+                    await AnonStates.anon.set()
+                else:
+                    await StudentStates.student.set()
+            except Exception as exc:
+                logger.exception(exc)
+                await message.answer(text='Что то пошло не так! Ошибка', reply_markup=kb.anon_kb)
+        else:
+            pass
 
-    async def on_process_recognition(self, state: types.Message, data: dict):
+
+class CheckCaptainMiddleware(BaseMiddleware):
+    async def on_process_message(self, message: types.Message, data: dict):
         handler = current_handler.get()
-        dispatcher = Dispatcher.get_current()
-        logger.debug('test: ')
-        if handler:
-            key = getattr(handler, 'recognition_key', f"{self.prefix}_{handler.__name__}")
-        else:
-            key = f"{self.prefix}_message"
-
-        if await dispatcher.check_key(key):
-            logger.debug('True: ', key)
-        else:
-            logger.debug('False: ', key)
+        #state = loader.dp.current_state(user=message.from_user.id).get_state()
+        if handler.__name__ == 'change_sched':
+            try:
+                captain = dict(await loader.db.check_captain(message.chat.id)[0])['privilege']
+                if captain == 1:
+                    await CaptainSchedule.select.set()
+            except Exception as exc:
+                logger.exception(exc)
+                await message.answer(text='Что то пошло не так! Ошибка', reply_markup=kb.anon_kb)
 
 
 class ThrottlingMiddleware(BaseMiddleware):
@@ -65,7 +74,6 @@ class ThrottlingMiddleware(BaseMiddleware):
         :param data:
         :param message:
         """
-
         handler = current_handler.get()
         dispatcher = Dispatcher.get_current()
 
@@ -104,7 +112,7 @@ class ThrottlingMiddleware(BaseMiddleware):
             await message.reply('Не отправляйте сообщения слишком часто!')
             logger.warn('User - ' + str(message.chat.id) + ' send many messages')
         # Sleep.
-        await asyncio.sleep(5)
+        await asyncio.sleep(delta)
 
         # Check lock status
         thr = await dispatcher.check_key(key)

@@ -14,7 +14,7 @@ async def create_hashes(db):
 
 async def get_free_hashes(db):
     hashes = await db.get_free_hashes()
-    print(hashes)
+    return hashes
 
 
 async def add_tester(db, chat_id, hash):

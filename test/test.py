@@ -1,6 +1,8 @@
 import logging
 
 import aiogram.utils.markdown as md
+
+from logs.logging_core import init_logger
 from aiogram import Bot, Dispatcher, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
@@ -13,6 +15,7 @@ logging.basicConfig(level=logging.INFO)
 
 API_TOKEN = '1533907938:AAFdL_sf1pH_FwNZqxihjX7JqDUcOk5bXKE'
 
+logger = init_logger()
 
 bot = Bot(token=API_TOKEN)
 
@@ -82,4 +85,5 @@ async def process_gender(message: types.Message, state: FSMContext):
 
 
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
+    logging.info('Привет')
+    logging.info('Привет'.encode('ascii', errors='backslashreplace'))

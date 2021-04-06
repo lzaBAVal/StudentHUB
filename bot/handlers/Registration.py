@@ -7,7 +7,7 @@ from aiogram.types import ParseMode
 from bot import keyboard as kb
 from bot.states.states import AnonStates, RegistrationStates, StudentStates
 
-from functions.find_group import group_search
+from functions.other.find_group import group_search
 
 from loader import dp, db, bot
 from logs.logging_core import init_logger, log_encode
@@ -41,7 +41,8 @@ async def reg_surname(message: types.Message, state: FSMContext):
 @dp.message_handler(state=RegistrationStates.find_group)
 async def search_group(message: types.Message):
     result = await group_search(message.text)
-    logger.info('Client is finding himself group - ' + log_encode(message.text.encode('utf-8')))
+    logger.info(f'User - {0} is finding himself group - '.format(message.chat.id) +
+                log_encode(message.text.encode('utf-8')))
     if result == -1:
         await message.answer(
             text='Не могу разобрать что вы пишите, попробуйте снова. Напомню, наименование группы должно быть такого '
@@ -104,7 +105,7 @@ async def accept_all_data(message: types.Message, state: FSMContext):
 async def reg_final(message: types.Message, state: FSMContext):
     data = await state.get_data()
     try:
-        await db.add_user(message.chat.id, data['name'], data['surname'], str(data['group_id']))
+        await db.add_user(message.chat.id, data['name'], data['surname'], str(data['group_id']), data['group_name'])
     except Exception as e:
         print(e)
         await message.answer(text='Произошла ошибка, обратитесь к разработчику)', reply_markup=kb.anon_kb)

@@ -20,7 +20,6 @@ class TesterState(StatesGroup):
 class AnonStates(StatesGroup):
     anon = State()
 
-
 class StudentStates(StatesGroup):
     student = State()
     captain = State()
@@ -53,3 +52,17 @@ class DeleteLesson(StatesGroup):
 class DiscoverFreeTime(StatesGroup):
     output = State()
 
+class AdminCheckUser(StatesGroup):
+    user_id = State()
+    output = State()
+
+class AdminGiveRights(StatesGroup):
+    user_id = State()
+    issue = State()
+
+class AdminTakeAwayRights(StatesGroup):
+    user_id = State()
+    issue = State()
+
+class CaptainSchedule():
+    select = State()

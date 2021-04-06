@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from DB.pgsql import Database
-from bot.middleware.ratelimit import ThrottlingMiddleware
+from bot.middleware.ratelimit import ThrottlingMiddleware, CheckStateMiddleware, CheckCaptainMiddleware
 from config import token
 from logs.logging_core import init_logger
 from schedule_json.harvest.harvest_main import Harvest, scheduler
@@ -24,9 +24,9 @@ loop = asyncio.get_event_loop()
 db = Database(loop)
 hrvst = Harvest(db)
 dp.middleware.setup(ThrottlingMiddleware())
+dp.middleware.setup(CheckStateMiddleware())
+dp.middleware.setup(CheckCaptainMiddleware())
 
-
-# dp.middleware.setup(CheckStateMiddleware())
 
 async def on_startup(x):
     asyncio.create_task(scheduler(db))

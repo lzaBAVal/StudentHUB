@@ -19,6 +19,9 @@ days = {
     'saturday': 'суббота'
 }
 
+class StudentRole(BaseModel):
+    sched: str
+
 
 class Time(BaseModel):
     start: str

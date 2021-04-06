@@ -1,3 +1,5 @@
+from bot.strings.messages import *
+
 from aiogram import types
 
 from bot import keyboard as kb
@@ -7,32 +9,30 @@ from logs.logging_core import init_logger
 
 logger = init_logger()
 
+
 # NONE ------------------------------------------------------------------------
+@dp.message_handler(state=None)
+async def state_none(message: types.Message):
+    await message.answer('Упс, что то пошло не так.')
+    logger.warn(f'User - {0}. STATE NONE!')
+
 
 @dp.message_handler(state=None)
 async def def_user(message: types.Message):
     try:
         if not (await db.check_user(message.chat.id)):
             await AnonStates.anon.set()
-            await message.answer(text='Анон.', reply_markup=kb.anon_kb)
         else:
             await StudentStates.student.set()
-            await message.answer(text='Повторите ваш запрос', reply_markup=kb.stud_kb)
     except Exception as exc:
         logger.exception(exc)
         await message.answer(text='Что то пошло не так! Ошибка', reply_markup=kb.anon_kb)
 
 
-@dp.message_handler(commands=['start'], state=None)
+@dp.message_handler(commands=['start'], state=AnonStates.anon)
 async def start(message: types.Message):
     await TesterState.tester.set()
-    await message.answer(text='Привет, студент! Я бот \nНа данный момент идет тестовый период моей работы.\
-    \nЯ могу ошибаться, тормозить в общем работать не так как нужно)\
-    \nЕсли ты хочешь пользоваться моим функционалом или помочь мне, тогда тебе нужен ключик для входа\
-    \nЕго можно взять у моего разработчика или админов \
-    \nЕсли уже есть ключик то жмакай на кнопку ввести ключ и вводи его)\
-    \nРазработчик будет очень рад если ты будешь отправлять ему замечания по поводу моей работы!',
-                         reply_markup=kb.tester_kb)
+    await message.answer(text=start_text, reply_markup=kb.anon_kb)
 
 
 # ALL ------------------------------------------------------------------------
@@ -40,24 +40,6 @@ async def start(message: types.Message):
 @dp.message_handler(commands=['id'], state='*')
 async def chat_id(message: types.Message):
     await message.answer(text=message.chat.id)
-
-
-'''
-# This block of code is a test harvest the groups and schedules 
-
-@dp.message_handler(commands=['update1'], state='*')
-async def id_chat(message: types.Message):
-    await harvest_groups(db)
-
-
-@dp.message_handler(commands=['update2'], state='*')
-async def id_chat(message: types.Message):
-    await harvest_arhit_sched(db)
-'''
-
-# @dp.message_handler(commands=['linebut'])
-# async def inlinebutton(message: types.Message):
-#    await message.reply('Первая инлайн кнопка', reply_markup=kb.inline_kb1)
 
 
 '''
