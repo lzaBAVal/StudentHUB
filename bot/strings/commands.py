@@ -17,9 +17,10 @@ find_group_str = "Найти группу"
 register_str = "Регистрация"
 keys_str = "У меня есть ключ"
 
-
 change_sched_str = "Изменить расписание"
 add_lesson_str = "Добавить урок"
 delete_lesson_str = "Убрать урок"
 replace_lesson_str = "Заменить урок"
 
+configuration_str = "Настройки аккаунта"
+whose_schedule_str = "Тип расписания"

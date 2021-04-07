@@ -44,12 +44,12 @@ class CheckStateMiddleware(BaseMiddleware):
 
 
 class CheckCaptainMiddleware(BaseMiddleware):
-    async def on_process_message(self, message: types.Message, data: dict):
+    async def on_pre_process_message(self, message: types.Message, data: dict):
         handler = current_handler.get()
         #state = loader.dp.current_state(user=message.from_user.id).get_state()
-        if handler.__name__ == 'change_sched':
+        if handler.__name__ == 'change_sched' or message.text == 'Изменить расписание':
             try:
-                captain = dict(await loader.db.check_captain(message.chat.id)[0])['privilege']
+                captain = dict((await loader.db.check_captain(message.chat.id))[0])['privilege']
                 if captain == 1:
                     await CaptainSchedule.select.set()
             except Exception as exc:

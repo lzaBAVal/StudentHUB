@@ -64,5 +64,8 @@ class AdminTakeAwayRights(StatesGroup):
     user_id = State()
     issue = State()
 
-class CaptainSchedule():
+class CaptainSchedule(StatesGroup):
+    select = State()
+
+class ConfigWhoseScheduleState(StatesGroup):
     select = State()

@@ -5,6 +5,7 @@ from logs.logging_core import init_logger
 
 logger = init_logger()
 
+
 class Database:
     def __init__(self, loop: asyncio.AbstractEventLoop):
         self.pool = loop.run_until_complete(
@@ -30,61 +31,67 @@ class Database:
 
     async def check_user(self, id_chat: int) -> str:
         sql_query = "select * from student where id_chat = $1"
-        logger.info('User - {0} check_user'.format(id_chat))
+        logger.info(f'User - {id_chat} check_user')
         return await self.pool.fetch(sql_query, id_chat)
 
     async def check_tester(self, id_chat: int):
         sql_query = "select * from keys where id_chat = $1"
-        logger.info('User - {0} check_tester'.format(id_chat))
+        logger.info(f'User - {id_chat} check_tester')
         return await self.pool.fetch(sql_query, id_chat)
 
     async def check_captain(self, id_chat: int):
         sql_query = "select privilege from student where id_chat = $1"
-        #logger.info('User - {0} check_captain'.format(id_chat))
+        # logger.info('User - {0} check_captain'.format(id_chat))
         return await self.pool.fetch(sql_query, id_chat)
 
     #########################
     #       GET ADMIN       #
     #########################
-    async def admin_get_users_list(self, admin_id_chat:int) -> str:
+    async def admin_get_users_list(self, admin_id_chat: int) -> str:
         sql_query = "select id_chat, u_name, surname, group_id, privilege from student"
-        logger.info('admin_get_users_list. Checks {0}'.format(admin_id_chat))
+        logger.info(f'admin_get_users_list. Checks {admin_id_chat}')
         return await self.pool.fetch(sql_query)
 
-    async def admin_get_user_bio(self, admin_id_chat:int, id_chat: int) -> str:
-        sql_query = "select id_chat, u_name, surname, group_id from student where id_chat = $1"
-        logger.info('User - {0} admin_get_user. Checks {1}'.format(id_chat, admin_id_chat))
+    async def admin_get_user_bio(self, admin_id_chat: int, id_chat: int) -> str:
+        sql_query = "select id_chat, u_name, surname, group_id, privilege from student where id_chat = $1"
+        logger.info(f'User - {id_chat} admin_get_user. Checks {admin_id_chat}')
+        return await self.pool.fetch(sql_query, id_chat)
+
+    async def admin_get_users_classmates(self, id_chat: int) -> str:
+        sql_query = "select id_chat, u_name, surname, group_id from student where group_id = (select group_id from " \
+                    "student where id_chat = $1) "
+        logger.info(f'admin_get_users_classmates. Checks {id_chat}')
         return await self.pool.fetch(sql_query, id_chat)
 
     #########################
     #          GET          #
     #########################
-    async def admin_get_users_classmates(self, id_chat: int) -> str:
-        sql_query = "select id_chat, u_name, surname, group_id from student where group_id = (select group_id from " \
-                    "student where id_chat = $1) "
-        logger.info('admin_get_users_classmates. Checks {0}'.format(id_chat))
+
+    async def get_whose_sched(self, id_chat: int):
+        sql_query = "select whose_schedule from student where id_chat = $1"
+        logger.info(f'User - {id_chat} get_whose_sched')
         return await self.pool.fetch(sql_query, id_chat)
 
     async def get_user(self, id_chat: int) -> str:
         sql_query = "select * from student where id_chat = $1"
-        logger.info('User - {0} get_user'.format(id_chat))
+        logger.info(f'User - {id_chat} get_user')
         return await self.pool.fetch(sql_query, id_chat)
 
     async def get_arhit_sched(self, id_chat: int):
         sql_query = 'select sched_arhit from groups_students where id_inc=cast((select group_id from student where ' \
                     'id_chat = $1) as INT) '
-        logger.info('User - {0} get_arhit_sched'.format(id_chat))
+        logger.info(f'User - {id_chat} get_arhit_sched')
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_sched(self, id_chat: int):
         sql_query = 'select sched_group from groups_students where id_inc=cast((select group_id from student where ' \
                     'id_chat = $1) as INT) '
-        logger.info('User - {0} get_group_sched'.format(id_chat))
+        logger.info(f'User - {id_chat} get_group_sched')
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_user_sched(self, id_chat: int):
         sql_query = 'select sched_user from student where id_chat = $1'
-        logger.info(f'User - {0} get_user_sched'.format(id_chat))
+        logger.info(f'User - {id_chat} get_user_sched')
         return await self.pool.fetchrow(sql_query, id_chat)
 
     async def get_group_name(self, id_inc: int) -> str:
@@ -134,8 +141,9 @@ class Database:
     #########################
 
     async def add_user(self, id_chat: int, name: str, surname: str, group_id: str, group_name: str):
-        sql_query = "insert into student (id_chat, u_name, surname, group_id, group_name) values ($1, $2, $3, $4, $5) "
-        logger.info('User - {0} add_user'.format(id_chat))
+        sql_query = "insert into student (id_chat, u_name, surname, group_id, group_name, whose_schedule)" \
+                    " values ($1, $2, $3, $4, $5, \'general\') "
+        logger.info(f'User - {id_chat} add_user')
         await self.pool.execute(sql_query, id_chat, name, surname, group_id, group_name)
 
     async def add_group(self, group_name: str, id_group: int, url_value: str):
@@ -153,9 +161,14 @@ class Database:
     #########################
     #        UPDATE         #
     #########################
+    async def update_whose_schedule(self, whose: str, id_chat: int) -> str:
+        sql_query = "update student set whose_schedule = $1 where id_chat = $2"
+        logger.info(f'User - {id_chat} update_whose_schedule, privilege - {whose}')
+        return await self.pool.execute(sql_query, whose, id_chat)
+
     async def update_privilege(self, privilege: int, id_chat: int) -> str:
         sql_query = "update student set privilege = $1 where id_chat = $2"
-        logger.info(f'User - {0} update_privilege, privilege - {1}'.format(id_chat, privilege))
+        logger.info(f'User - {id_chat} update_privilege, privilege - {privilege}')
         return await self.pool.execute(sql_query, privilege, id_chat)
 
     async def update_arhit_sched(self, sched: str, id_inc: int):
@@ -173,7 +186,7 @@ class Database:
 
     async def update_tester(self, id_chat: str, hash: str):
         sql_query = 'update keys set id_chat = $1 where key_md5 = $2;'
-        logger.info('User - {0} update_tester'.format(id_chat))
+        logger.info(f'User - {id_chat} update_tester')
         return await self.pool.execute(sql_query, id_chat, hash)
 
     #########################

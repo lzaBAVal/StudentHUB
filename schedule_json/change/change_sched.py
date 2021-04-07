@@ -127,7 +127,23 @@ async def add_lesson(sched, day: int = None, complex_time: str = None, time_star
         for item_lesson in sched[day]['lessons']:
             if item_lesson['time']['start'] == time_start:
                 return -1
-        sched[day]['lessons'].append(lesson)
+        lessons = sched[day]['lessons']
+        for counter in range(len(lessons)):
+            print(len(lessons))
+            print('counter: ', counter)
+            if counter == len(lessons) - 1:
+                sched[day]['lessons'].append(lesson)
+                break
+            start_old = lessons[counter]['time']['start']
+            start_new = lesson['time']['start']
+            start_old = datetime.strptime(start_old, "%H:%M")
+            start_new = datetime.strptime(start_new, "%H:%M")
+            if start_new < start_old:
+                sched[day]['lessons'].insert(counter, lesson)
+                break
+
+
+        #sched[day]['lessons'].append(lesson)
     else:
         sched[day] = {'lessons': [lesson]}
 

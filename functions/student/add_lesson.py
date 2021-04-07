@@ -1,4 +1,6 @@
 import re
+
+from loader import db
 from logs.logging_core import init_logger
 
 import bot.keyboard as kb
@@ -10,7 +12,6 @@ from bot.states.states import AddLesson
 from schedule_json.change.change_sched import get_free_time, add_lesson
 from schedule_json.output.get_schedule_object import get_sched, update_sched
 from vars import WeekDays_RU, special_chars, special_chars_digit
-from bot.strings.messages import cant_show_schedule_str
 from functions.whois import whois
 
 
@@ -23,12 +24,10 @@ async def add_lesson_time(message: types.message, state: FSMContext, completed: 
             await message.answer(text='Введите день недели!')
             return 0
         try:
-            whose = await state.get_data('whose')
-            whose = whois(whose)
+            whose = await whois(db, message)
         except Exception as exc:
             logger.exception(exc)
-            whose = whois('personal')
-            await message.answer(text='Вы меняете свое расписание')
+            return -1
         sched = await get_sched(message.chat.id, whose)
         free_time = await get_free_time(message.text.lower(), sched)
         async with state.proxy() as data:
@@ -121,13 +120,17 @@ async def add_lesson_check(message: types.message, state: FSMContext, completed:
 
 async def add_lesson_process(message: types.message, state: FSMContext):
     data = await state.get_data()
-    sched = await add_lesson(sched=data['sched'], day=WeekDays_RU.index(data['day']), complex_time=data['time'],
+    try:
+        sched = await add_lesson(sched=data['sched'], day=WeekDays_RU.index(data['day']), complex_time=data['time'],
                              classroom=data['classroom'], name_lesson=data['lesson'], teacher=data['teacher'])
-    await update_sched(message.chat.id, sched, 'sched_user')
-    await AddLesson.next()
-    await message.answer('Идет процесс занесения урока в базу! Для завершения тыкните на котика',
-                         reply_markup=kb.cat_kb)
-
+        await update_sched(message.chat.id, sched, 'sched_user')
+        await AddLesson.next()
+        await message.answer('Идет процесс занесения урока в базу! Для завершения тыкните на котика',
+                             reply_markup=kb.cat_kb)
+    except Exception as exc:
+        logger.exception(exc)
+        await message.answer('При добавлении предмета произошло логическая ошибка.')
+        return 1
 
 
 

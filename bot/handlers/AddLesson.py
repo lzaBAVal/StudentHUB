@@ -47,7 +47,8 @@ async def lesson_check(message: types.message, state: FSMContext, completed: boo
 
 @dp.message_handler(lambda message: message.text.lower() == "да", state=AddLesson.process)
 async def lesson_process(message: types.message, state: FSMContext):
-    await add_lesson_process(message, state)
+    if await add_lesson_process(message, state) == 1:
+        await add_lesson_cancel(message, state)
 
 
 @dp.message_handler(lambda message: message.text.lower() == "нет", state=AddLesson.process)

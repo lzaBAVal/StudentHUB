@@ -6,6 +6,7 @@ all_shedule_btn = KeyboardButton(all_schedule_str)
 next_lesson_btn = KeyboardButton(next_lesson_str)
 todays_shedule_btn = KeyboardButton(todays_shedule_str)
 tommorow_shedule_btn = KeyboardButton(tommorow_shedule_str)
+configuration_btn = KeyboardButton(configuration_str)
 back_to_menu_btn = KeyboardButton(back_to_menu_str)
 
 rating_btn = KeyboardButton(rating_str)
@@ -27,6 +28,8 @@ replace_lesson_btn = KeyboardButton(register_str)
 personal_schedule_btn = KeyboardButton(personal_schedule_str)
 group_schedule_btn = KeyboardButton(group_schedule_str)
 
+whose_schedule_btn = KeyboardButton(whose_schedule_str)
+
 subgroup_no_btn = KeyboardButton("Нет подгрупп")
 subgroup1_btn = KeyboardButton("1")
 subgroup2_btn = KeyboardButton("2")
@@ -39,6 +42,7 @@ cat_btn = '🐈'
 stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 stud_kb.row(next_lesson_btn, todays_shedule_btn, tommorow_shedule_btn, all_shedule_btn)
 stud_kb.add(change_sched_btn)
+stud_kb.add(configuration_btn)
 
 tester_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 tester_kb.add(keys_btn)
@@ -69,6 +73,14 @@ classroom_kb.add(classroom_online_btn, cancel_btn)
 
 cat_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 cat_kb.row(cat_btn)
+
+configuration_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+configuration_kb.add(whose_schedule_btn)
+configuration_kb.add(back_to_menu_btn)
+
+select_whose_schedule_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+select_whose_schedule_kb.row(personal_schedule_btn, group_schedule_btn)
+select_whose_schedule_kb.add(back_to_menu_btn)
 
 
 def createButtons(btns_l: list):

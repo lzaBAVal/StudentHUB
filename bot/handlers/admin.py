@@ -11,7 +11,7 @@ from config import myid
 from bot.handlers.handlers import def_user
 
 
-@dp.message_handler(IDFilter(myid), commands=['help'], state='*')
+@dp.message_handler(IDFilter(myid), commands=['help_admin'], state='*')
 async def check_user(message: types.Message):
     await message.answer(
         '/cancel_func - отменяет текущий процесс операции\n'
@@ -20,7 +20,9 @@ async def check_user(message: types.Message):
         '/group_info - выведет информацию о вашей группе, имя старосты, количество человек в состоящих в группе и '
         'пользующихся ботом\n '
         '/check_user_bio - показывает информацию о пользователе чей id вы введет\n'
-        '/users_list - выводит список студентов с их именем, группой, id\n')
+        '/users_list - выводит список студентов с их именем, группой, id\n'
+        '/give_rights - выдать права старосты студенту\n'
+        '/take_away_rights - забрать права старосты у студента\n')
 
 
 @dp.message_handler(IDFilter(myid), commands=['cancel_func'], text=['Отмена'], state='*')
@@ -37,7 +39,7 @@ async def users_list(message: types.Message):
 
 @dp.message_handler(IDFilter(myid), commands=['check_user_bio'], state='*')
 async def check_user_bio(message: types.Message):
-    await message.answer('Введите id человека, о котором вы хотите получить информацию')
+    await message.answer('Введите id студента, о котором вы хотите получить информацию')
     await AdminCheckUser.user_id.set()
 
 
@@ -63,6 +65,7 @@ async def give_rights_data(message: types.Message, state: FSMContext):
     msg = message.text
     if msg.isdigit():
         resp = dict((await db.admin_get_user_bio(message.chat.id, int(msg)))[0])
+        print(resp)
         resp = output_bio(resp, id_chat=True, name=True, surname=True, group=True, privilege=True)
         async with state.proxy() as data:
             data['user'] = msg
@@ -74,11 +77,12 @@ async def give_rights_data(message: types.Message, state: FSMContext):
 
 @dp.message_handler(lambda message: message.text.lower() == "да", IDFilter(myid), state=AdminGiveRights.issue)
 async def give_rights(message: types.Message, state: FSMContext):
-    user = state.get_data('user')
+    user = int((await state.get_data())['user'])
+    print(user)
     await db.update_privilege(1, user)
     resp = dict((await db.admin_get_user_bio(message.chat.id, user))[0])
     resp = output_bio(resp, id_chat=True, name=True, surname=True, group=True, privilege=True)
-    await message.answer(resp + '\nПрава выданы!')
+    await message.answer(resp + '\nПрава выданы!', reply_markup=kb.stud_kb)
     await def_user(message)
 
 

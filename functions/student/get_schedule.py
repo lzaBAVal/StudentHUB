@@ -4,6 +4,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 
 from bot.states.states import StudentStates
+from loader import db
 from schedule_json.change.change_sched import get_free_time
 from schedule_json.output.get_schedule_object import get_sched_type, get_sched
 from logs.logging_core import init_logger
@@ -14,9 +15,9 @@ from vars import WeekDays_RU
 logger = init_logger()
 
 
-async def get_all_schedule(message: types.Message, whose='personal'):
+async def get_all_schedule(message: types.Message):
     try:
-        whose = whois(whose)
+        whose = await whois(db, message)
         resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
     except Exception as exc:
         logger.exception(exc)
@@ -25,9 +26,9 @@ async def get_all_schedule(message: types.Message, whose='personal'):
         await message.answer(text=resp)
 
 
-async def get_todays_shedule(message: types.Message, whose='personal'):
+async def get_todays_shedule(message: types.Message):
     try:
-        whose = whois(whose)
+        whose = await whois(db, message)
         resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=2, whose_sched=whose)
         if isinstance(resp, tuple):
             await message.answer(resp[1])
@@ -39,9 +40,9 @@ async def get_todays_shedule(message: types.Message, whose='personal'):
         await message.answer(text=resp)
 
 
-async def get_next_lesson(message: types.Message, whose='personal'):
+async def get_next_lesson(message: types.Message):
     try:
-        whose = whois(whose)
+        whose = await whois(db, message)
         resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=3, whose_sched=whose)
         if isinstance(resp, tuple):
             await message.answer(resp[1])
@@ -53,9 +54,9 @@ async def get_next_lesson(message: types.Message, whose='personal'):
         await message.answer(text=resp)
 
 
-async def get_tommorow_lesson(message: types.Message, whose='personal'):
+async def get_tommorow_lesson(message: types.Message):
     try:
-        whose = whois(whose)
+        whose = await whois(db, message)
         resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
         if isinstance(resp, tuple):
             await message.answer(resp[1])
@@ -67,9 +68,9 @@ async def get_tommorow_lesson(message: types.Message, whose='personal'):
         await message.answer(text=resp)
 
 
-async def get_output_free_time(message: types.message, whose='personal'):
+async def get_output_free_time(message: types.message):
     if message.text.lower() in WeekDays_RU:
-        whose = whois(whose)
+        whose = await whois(db, message)
         sched = await get_sched(message.chat.id, whose)
         result = await get_free_time(message.text.lower(), sched)
         res = ''
