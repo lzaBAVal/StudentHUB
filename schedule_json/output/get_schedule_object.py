@@ -65,9 +65,9 @@ def check_sched(sched: dict) -> bool:
     except Exception as exp:
         logger.warn('The schedule does not meet the standard')
         logger.exception(exp)
-        return True
-    else:
         return False
+    else:
+        return True
 
 
 def decode_sched(sched: str) -> dict:
