@@ -3,7 +3,7 @@ import bot.keyboard as kb
 from aiogram import types
 
 from bot.states.states import AnonStates, StudentStates
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 
 logger = init_logger()

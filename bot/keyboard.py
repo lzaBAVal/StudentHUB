@@ -40,7 +40,8 @@ classroom_online_btn = KeyboardButton("Онлайн")
 cat_btn = '🐈'
 
 stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-stud_kb.row(next_lesson_btn, todays_shedule_btn, tommorow_shedule_btn, all_shedule_btn)
+stud_kb.add(next_lesson_btn, todays_shedule_btn)
+stud_kb.add(tommorow_shedule_btn, all_shedule_btn)
 stud_kb.add(change_sched_btn)
 stud_kb.add(configuration_btn)
 

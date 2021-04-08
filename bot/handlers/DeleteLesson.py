@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from bot import keyboard as kb
 from bot.states.states import StudentStates, DeleteLesson
 from loader import dp
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 from schedule_json.change.change_sched import delete_lesson
 from schedule_json.change.change_sched import get_lessons_time
 from schedule_json.output.get_schedule_object import get_sched, update_sched

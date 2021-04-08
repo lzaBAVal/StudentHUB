@@ -10,7 +10,7 @@ from bot.states.states import AnonStates, RegistrationStates, StudentStates
 from functions.other.find_group import group_search
 
 from loader import dp, db, bot
-from logs.logging_core import init_logger, log_encode
+from logs.scripts.logging_core import init_logger, log_encode
 
 logger = init_logger()
 

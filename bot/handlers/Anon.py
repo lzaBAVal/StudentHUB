@@ -1,11 +1,11 @@
 from aiogram import types
 
 from bot import keyboard as kb
-from bot.states.states import AnonStates, RegistrationStates, StudentStates
+from bot.states.states import AnonStates, RegistrationStates
 from bot.strings.messages import help_anon_str
 from functions.command import identify_user
 from loader import dp, db
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 
 logger = init_logger()

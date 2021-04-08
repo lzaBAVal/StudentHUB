@@ -3,7 +3,7 @@ import ssl
 from aiogram.dispatcher.webhook import get_new_configured_app
 from aiohttp import web
 from config import WEBHOOK_URL_PATH, WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV, WEBAPP_HOST, WEBAPP_PORT
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 # ----------------------------------------------------------------------------------------------------
 
@@ -13,7 +13,6 @@ if __name__ == '__main__':
     dp = loader.dp
     logger = init_logger()
 
-    from aiogram import executor
     from bot.handlers import dp
 
     logger.debug('Bot started')

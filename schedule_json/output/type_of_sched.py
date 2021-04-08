@@ -32,13 +32,13 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
     if day == 'sunday':
         return -1, 'Сегодня выходной'
     todays_shed = sched[day]
-    result = '-------------------\n' + str(WeekDays_RU[weekday]).title() + '\n-------------------\n'
+    result = '-------------------\n' + str(WeekDays_RU[weekday]).title() + '\n-------------------'
     if todays_shed is None or len(todays_shed['lessons']) == 0:
         result += 'Нет занятий'
     else:
         for i in todays_shed['lessons']:
             result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
-            result += '-------------------\n'
+            result += '\n-------------------\n'
     result = ''.join(result)
     return result
 
@@ -58,7 +58,7 @@ def schedule_for_tommorow(sched, time=True, subgroup=False, lesson=True, teacher
     else:
         for i in todays_shed['lessons']:
             result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
-            result += '-------------------\n'
+            result += '\n-------------------\n'
     result = ''.join(result)
 
     return result
@@ -67,9 +67,9 @@ def schedule_for_tommorow(sched, time=True, subgroup=False, lesson=True, teacher
 def all_schedule(sched, time=True, subgroup=False, lesson=True, teacher=False, classroom=False):
     result = ''
     for k in sched:
-        result += str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------\n'
+        result += '\n' + str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------'
         if sched[k] is None:
-            result += 'Нет занятий\n\n'
+            result += '\nНет занятий\n\n'
             continue
         for i in sched[k]['lessons']:
             result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)

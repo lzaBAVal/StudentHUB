@@ -7,7 +7,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from DB.pgsql import Database
 from bot.middleware.ratelimit import ThrottlingMiddleware, CheckStateMiddleware, CheckCaptainMiddleware
 from config import token
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 from schedule_json.harvest.harvest_main import Harvest, scheduler
 
 API_TOKEN = token
