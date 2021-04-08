@@ -2,7 +2,7 @@ import base64
 import loader
 
 from schedule_json.output import type_of_sched
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 from vars import Sched
 
 logger = init_logger()

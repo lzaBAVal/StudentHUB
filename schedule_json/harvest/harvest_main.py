@@ -4,7 +4,7 @@ from datetime import datetime
 
 import aioschedule
 
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 from schedule_json.harvest.harvest_groups import search_group
 from schedule_json.harvest.harvest_schedules import search_schedule
 

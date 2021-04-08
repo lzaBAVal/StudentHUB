@@ -1,7 +1,7 @@
 import re
 
 from loader import db
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 import bot.keyboard as kb
 

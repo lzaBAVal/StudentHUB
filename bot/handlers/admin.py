@@ -1,5 +1,5 @@
 from bot.strings.messages import help_admin_str
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 import bot.keyboard as kb
 
 from aiogram import types
@@ -11,7 +11,7 @@ from bot.states.states import AdminCheckUser, AdminGiveRights, AdminTakeAwayRigh
 from config import myid
 from functions.admin.admin_func import get_list_of_users, output_bio, create_hash
 from loader import dp, db
-
+from logs.scripts.output import get_last_logs, get_last_critical_logs
 
 logger = init_logger()
 
@@ -19,6 +19,17 @@ logger = init_logger()
 @dp.message_handler(IDFilter(myid), commands=['help_admin'], state='*')
 async def check_user(message: types.Message):
     await message.answer(help_admin_str)
+
+
+@dp.message_handler(IDFilter(myid), commands=['last_critical'], state='*')
+async def check_user(message: types.Message):
+    await message.answer(get_last_critical_logs())
+
+
+@dp.message_handler(IDFilter(myid), commands=['last_logs'], state='*')
+async def check_user(message: types.Message):
+    result = get_last_logs()
+    await message.answer(result)
 
 
 @dp.message_handler(IDFilter(myid), commands=['cancel_func'], text=['Отмена'], state='*')
@@ -56,6 +67,8 @@ async def get_free_hashes(message: types.Message):
     result = ''
     for key in hashes:
         result += key['key_md5'] + '\n'
+    if result == '':
+        result = 'Свободных хешей нет, создайте новые'
     await message.answer(result)
 
 

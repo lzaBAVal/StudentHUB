@@ -1,6 +1,6 @@
 from aiogram import types
 
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 from loader import dp, bot
 
 logger = init_logger()

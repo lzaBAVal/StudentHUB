@@ -1,5 +1,5 @@
 from loader import bot, dp, on_shutdown, on_startup
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 
 if __name__ == '__main__':

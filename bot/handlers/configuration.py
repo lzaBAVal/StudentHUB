@@ -2,7 +2,7 @@ from aiogram.dispatcher import FSMContext
 
 import bot.keyboard as kb
 from functions.whois import whois_str
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 from aiogram import types
 

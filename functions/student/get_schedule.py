@@ -1,13 +1,12 @@
 import bot.keyboard as kb
 
 from aiogram import types
-from aiogram.dispatcher import FSMContext
 
 from bot.states.states import StudentStates
 from loader import db
 from schedule_json.change.change_sched import get_free_time
 from schedule_json.output.get_schedule_object import get_sched_type, get_sched
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 from functions.whois import whois
 from bot.strings.messages import *
 from vars import WeekDays_RU

@@ -1,7 +1,5 @@
 import asyncio
 
-from aiogram.dispatcher import FSMContext
-
 import bot.keyboard as kb
 import loader
 
@@ -11,7 +9,7 @@ from aiogram.dispatcher.middlewares import BaseMiddleware
 from aiogram.utils.exceptions import Throttled
 
 from bot.states.states import AnonStates, StudentStates, CaptainSchedule
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 logger = init_logger()
 

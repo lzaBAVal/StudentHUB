@@ -3,9 +3,9 @@ from bot.strings.messages import *
 from aiogram import types
 
 from bot import keyboard as kb
-from bot.states.states import AnonStates, StudentStates, TesterState
+from bot.states.states import AnonStates, StudentStates
 from loader import dp, db
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 logger = init_logger()
 
@@ -31,7 +31,7 @@ async def def_user(message: types.Message):
 
 @dp.message_handler(commands=['start'], state=AnonStates.anon)
 async def start(message: types.Message):
-    await TesterState.tester.set()
+    await AnonState.anon.set()
     await message.answer(text=start_text, reply_markup=kb.anon_kb)
 
 

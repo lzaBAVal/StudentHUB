@@ -1,6 +1,6 @@
 import hashlib
 from datetime import datetime
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 logger = init_logger()
 
@@ -9,7 +9,7 @@ async def get_list_of_users(db, chat_id):
     result = ''
     responce = await db.admin_get_users_list(chat_id)
     for user in responce:
-        result = output_bio(dict(user), id_chat=True, name=True, surname=True, group=True, privilege=True)
+        result += str(output_bio(dict(user), id_chat=True, name=True, surname=True, group=True, privilege=True)) + '\n'
     return result
 
 

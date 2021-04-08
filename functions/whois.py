@@ -1,4 +1,4 @@
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 logger = init_logger()
 

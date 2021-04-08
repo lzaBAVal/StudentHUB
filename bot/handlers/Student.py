@@ -12,7 +12,7 @@ from functions.student.change_schedule import check_privilege_whose
 from functions.student.get_schedule import get_all_schedule, get_todays_shedule, get_next_lesson, get_tommorow_lesson, \
     get_output_free_time
 from loader import dp, db
-from logs.logging_core import init_logger
+from logs.scripts.logging_core import init_logger
 
 from functions.student.other import get_list_of_classmates, get_bio
 
