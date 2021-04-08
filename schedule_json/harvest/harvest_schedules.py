@@ -37,7 +37,6 @@ def search_schedule(url: str):
         matrix.append(" ".join(tmp_composer))
 
     if len(matrix) <= 6:
-        logger.debug('Empty url: ' + str(url))
         return -1
 
     for i in range(len(matrix)):
@@ -75,8 +74,7 @@ def search_schedule(url: str):
                         }
                         day_o = Day_of_week(**day)
                         sched_json.setdefault(list(days.keys())[list(days.values()).index(current_day)], day_o)
-
-    if not check_sched(sched_json):
+    if check_sched(sched_json) is False:
         return -1
 
     return sched_json

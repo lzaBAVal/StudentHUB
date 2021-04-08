@@ -91,7 +91,6 @@ async def harvest_arhit_sched(db):
     for i in instit_ids:
         print('Institution: ' + str(i))
         url_group = str(dict(list(await db.get_institution_url_groups(i))[0])['url_for_groups'])
-        # groups_values contains group_url_value and id_inc
         groups_values = await db.get_groups_values(i)
 
         for j in groups_values:
@@ -106,7 +105,7 @@ async def harvest_arhit_sched(db):
                 exist_sched = dict(list(await db.get_groups_sched_name_arhit(id_inc))[0])
                 if sched64 != exist_sched['sched_arhit'] or exist_sched['sched_arhit'] is None:
                     logger.debug('Changed the schedule id = ' + str(str(id_inc).encode('utf-8')))
-                await db.update_arhit_sched(sched64, id_inc)
+                    await db.update_arhit_sched(sched64, id_inc)
             except Exception as exc:
                 logger.warn('Institution id - ' + str(i) + ', group_value: ' + group_url_value)
                 logger.exception(exc)
