@@ -3,7 +3,7 @@ import datetime
 from aiogram import types
 
 from bot import keyboard as kb
-from bot.states.states import StudentStates, AddLesson, DeleteLesson, DiscoverFreeTime
+from bot.states.states import StudentStates, AddLesson, DeleteLesson, DiscoverFreeTime, SetCaptainState
 from bot.strings.messages import *
 from bot.strings.commands import *
 from functions.command import delete_user
@@ -104,6 +104,12 @@ async def next_lesson(message: types.Message):
 @dp.message_handler(commands=['classmates'], state=StudentStates.student)
 async def classmates(message: types.Message):
     await message.answer(await get_list_of_classmates(db, message.chat.id))
+
+
+@dp.message_handler(commands=['captain_privilege'], state=StudentStates.student)
+async def captain_privilege(message: types.Message):
+    await message.answer('Введите пожалуйста ключ')
+    await SetCaptainState.set.set()
 
 
 @dp.message_handler(state=StudentStates.student)

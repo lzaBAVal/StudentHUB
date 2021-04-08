@@ -98,6 +98,10 @@ class Database:
         sql_query = "select group_name from groups_students where id_inc = $1"
         return await self.pool.fetch(sql_query, id_inc)
 
+    async def get_group_name_user(self, id_inc: int) -> str:
+        sql_query = "select group_name from student where id_chat = $1"
+        return await self.pool.fetch(sql_query, id_inc)
+
     async def get_group_id(self, group_name: str):
         sql_query = "select id_inc from groups_students where group_name = $1"
         return await self.pool.fetchrow(sql_query, group_name)
@@ -134,7 +138,7 @@ class Database:
         return await self.pool.fetch('select id_inc from institution')
 
     async def get_free_hashes(self):
-        return await self.pool.fetch('select key_md5 from keys where id_chat = None')
+        return await self.pool.fetch('select key_md5 from keys where id_chat is null')
 
     #########################
     #          ADD          #
@@ -154,9 +158,9 @@ class Database:
         sql_query = 'insert into institution(instit_name, sched, url_for_groups) values ($1, $2, $3)'
         return await self.pool.execute(sql_query, instit_name, url, url_for_groups)
 
-    async def add_key(self, hash: str):
-        sql_query = 'insert into keys(key_md5) values ($1)'
-        return await self.pool.execute(sql_query, hash)
+    async def add_key(self, hash: str, date: str):
+        sql_query = 'insert into keys(key_md5, time_created) values ($1, $2)'
+        return await self.pool.execute(sql_query, hash, date)
 
     #########################
     #        UPDATE         #
@@ -184,10 +188,10 @@ class Database:
         sql_query = 'update student set sched_user = $1 where id_chat = $2;'
         return await self.pool.execute(sql_query, sched, id_chat)
 
-    async def update_tester(self, id_chat: str, hash: str):
-        sql_query = 'update keys set id_chat = $1 where key_md5 = $2;'
-        logger.info(f'User - {id_chat} update_tester')
-        return await self.pool.execute(sql_query, id_chat, hash)
+    async def update_captain(self, id_chat: str, hash: str, date: str, group_name: str):
+        sql_query = 'update keys set (id_chat, time_start_use, group_name) = ($1, $3, $4) where key_md5 = $2;'
+        logger.info(f'User - {id_chat} update_captain')
+        return await self.pool.execute(sql_query, id_chat, hash, date, group_name)
 
     #########################
     #          DEL          #
@@ -200,6 +204,7 @@ class Database:
 
     async def test_connect(self):
         return await self.pool.execute('select version();')
+
 
 
 '''

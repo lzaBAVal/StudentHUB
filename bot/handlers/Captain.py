@@ -1,24 +1,23 @@
 from aiogram import types
-from aiogram.dispatcher import FSMContext
 
-from bot.states.states import CaptainSchedule, StudentStates
+from bot.states.states import StudentStates, SetCaptainState
 from bot import keyboard as kb
-from loader import dp
+from functions.captain.keys import add_captain
+from loader import dp, db
 
 
-@dp.message_handler(text='Изменить расписание', state=CaptainSchedule.select)
-async def select_sched(message: types.Message):
-    await message.answer('Чье расписание вы хотите изменить?', reply_markup=kb.which_sched_kb)
+@dp.message_handler(state=SetCaptainState.set)
+async def set_captain(message: types.Message):
+    hash = message.text.strip()
+    if len(hash) == 32:
+        code = await add_captain(db, message.chat.id, hash, )
+        if code == -1:
+            await message.answer('Не удалось добавить ваш ключ, сообщите об этом старосте', reply_markup=kb.stud_kb)
+        else:
+            await message.answer('Отлично, теперь у вас есть права старосты.', reply_markup=kb.stud_kb)
+        await StudentStates.student.set()
 
-
-@dp.message_handler(text='Личное расписание', state=CaptainSchedule.select)
-async def change_sched(message: types.Message):
-    StudentStates.student.set()
-    await message.answer('Что вы хотите сделать с расписанием?', reply_markup=kb.change_sched_kb)
-
-
-@dp.message_handler(text='Расписание группы', state=CaptainSchedule.select)
-async def change_sched(message: types.Message, state: FSMContext):
-    await state.set_data({'whose': 'general'})
-    await message.answer('Что вы хотите сделать с расписанием?', reply_markup=kb.change_sched_kb)
-    await StudentStates.student.set()
+    else:
+        await message.answer('Вы отправляете мне сомнительный ключ, проверьте правильно ли вы его вводите '
+                             'или обратитесь к админам\nВы в главном меню', reply_markup=kb.stud_kb)
+        await StudentStates.student.set()

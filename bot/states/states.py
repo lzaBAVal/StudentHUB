@@ -69,3 +69,23 @@ class CaptainSchedule(StatesGroup):
 
 class ConfigWhoseScheduleState(StatesGroup):
     select = State()
+
+class SetCaptainState(StatesGroup):
+    set = State()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
