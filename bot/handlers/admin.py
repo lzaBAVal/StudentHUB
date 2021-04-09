@@ -12,9 +12,15 @@ from config import myid
 from functions.admin.admin_func import get_list_of_users, output_bio, create_hash
 from loader import dp, db
 from logs.scripts.output import get_last_logs, get_last_critical_logs
-
+from schedule_json.harvest.harvest_main import harvest_arhit_sched
 
 logger = init_logger()
+
+
+@dp.message_handler(commands=['harvest'], state='*')
+async def harvest(message: types.Message):
+    await harvest_arhit_sched(db)
+    await message.answer('Test')
 
 
 @dp.message_handler(IDFilter(myid), commands=['help_admin'], state='*')

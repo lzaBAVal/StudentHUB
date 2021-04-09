@@ -103,9 +103,9 @@ async def harvest_arhit_sched(db):
                     continue
                 sched64 = str(base64.b64encode(sched.encode('utf-8')), 'utf-8')
                 exist_sched = dict(list(await db.get_groups_sched_name_arhit(id_inc))[0])
-                if sched64 != exist_sched['sched_arhit'] or exist_sched['sched_arhit'] is None:
+                if sched64 != exist_sched['sched_arhit']:
                     logger.debug('Changed the schedule id = ' + str(str(id_inc).encode('utf-8')))
-                    await db.update_arhit_sched(sched64, id_inc)
+                await db.update_arhit_sched(sched64, id_inc)
             except Exception as exc:
                 logger.warn('Institution id - ' + str(i) + ', group_value: ' + group_url_value)
                 logger.exception(exc)
@@ -131,8 +131,8 @@ async def harvest_group_sched(db):
 '''
 
 async def scheduler(db):
-    aioschedule.every(12).hours.do(harvest_groups, db)
-    aioschedule.every(5).hours.do(harvest_arhit_sched, db)
+    #aioschedule.every(12).hours.do(harvest_groups, db)
+    aioschedule.every(4).hours.do(harvest_arhit_sched, db)
     while True:
         await aioschedule.run_pending()
         await asyncio.sleep(1)

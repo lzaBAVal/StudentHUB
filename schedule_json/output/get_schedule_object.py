@@ -10,6 +10,8 @@ logger = init_logger()
 
 async def get_sched_type(id_chat: int, type_of_shed: int, whose_sched: str) -> [int, str]:
     sched = await get_sched(id_chat, whose_sched)
+    if sched == -1:
+        return 'Ошибка в коде'
     if type_of_shed == 1:
         return type_of_sched.all_schedule(sched)
     elif type_of_shed == 2:
@@ -33,13 +35,19 @@ async def get_sched(id_chat: int, sched_type: str) -> [dict, int]:
     else:
         return -1
     sched = dict(sched)[sched_type]
+    print(sched_type)
+    #if sched == 'LTE=':
+    #    await update_sched(id_chat, dict(await loader.db.get_arhit_sched(id_chat))['sched_arhit'], sched_type)
     if sched is not None:
         sched = decode_normalise_sched(sched)
+        if sched == -1:
+            return -1
         return sched
-
     else:
         sched_raw = dict(await loader.db.get_arhit_sched(id_chat))['sched_arhit']
         sched = decode_normalise_sched(sched_raw)
+        if sched == -1:
+            return -1
         await update_sched(id_chat, sched, sched_type)
         logger.info(f'User - {0}, has created personal schedule {1}'.format(id_chat, sched_type))
         return sched
@@ -88,7 +96,7 @@ def encode_sched(sched: dict) -> str:
 
 def decode_normalise_sched(sched: str):
     sched: dict = decode_sched(sched)
-    if check_sched(sched):
+    if check_sched(sched) == False:
         logger.warn('The schedule does not meet the standard')
         return -1
     else:
@@ -96,7 +104,7 @@ def decode_normalise_sched(sched: str):
 
 
 def encode_normalise_sched(sched: dict):
-    if check_sched(sched):
+    if check_sched(sched) == False:
         logger.warn('The schedule does not meet the standard')
         return -1
     else:

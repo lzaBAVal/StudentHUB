@@ -53,3 +53,2414 @@
 [2021-04-08 19:20:43,285:pgsql:34:INFO] User - 690976128 check_user
 [2021-04-08 19:20:43,293:pgsql:52:INFO] admin_get_users_list. Checks 690976128
 [2021-04-08 19:21:34,624:pgsql:77:INFO] User - 690976128 get_user
+[2021-04-09 00:14:04,658:main:18:DEBUG] Bot started
+[2021-04-09 00:14:24,838:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 00:16:24,830:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:16:24,833:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:16:24,834:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 00:16:24,836:get_schedule_object:66:WARNING] The schedule does not meet the standard
+[2021-04-09 00:16:24,836:get_schedule_object:67:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 64, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 00:16:24,837:get_schedule_object:66:WARNING] The schedule does not meet the standard
+[2021-04-09 00:16:24,837:get_schedule_object:67:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 64, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 00:16:24,840:get_schedule_object:59:INFO] User - 0 update_1
+[2021-04-09 00:16:24,841:get_schedule_object:44:INFO] User - 0, has created personal schedule 1
+[2021-04-09 00:16:24,841:get_schedule:64:ERROR] 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'int' object is not subscriptable
+[2021-04-09 00:20:06,029:loader:36:INFO] Bot has stopped
+[2021-04-09 00:20:06,881:main:18:DEBUG] Bot started
+[2021-04-09 00:20:12,191:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 00:20:14,308:harvest_main:107:DEBUG] Changed the schedule id = b'37'
+[2021-04-09 00:20:15,344:harvest_main:107:DEBUG] Changed the schedule id = b'21'
+[2021-04-09 00:20:16,374:harvest_main:107:DEBUG] Changed the schedule id = b'34'
+[2021-04-09 00:20:17,376:harvest_main:107:DEBUG] Changed the schedule id = b'32'
+[2021-04-09 00:20:18,460:harvest_main:107:DEBUG] Changed the schedule id = b'24'
+[2021-04-09 00:20:19,457:harvest_main:107:DEBUG] Changed the schedule id = b'8'
+[2021-04-09 00:20:20,482:harvest_main:107:DEBUG] Changed the schedule id = b'30'
+[2021-04-09 00:20:21,513:harvest_main:107:DEBUG] Changed the schedule id = b'39'
+[2021-04-09 00:20:22,540:harvest_main:107:DEBUG] Changed the schedule id = b'23'
+[2021-04-09 00:20:23,666:harvest_main:107:DEBUG] Changed the schedule id = b'4'
+[2021-04-09 00:20:24,654:harvest_main:107:DEBUG] Changed the schedule id = b'7'
+[2021-04-09 00:20:25,672:harvest_main:107:DEBUG] Changed the schedule id = b'15'
+[2021-04-09 00:20:26,688:harvest_main:107:DEBUG] Changed the schedule id = b'5'
+[2021-04-09 00:20:27,707:harvest_main:107:DEBUG] Changed the schedule id = b'35'
+[2021-04-09 00:20:28,753:harvest_main:107:DEBUG] Changed the schedule id = b'27'
+[2021-04-09 00:20:29,756:harvest_main:107:DEBUG] Changed the schedule id = b'28'
+[2021-04-09 00:20:30,758:harvest_main:107:DEBUG] Changed the schedule id = b'13'
+[2021-04-09 00:20:31,797:harvest_main:107:DEBUG] Changed the schedule id = b'25'
+[2021-04-09 00:20:32,832:harvest_main:107:DEBUG] Changed the schedule id = b'44'
+[2021-04-09 00:20:33,935:harvest_main:107:DEBUG] Changed the schedule id = b'38'
+[2021-04-09 00:20:34,974:harvest_main:107:DEBUG] Changed the schedule id = b'42'
+[2021-04-09 00:20:35,998:harvest_main:107:DEBUG] Changed the schedule id = b'17'
+[2021-04-09 00:20:37,024:harvest_main:107:DEBUG] Changed the schedule id = b'43'
+[2021-04-09 00:20:38,136:harvest_main:107:DEBUG] Changed the schedule id = b'41'
+[2021-04-09 00:20:39,178:harvest_main:107:DEBUG] Changed the schedule id = b'11'
+[2021-04-09 00:20:40,201:harvest_main:107:DEBUG] Changed the schedule id = b'18'
+[2021-04-09 00:20:41,200:harvest_main:107:DEBUG] Changed the schedule id = b'33'
+[2021-04-09 00:20:42,216:harvest_main:107:DEBUG] Changed the schedule id = b'1'
+[2021-04-09 00:20:43,232:harvest_main:107:DEBUG] Changed the schedule id = b'19'
+[2021-04-09 00:20:45,365:harvest_main:107:DEBUG] Changed the schedule id = b'36'
+[2021-04-09 00:20:46,400:harvest_main:107:DEBUG] Changed the schedule id = b'12'
+[2021-04-09 00:20:47,416:harvest_main:107:DEBUG] Changed the schedule id = b'26'
+[2021-04-09 00:20:48,448:harvest_main:107:DEBUG] Changed the schedule id = b'40'
+[2021-04-09 00:20:49,486:harvest_main:107:DEBUG] Changed the schedule id = b'10'
+[2021-04-09 00:20:50,613:harvest_main:107:DEBUG] Changed the schedule id = b'31'
+[2021-04-09 00:20:51,611:harvest_main:107:DEBUG] Changed the schedule id = b'22'
+[2021-04-09 00:20:52,641:harvest_main:107:DEBUG] Changed the schedule id = b'2'
+[2021-04-09 00:20:53,670:harvest_main:107:DEBUG] Changed the schedule id = b'14'
+[2021-04-09 00:20:54,705:harvest_main:107:DEBUG] Changed the schedule id = b'6'
+[2021-04-09 00:20:55,736:harvest_main:107:DEBUG] Changed the schedule id = b'16'
+[2021-04-09 00:20:56,757:harvest_main:107:DEBUG] Changed the schedule id = b'462'
+[2021-04-09 00:20:57,789:harvest_main:107:DEBUG] Changed the schedule id = b'20'
+[2021-04-09 00:20:58,820:harvest_main:107:DEBUG] Changed the schedule id = b'3'
+[2021-04-09 00:21:03,074:harvest_main:107:DEBUG] Changed the schedule id = b'50'
+[2021-04-09 00:21:04,410:harvest_main:107:DEBUG] Changed the schedule id = b'73'
+[2021-04-09 00:21:07,319:harvest_main:107:DEBUG] Changed the schedule id = b'68'
+[2021-04-09 00:21:10,124:harvest_main:107:DEBUG] Changed the schedule id = b'92'
+[2021-04-09 00:21:16,118:harvest_main:107:DEBUG] Changed the schedule id = b'198'
+[2021-04-09 00:21:17,554:harvest_main:107:DEBUG] Changed the schedule id = b'238'
+[2021-04-09 00:21:18,892:harvest_main:107:DEBUG] Changed the schedule id = b'91'
+[2021-04-09 00:21:20,273:harvest_main:107:DEBUG] Changed the schedule id = b'128'
+[2021-04-09 00:21:26,071:harvest_main:107:DEBUG] Changed the schedule id = b'125'
+[2021-04-09 00:21:46,286:harvest_main:107:DEBUG] Changed the schedule id = b'229'
+[2021-04-09 00:21:51,953:harvest_main:107:DEBUG] Changed the schedule id = b'235'
+[2021-04-09 00:21:53,327:harvest_main:107:DEBUG] Changed the schedule id = b'75'
+[2021-04-09 00:21:54,653:harvest_main:107:DEBUG] Changed the schedule id = b'55'
+[2021-04-09 00:21:56,039:harvest_main:107:DEBUG] Changed the schedule id = b'243'
+[2021-04-09 00:21:57,344:harvest_main:107:DEBUG] Changed the schedule id = b'183'
+[2021-04-09 00:21:58,677:harvest_main:107:DEBUG] Changed the schedule id = b'189'
+[2021-04-09 00:21:59,993:harvest_main:107:DEBUG] Changed the schedule id = b'64'
+[2021-04-09 00:22:01,294:harvest_main:107:DEBUG] Changed the schedule id = b'220'
+[2021-04-09 00:22:02,728:harvest_main:107:DEBUG] Changed the schedule id = b'93'
+[2021-04-09 00:22:04,065:harvest_main:107:DEBUG] Changed the schedule id = b'142'
+[2021-04-09 00:22:05,410:harvest_main:107:DEBUG] Changed the schedule id = b'156'
+[2021-04-09 00:22:06,751:harvest_main:107:DEBUG] Changed the schedule id = b'192'
+[2021-04-09 00:22:08,176:harvest_main:107:DEBUG] Changed the schedule id = b'108'
+[2021-04-09 00:22:09,641:harvest_main:107:DEBUG] Changed the schedule id = b'123'
+[2021-04-09 00:22:11,014:harvest_main:107:DEBUG] Changed the schedule id = b'199'
+[2021-04-09 00:22:13,842:harvest_main:107:DEBUG] Changed the schedule id = b'62'
+[2021-04-09 00:22:15,178:harvest_main:107:DEBUG] Changed the schedule id = b'214'
+[2021-04-09 00:22:16,510:harvest_main:107:DEBUG] Changed the schedule id = b'69'
+[2021-04-09 00:22:17,857:harvest_main:107:DEBUG] Changed the schedule id = b'45'
+[2021-04-09 00:22:19,231:harvest_main:107:DEBUG] Changed the schedule id = b'70'
+[2021-04-09 00:22:22,040:harvest_main:107:DEBUG] Changed the schedule id = b'136'
+[2021-04-09 00:22:23,386:harvest_main:107:DEBUG] Changed the schedule id = b'207'
+[2021-04-09 00:22:24,728:harvest_main:107:DEBUG] Changed the schedule id = b'209'
+[2021-04-09 00:22:26,067:harvest_main:107:DEBUG] Changed the schedule id = b'178'
+[2021-04-09 00:22:27,361:harvest_main:107:DEBUG] Changed the schedule id = b'223'
+[2021-04-09 00:22:28,669:harvest_main:107:DEBUG] Changed the schedule id = b'57'
+[2021-04-09 00:22:30,025:harvest_main:107:DEBUG] Changed the schedule id = b'112'
+[2021-04-09 00:22:31,321:harvest_main:107:DEBUG] Changed the schedule id = b'122'
+[2021-04-09 00:22:32,676:harvest_main:107:DEBUG] Changed the schedule id = b'124'
+[2021-04-09 00:22:34,013:harvest_main:107:DEBUG] Changed the schedule id = b'59'
+[2021-04-09 00:22:35,349:harvest_main:107:DEBUG] Changed the schedule id = b'237'
+[2021-04-09 00:22:36,676:harvest_main:107:DEBUG] Changed the schedule id = b'78'
+[2021-04-09 00:22:38,014:harvest_main:107:DEBUG] Changed the schedule id = b'152'
+[2021-04-09 00:22:39,341:harvest_main:107:DEBUG] Changed the schedule id = b'110'
+[2021-04-09 00:22:40,672:harvest_main:107:DEBUG] Changed the schedule id = b'101'
+[2021-04-09 00:22:42,110:harvest_main:107:DEBUG] Changed the schedule id = b'58'
+[2021-04-09 00:22:43,439:harvest_main:107:DEBUG] Changed the schedule id = b'96'
+[2021-04-09 00:22:44,743:harvest_main:107:DEBUG] Changed the schedule id = b'100'
+[2021-04-09 00:22:46,142:harvest_main:107:DEBUG] Changed the schedule id = b'99'
+[2021-04-09 00:22:47,538:harvest_main:107:DEBUG] Changed the schedule id = b'98'
+[2021-04-09 00:22:48,941:harvest_main:107:DEBUG] Changed the schedule id = b'107'
+[2021-04-09 00:22:50,310:harvest_main:107:DEBUG] Changed the schedule id = b'111'
+[2021-04-09 00:22:51,656:harvest_main:107:DEBUG] Changed the schedule id = b'106'
+[2021-04-09 00:22:52,957:harvest_main:107:DEBUG] Changed the schedule id = b'103'
+[2021-04-09 00:22:54,319:harvest_main:107:DEBUG] Changed the schedule id = b'114'
+[2021-04-09 00:22:55,688:harvest_main:107:DEBUG] Changed the schedule id = b'117'
+[2021-04-09 00:22:57,110:harvest_main:107:DEBUG] Changed the schedule id = b'65'
+[2021-04-09 00:22:58,418:harvest_main:107:DEBUG] Changed the schedule id = b'179'
+[2021-04-09 00:22:59,745:harvest_main:107:DEBUG] Changed the schedule id = b'129'
+[2021-04-09 00:23:01,108:harvest_main:107:DEBUG] Changed the schedule id = b'133'
+[2021-04-09 00:23:03,978:harvest_main:107:DEBUG] Changed the schedule id = b'127'
+[2021-04-09 00:23:05,372:harvest_main:107:DEBUG] Changed the schedule id = b'71'
+[2021-04-09 00:23:06,698:harvest_main:107:DEBUG] Changed the schedule id = b'202'
+[2021-04-09 00:23:11,034:harvest_main:107:DEBUG] Changed the schedule id = b'80'
+[2021-04-09 00:23:13,867:harvest_main:107:DEBUG] Changed the schedule id = b'118'
+[2021-04-09 00:23:15,202:harvest_main:107:DEBUG] Changed the schedule id = b'211'
+[2021-04-09 00:23:16,626:harvest_main:107:DEBUG] Changed the schedule id = b'52'
+[2021-04-09 00:23:18,011:harvest_main:107:DEBUG] Changed the schedule id = b'116'
+[2021-04-09 00:23:19,334:harvest_main:107:DEBUG] Changed the schedule id = b'210'
+[2021-04-09 00:23:20,664:harvest_main:107:DEBUG] Changed the schedule id = b'215'
+[2021-04-09 00:23:21,987:harvest_main:107:DEBUG] Changed the schedule id = b'216'
+[2021-04-09 00:23:23,334:harvest_main:107:DEBUG] Changed the schedule id = b'222'
+[2021-04-09 00:23:24,691:harvest_main:107:DEBUG] Changed the schedule id = b'226'
+[2021-04-09 00:23:26,070:harvest_main:107:DEBUG] Changed the schedule id = b'225'
+[2021-04-09 00:23:27,396:harvest_main:107:DEBUG] Changed the schedule id = b'182'
+[2021-04-09 00:23:28,750:harvest_main:107:DEBUG] Changed the schedule id = b'231'
+[2021-04-09 00:23:30,119:harvest_main:107:DEBUG] Changed the schedule id = b'184'
+[2021-04-09 00:23:31,526:harvest_main:107:DEBUG] Changed the schedule id = b'232'
+[2021-04-09 00:23:32,911:harvest_main:107:DEBUG] Changed the schedule id = b'186'
+[2021-04-09 00:23:34,289:harvest_main:107:DEBUG] Changed the schedule id = b'240'
+[2021-04-09 00:23:35,814:harvest_main:107:DEBUG] Changed the schedule id = b'144'
+[2021-04-09 00:23:37,153:harvest_main:107:DEBUG] Changed the schedule id = b'81'
+[2021-04-09 00:23:38,549:harvest_main:107:DEBUG] Changed the schedule id = b'53'
+[2021-04-09 00:23:39,908:harvest_main:107:DEBUG] Changed the schedule id = b'196'
+[2021-04-09 00:23:41,257:harvest_main:107:DEBUG] Changed the schedule id = b'177'
+[2021-04-09 00:23:42,595:harvest_main:107:DEBUG] Changed the schedule id = b'205'
+[2021-04-09 00:23:43,945:harvest_main:107:DEBUG] Changed the schedule id = b'105'
+[2021-04-09 00:23:45,333:harvest_main:107:DEBUG] Changed the schedule id = b'206'
+[2021-04-09 00:23:46,738:harvest_main:107:DEBUG] Changed the schedule id = b'203'
+[2021-04-09 00:23:48,084:harvest_main:107:DEBUG] Changed the schedule id = b'224'
+[2021-04-09 00:23:49,485:harvest_main:107:DEBUG] Changed the schedule id = b'221'
+[2021-04-09 00:23:50,795:harvest_main:107:DEBUG] Changed the schedule id = b'218'
+[2021-04-09 00:23:52,177:harvest_main:107:DEBUG] Changed the schedule id = b'141'
+[2021-04-09 00:23:53,513:harvest_main:107:DEBUG] Changed the schedule id = b'227'
+[2021-04-09 00:23:54,855:harvest_main:107:DEBUG] Changed the schedule id = b'88'
+[2021-04-09 00:23:56,210:harvest_main:107:DEBUG] Changed the schedule id = b'154'
+[2021-04-09 00:23:57,547:harvest_main:107:DEBUG] Changed the schedule id = b'145'
+[2021-04-09 00:24:00,341:harvest_main:107:DEBUG] Changed the schedule id = b'143'
+[2021-04-09 00:24:01,711:harvest_main:107:DEBUG] Changed the schedule id = b'242'
+[2021-04-09 00:24:03,091:harvest_main:107:DEBUG] Changed the schedule id = b'228'
+[2021-04-09 00:24:04,423:harvest_main:107:DEBUG] Changed the schedule id = b'61'
+[2021-04-09 00:24:05,761:harvest_main:107:DEBUG] Changed the schedule id = b'153'
+[2021-04-09 00:24:07,106:harvest_main:107:DEBUG] Changed the schedule id = b'181'
+[2021-04-09 00:24:08,486:harvest_main:107:DEBUG] Changed the schedule id = b'185'
+[2021-04-09 00:24:09,821:harvest_main:107:DEBUG] Changed the schedule id = b'120'
+[2021-04-09 00:24:11,199:harvest_main:107:DEBUG] Changed the schedule id = b'109'
+[2021-04-09 00:24:12,489:harvest_main:107:DEBUG] Changed the schedule id = b'137'
+[2021-04-09 00:24:13,820:harvest_main:107:DEBUG] Changed the schedule id = b'200'
+[2021-04-09 00:24:15,149:harvest_main:107:DEBUG] Changed the schedule id = b'74'
+[2021-04-09 00:24:16,492:harvest_main:107:DEBUG] Changed the schedule id = b'219'
+[2021-04-09 00:24:17,813:harvest_main:107:DEBUG] Changed the schedule id = b'90'
+[2021-04-09 00:24:19,326:harvest_main:107:DEBUG] Changed the schedule id = b'72'
+[2021-04-09 00:24:20,673:harvest_main:107:DEBUG] Changed the schedule id = b'86'
+[2021-04-09 00:24:22,024:harvest_main:107:DEBUG] Changed the schedule id = b'176'
+[2021-04-09 00:24:23,364:harvest_main:107:DEBUG] Changed the schedule id = b'95'
+[2021-04-09 00:24:24,693:harvest_main:107:DEBUG] Changed the schedule id = b'138'
+[2021-04-09 00:24:26,081:harvest_main:107:DEBUG] Changed the schedule id = b'147'
+[2021-04-09 00:24:27,450:harvest_main:107:DEBUG] Changed the schedule id = b'230'
+[2021-04-09 00:24:28,815:harvest_main:107:DEBUG] Changed the schedule id = b'236'
+[2021-04-09 00:24:30,175:harvest_main:107:DEBUG] Changed the schedule id = b'239'
+[2021-04-09 00:24:31,539:harvest_main:107:DEBUG] Changed the schedule id = b'94'
+[2021-04-09 00:24:32,879:harvest_main:107:DEBUG] Changed the schedule id = b'67'
+[2021-04-09 00:24:34,254:harvest_main:107:DEBUG] Changed the schedule id = b'79'
+[2021-04-09 00:24:35,647:harvest_main:107:DEBUG] Changed the schedule id = b'151'
+[2021-04-09 00:24:37,015:harvest_main:107:DEBUG] Changed the schedule id = b'63'
+[2021-04-09 00:24:38,360:harvest_main:107:DEBUG] Changed the schedule id = b'115'
+[2021-04-09 00:24:39,685:harvest_main:107:DEBUG] Changed the schedule id = b'102'
+[2021-04-09 00:24:41,041:harvest_main:107:DEBUG] Changed the schedule id = b'121'
+[2021-04-09 00:24:42,396:harvest_main:107:DEBUG] Changed the schedule id = b'130'
+[2021-04-09 00:24:43,795:harvest_main:107:DEBUG] Changed the schedule id = b'146'
+[2021-04-09 00:24:45,149:harvest_main:107:DEBUG] Changed the schedule id = b'155'
+[2021-04-09 00:24:46,475:harvest_main:107:DEBUG] Changed the schedule id = b'212'
+[2021-04-09 00:24:47,796:harvest_main:107:DEBUG] Changed the schedule id = b'195'
+[2021-04-09 00:24:49,141:harvest_main:107:DEBUG] Changed the schedule id = b'187'
+[2021-04-09 00:24:50,448:harvest_main:107:DEBUG] Changed the schedule id = b'217'
+[2021-04-09 00:24:51,784:harvest_main:107:DEBUG] Changed the schedule id = b'233'
+[2021-04-09 00:24:53,129:harvest_main:107:DEBUG] Changed the schedule id = b'84'
+[2021-04-09 00:24:54,489:harvest_main:107:DEBUG] Changed the schedule id = b'87'
+[2021-04-09 00:24:55,819:harvest_main:107:DEBUG] Changed the schedule id = b'54'
+[2021-04-09 00:24:57,182:harvest_main:107:DEBUG] Changed the schedule id = b'234'
+[2021-04-09 00:24:58,504:harvest_main:107:DEBUG] Changed the schedule id = b'197'
+[2021-04-09 00:24:59,829:harvest_main:107:DEBUG] Changed the schedule id = b'56'
+[2021-04-09 00:25:01,262:harvest_main:107:DEBUG] Changed the schedule id = b'89'
+[2021-04-09 00:25:02,733:harvest_main:107:DEBUG] Changed the schedule id = b'193'
+[2021-04-09 00:25:04,085:harvest_main:107:DEBUG] Changed the schedule id = b'241'
+[2021-04-09 00:25:05,432:harvest_main:107:DEBUG] Changed the schedule id = b'60'
+[2021-04-09 00:25:06,802:harvest_main:107:DEBUG] Changed the schedule id = b'82'
+[2021-04-09 00:25:08,124:harvest_main:107:DEBUG] Changed the schedule id = b'47'
+[2021-04-09 00:25:09,482:harvest_main:107:DEBUG] Changed the schedule id = b'97'
+[2021-04-09 00:25:10,810:harvest_main:107:DEBUG] Changed the schedule id = b'126'
+[2021-04-09 00:25:12,181:harvest_main:107:DEBUG] Changed the schedule id = b'66'
+[2021-04-09 00:25:13,566:harvest_main:107:DEBUG] Changed the schedule id = b'51'
+[2021-04-09 00:25:14,895:harvest_main:107:DEBUG] Changed the schedule id = b'180'
+[2021-04-09 00:25:16,238:harvest_main:107:DEBUG] Changed the schedule id = b'201'
+[2021-04-09 00:25:17,619:harvest_main:107:DEBUG] Changed the schedule id = b'104'
+[2021-04-09 00:25:18,963:harvest_main:107:DEBUG] Changed the schedule id = b'194'
+[2021-04-09 00:25:20,342:harvest_main:107:DEBUG] Changed the schedule id = b'204'
+[2021-04-09 00:25:21,676:harvest_main:107:DEBUG] Changed the schedule id = b'140'
+[2021-04-09 00:25:22,980:harvest_main:107:DEBUG] Changed the schedule id = b'85'
+[2021-04-09 00:25:24,362:harvest_main:107:DEBUG] Changed the schedule id = b'48'
+[2021-04-09 00:25:27,236:harvest_main:107:DEBUG] Changed the schedule id = b'134'
+[2021-04-09 00:25:28,564:harvest_main:107:DEBUG] Changed the schedule id = b'244'
+[2021-04-09 00:25:29,919:harvest_main:107:DEBUG] Changed the schedule id = b'83'
+[2021-04-09 00:25:31,230:harvest_main:107:DEBUG] Changed the schedule id = b'208'
+[2021-04-09 00:25:32,564:harvest_main:107:DEBUG] Changed the schedule id = b'213'
+[2021-04-09 00:25:42,536:harvest_main:107:DEBUG] Changed the schedule id = b'248'
+[2021-04-09 00:25:43,851:harvest_main:107:DEBUG] Changed the schedule id = b'252'
+[2021-04-09 00:25:45,155:harvest_main:107:DEBUG] Changed the schedule id = b'297'
+[2021-04-09 00:25:46,422:harvest_main:107:DEBUG] Changed the schedule id = b'249'
+[2021-04-09 00:25:47,758:harvest_main:107:DEBUG] Changed the schedule id = b'317'
+[2021-04-09 00:25:49,145:harvest_main:107:DEBUG] Changed the schedule id = b'254'
+[2021-04-09 00:25:50,468:harvest_main:107:DEBUG] Changed the schedule id = b'258'
+[2021-04-09 00:25:51,796:harvest_main:107:DEBUG] Changed the schedule id = b'259'
+[2021-04-09 00:25:53,125:harvest_main:107:DEBUG] Changed the schedule id = b'271'
+[2021-04-09 00:25:54,431:harvest_main:107:DEBUG] Changed the schedule id = b'264'
+[2021-04-09 00:25:55,719:harvest_main:107:DEBUG] Changed the schedule id = b'262'
+[2021-04-09 00:25:57,038:harvest_main:107:DEBUG] Changed the schedule id = b'275'
+[2021-04-09 00:25:58,350:harvest_main:107:DEBUG] Changed the schedule id = b'256'
+[2021-04-09 00:26:02,663:harvest_main:107:DEBUG] Changed the schedule id = b'260'
+[2021-04-09 00:26:03,960:harvest_main:107:DEBUG] Changed the schedule id = b'269'
+[2021-04-09 00:26:05,287:harvest_main:107:DEBUG] Changed the schedule id = b'278'
+[2021-04-09 00:26:06,626:harvest_main:107:DEBUG] Changed the schedule id = b'288'
+[2021-04-09 00:26:07,928:harvest_main:107:DEBUG] Changed the schedule id = b'301'
+[2021-04-09 00:26:09,270:harvest_main:107:DEBUG] Changed the schedule id = b'287'
+[2021-04-09 00:26:10,555:harvest_main:107:DEBUG] Changed the schedule id = b'277'
+[2021-04-09 00:26:11,846:harvest_main:107:DEBUG] Changed the schedule id = b'318'
+[2021-04-09 00:26:13,137:harvest_main:107:DEBUG] Changed the schedule id = b'302'
+[2021-04-09 00:26:14,458:harvest_main:107:DEBUG] Changed the schedule id = b'319'
+[2021-04-09 00:26:15,756:harvest_main:107:DEBUG] Changed the schedule id = b'296'
+[2021-04-09 00:26:17,053:harvest_main:107:DEBUG] Changed the schedule id = b'294'
+[2021-04-09 00:26:18,315:harvest_main:107:DEBUG] Changed the schedule id = b'263'
+[2021-04-09 00:26:19,622:harvest_main:107:DEBUG] Changed the schedule id = b'247'
+[2021-04-09 00:26:20,961:harvest_main:107:DEBUG] Changed the schedule id = b'300'
+[2021-04-09 00:26:22,278:harvest_main:107:DEBUG] Changed the schedule id = b'311'
+[2021-04-09 00:26:23,559:harvest_main:107:DEBUG] Changed the schedule id = b'293'
+[2021-04-09 00:26:24,847:harvest_main:107:DEBUG] Changed the schedule id = b'250'
+[2021-04-09 00:26:26,162:harvest_main:107:DEBUG] Changed the schedule id = b'246'
+[2021-04-09 00:26:27,477:harvest_main:107:DEBUG] Changed the schedule id = b'315'
+[2021-04-09 00:26:28,790:harvest_main:107:DEBUG] Changed the schedule id = b'299'
+[2021-04-09 00:26:30,182:harvest_main:107:DEBUG] Changed the schedule id = b'251'
+[2021-04-09 00:26:31,460:harvest_main:107:DEBUG] Changed the schedule id = b'270'
+[2021-04-09 00:26:32,777:harvest_main:107:DEBUG] Changed the schedule id = b'257'
+[2021-04-09 00:26:34,073:harvest_main:107:DEBUG] Changed the schedule id = b'272'
+[2021-04-09 00:26:35,370:harvest_main:107:DEBUG] Changed the schedule id = b'290'
+[2021-04-09 00:26:36,655:harvest_main:107:DEBUG] Changed the schedule id = b'282'
+[2021-04-09 00:26:39,424:harvest_main:107:DEBUG] Changed the schedule id = b'313'
+[2021-04-09 00:26:42,175:harvest_main:107:DEBUG] Changed the schedule id = b'312'
+[2021-04-09 00:26:43,460:harvest_main:107:DEBUG] Changed the schedule id = b'308'
+[2021-04-09 00:26:44,773:harvest_main:107:DEBUG] Changed the schedule id = b'284'
+[2021-04-09 00:26:46,053:harvest_main:107:DEBUG] Changed the schedule id = b'320'
+[2021-04-09 00:26:47,367:harvest_main:107:DEBUG] Changed the schedule id = b'286'
+[2021-04-09 00:26:48,695:harvest_main:107:DEBUG] Changed the schedule id = b'303'
+[2021-04-09 00:26:50,014:harvest_main:107:DEBUG] Changed the schedule id = b'253'
+[2021-04-09 00:26:51,318:harvest_main:107:DEBUG] Changed the schedule id = b'289'
+[2021-04-09 00:26:52,787:harvest_main:107:DEBUG] Changed the schedule id = b'309'
+[2021-04-09 00:26:54,234:harvest_main:107:DEBUG] Changed the schedule id = b'261'
+[2021-04-09 00:26:55,521:harvest_main:107:DEBUG] Changed the schedule id = b'316'
+[2021-04-09 00:26:56,817:harvest_main:107:DEBUG] Changed the schedule id = b'321'
+[2021-04-09 00:26:58,117:harvest_main:107:DEBUG] Changed the schedule id = b'322'
+[2021-04-09 00:26:59,461:harvest_main:107:DEBUG] Changed the schedule id = b'307'
+[2021-04-09 00:27:00,762:harvest_main:107:DEBUG] Changed the schedule id = b'291'
+[2021-04-09 00:27:02,045:harvest_main:107:DEBUG] Changed the schedule id = b'281'
+[2021-04-09 00:27:03,340:harvest_main:107:DEBUG] Changed the schedule id = b'304'
+[2021-04-09 00:27:04,610:harvest_main:107:DEBUG] Changed the schedule id = b'314'
+[2021-04-09 00:27:05,931:harvest_main:107:DEBUG] Changed the schedule id = b'276'
+[2021-04-09 00:27:07,265:harvest_main:107:DEBUG] Changed the schedule id = b'255'
+[2021-04-09 00:27:08,583:harvest_main:107:DEBUG] Changed the schedule id = b'279'
+[2021-04-09 00:27:09,901:harvest_main:107:DEBUG] Changed the schedule id = b'285'
+[2021-04-09 00:27:11,215:harvest_main:107:DEBUG] Changed the schedule id = b'310'
+[2021-04-09 00:27:12,566:harvest_main:107:DEBUG] Changed the schedule id = b'292'
+[2021-04-09 00:27:13,864:harvest_main:107:DEBUG] Changed the schedule id = b'280'
+[2021-04-09 00:27:15,177:harvest_main:107:DEBUG] Changed the schedule id = b'283'
+[2021-04-09 00:27:16,452:harvest_main:107:DEBUG] Changed the schedule id = b'298'
+[2021-04-09 00:27:17,828:harvest_main:107:DEBUG] Changed the schedule id = b'306'
+[2021-04-09 00:27:19,139:harvest_main:107:DEBUG] Changed the schedule id = b'245'
+[2021-04-09 00:27:20,463:harvest_main:107:DEBUG] Changed the schedule id = b'413'
+[2021-04-09 00:27:21,761:harvest_main:107:DEBUG] Changed the schedule id = b'380'
+[2021-04-09 00:27:37,708:harvest_main:107:DEBUG] Changed the schedule id = b'398'
+[2021-04-09 00:27:38,984:harvest_main:107:DEBUG] Changed the schedule id = b'403'
+[2021-04-09 00:27:48,881:harvest_main:107:DEBUG] Changed the schedule id = b'341'
+[2021-04-09 00:27:51,709:harvest_main:107:DEBUG] Changed the schedule id = b'390'
+[2021-04-09 00:27:53,052:harvest_main:107:DEBUG] Changed the schedule id = b'354'
+[2021-04-09 00:27:54,364:harvest_main:107:DEBUG] Changed the schedule id = b'385'
+[2021-04-09 00:27:55,707:harvest_main:107:DEBUG] Changed the schedule id = b'352'
+[2021-04-09 00:27:57,064:harvest_main:107:DEBUG] Changed the schedule id = b'408'
+[2021-04-09 00:27:58,421:harvest_main:107:DEBUG] Changed the schedule id = b'389'
+[2021-04-09 00:27:59,784:harvest_main:107:DEBUG] Changed the schedule id = b'375'
+[2021-04-09 00:28:01,144:harvest_main:107:DEBUG] Changed the schedule id = b'353'
+[2021-04-09 00:28:02,503:harvest_main:107:DEBUG] Changed the schedule id = b'379'
+[2021-04-09 00:28:03,812:harvest_main:107:DEBUG] Changed the schedule id = b'331'
+[2021-04-09 00:28:05,122:harvest_main:107:DEBUG] Changed the schedule id = b'348'
+[2021-04-09 00:28:06,514:harvest_main:107:DEBUG] Changed the schedule id = b'463'
+[2021-04-09 00:28:07,906:harvest_main:107:DEBUG] Changed the schedule id = b'374'
+[2021-04-09 00:28:09,198:harvest_main:107:DEBUG] Changed the schedule id = b'416'
+[2021-04-09 00:28:10,606:harvest_main:107:DEBUG] Changed the schedule id = b'414'
+[2021-04-09 00:28:11,912:harvest_main:107:DEBUG] Changed the schedule id = b'363'
+[2021-04-09 00:28:13,248:harvest_main:107:DEBUG] Changed the schedule id = b'344'
+[2021-04-09 00:28:14,554:harvest_main:107:DEBUG] Changed the schedule id = b'383'
+[2021-04-09 00:28:15,921:harvest_main:107:DEBUG] Changed the schedule id = b'377'
+[2021-04-09 00:28:17,211:harvest_main:107:DEBUG] Changed the schedule id = b'356'
+[2021-04-09 00:28:18,513:harvest_main:107:DEBUG] Changed the schedule id = b'381'
+[2021-04-09 00:28:19,871:harvest_main:107:DEBUG] Changed the schedule id = b'343'
+[2021-04-09 00:28:21,197:harvest_main:107:DEBUG] Changed the schedule id = b'386'
+[2021-04-09 00:28:22,504:harvest_main:107:DEBUG] Changed the schedule id = b'369'
+[2021-04-09 00:28:23,814:harvest_main:107:DEBUG] Changed the schedule id = b'360'
+[2021-04-09 00:28:25,136:harvest_main:107:DEBUG] Changed the schedule id = b'411'
+[2021-04-09 00:28:26,474:harvest_main:107:DEBUG] Changed the schedule id = b'399'
+[2021-04-09 00:28:27,792:harvest_main:107:DEBUG] Changed the schedule id = b'382'
+[2021-04-09 00:28:29,128:harvest_main:107:DEBUG] Changed the schedule id = b'358'
+[2021-04-09 00:28:31,938:harvest_main:107:DEBUG] Changed the schedule id = b'326'
+[2021-04-09 00:28:34,659:harvest_main:107:DEBUG] Changed the schedule id = b'415'
+[2021-04-09 00:28:36,004:harvest_main:107:DEBUG] Changed the schedule id = b'346'
+[2021-04-09 00:28:37,373:harvest_main:107:DEBUG] Changed the schedule id = b'345'
+[2021-04-09 00:28:38,702:harvest_main:107:DEBUG] Changed the schedule id = b'350'
+[2021-04-09 00:28:40,031:harvest_main:107:DEBUG] Changed the schedule id = b'351'
+[2021-04-09 00:28:41,340:harvest_main:107:DEBUG] Changed the schedule id = b'349'
+[2021-04-09 00:28:42,680:harvest_main:107:DEBUG] Changed the schedule id = b'357'
+[2021-04-09 00:28:43,961:harvest_main:107:DEBUG] Changed the schedule id = b'365'
+[2021-04-09 00:28:45,272:harvest_main:107:DEBUG] Changed the schedule id = b'364'
+[2021-04-09 00:28:48,082:harvest_main:107:DEBUG] Changed the schedule id = b'372'
+[2021-04-09 00:28:49,395:harvest_main:107:DEBUG] Changed the schedule id = b'370'
+[2021-04-09 00:28:50,736:harvest_main:107:DEBUG] Changed the schedule id = b'325'
+[2021-04-09 00:28:52,075:harvest_main:107:DEBUG] Changed the schedule id = b'376'
+[2021-04-09 00:28:53,413:harvest_main:107:DEBUG] Changed the schedule id = b'407'
+[2021-04-09 00:28:54,730:harvest_main:107:DEBUG] Changed the schedule id = b'394'
+[2021-04-09 00:28:56,027:harvest_main:107:DEBUG] Changed the schedule id = b'373'
+[2021-04-09 00:28:57,345:harvest_main:107:DEBUG] Changed the schedule id = b'367'
+[2021-04-09 00:28:58,650:harvest_main:107:DEBUG] Changed the schedule id = b'400'
+[2021-04-09 00:28:59,966:harvest_main:107:DEBUG] Changed the schedule id = b'329'
+[2021-04-09 00:29:01,283:harvest_main:107:DEBUG] Changed the schedule id = b'404'
+[2021-04-09 00:29:02,574:harvest_main:107:DEBUG] Changed the schedule id = b'378'
+[2021-04-09 00:29:03,871:harvest_main:107:DEBUG] Changed the schedule id = b'406'
+[2021-04-09 00:29:05,240:harvest_main:107:DEBUG] Changed the schedule id = b'340'
+[2021-04-09 00:29:06,558:harvest_main:107:DEBUG] Changed the schedule id = b'402'
+[2021-04-09 00:29:07,912:harvest_main:107:DEBUG] Changed the schedule id = b'368'
+[2021-04-09 00:29:09,253:harvest_main:107:DEBUG] Changed the schedule id = b'384'
+[2021-04-09 00:29:10,534:harvest_main:107:DEBUG] Changed the schedule id = b'409'
+[2021-04-09 00:29:11,852:harvest_main:107:DEBUG] Changed the schedule id = b'327'
+[2021-04-09 00:29:13,248:harvest_main:107:DEBUG] Changed the schedule id = b'355'
+[2021-04-09 00:29:14,586:harvest_main:107:DEBUG] Changed the schedule id = b'387'
+[2021-04-09 00:29:15,877:harvest_main:107:DEBUG] Changed the schedule id = b'401'
+[2021-04-09 00:29:17,177:harvest_main:107:DEBUG] Changed the schedule id = b'397'
+[2021-04-09 00:29:18,442:harvest_main:107:DEBUG] Changed the schedule id = b'405'
+[2021-04-09 00:29:19,736:harvest_main:107:DEBUG] Changed the schedule id = b'323'
+[2021-04-09 00:29:21,064:harvest_main:107:DEBUG] Changed the schedule id = b'410'
+[2021-04-09 00:29:22,410:harvest_main:107:DEBUG] Changed the schedule id = b'388'
+[2021-04-09 00:29:23,755:harvest_main:107:DEBUG] Changed the schedule id = b'328'
+[2021-04-09 00:29:25,069:harvest_main:107:DEBUG] Changed the schedule id = b'342'
+[2021-04-09 00:29:26,382:harvest_main:107:DEBUG] Changed the schedule id = b'347'
+[2021-04-09 00:29:27,696:harvest_main:107:DEBUG] Changed the schedule id = b'359'
+[2021-04-09 00:29:28,995:harvest_main:107:DEBUG] Changed the schedule id = b'395'
+[2021-04-09 00:29:49,386:harvest_main:107:DEBUG] Changed the schedule id = b'444'
+[2021-04-09 00:29:50,481:harvest_main:107:DEBUG] Changed the schedule id = b'448'
+[2021-04-09 00:29:51,562:harvest_main:107:DEBUG] Changed the schedule id = b'455'
+[2021-04-09 00:29:52,671:harvest_main:107:DEBUG] Changed the schedule id = b'460'
+[2021-04-09 00:30:13,032:harvest_main:107:DEBUG] Changed the schedule id = b'446'
+[2021-04-09 00:30:14,132:harvest_main:107:DEBUG] Changed the schedule id = b'434'
+[2021-04-09 00:30:15,227:harvest_main:107:DEBUG] Changed the schedule id = b'440'
+[2021-04-09 00:30:16,332:harvest_main:107:DEBUG] Changed the schedule id = b'435'
+[2021-04-09 00:30:17,430:harvest_main:107:DEBUG] Changed the schedule id = b'437'
+[2021-04-09 00:30:18,525:harvest_main:107:DEBUG] Changed the schedule id = b'451'
+[2021-04-09 00:30:19,613:harvest_main:107:DEBUG] Changed the schedule id = b'456'
+[2021-04-09 00:30:20,710:harvest_main:107:DEBUG] Changed the schedule id = b'459'
+[2021-04-09 00:30:21,808:harvest_main:107:DEBUG] Changed the schedule id = b'453'
+[2021-04-09 00:30:21,813:harvest_main:112:DEBUG] Harvest schedule has been ended
+[2021-04-09 00:30:29,889:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:30:29,892:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:30:29,894:get_schedule_object:66:WARNING] The schedule does not meet the standard
+[2021-04-09 00:30:29,894:get_schedule_object:67:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 64, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 00:30:29,895:get_schedule:64:ERROR] 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'int' object is not subscriptable
+[2021-04-09 00:30:35,858:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:30:35,859:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:30:35,860:get_schedule_object:66:WARNING] The schedule does not meet the standard
+[2021-04-09 00:30:35,861:get_schedule_object:67:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 64, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 00:30:35,861:get_schedule:36:ERROR] 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 31, in get_todays_shedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=2, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 16, in get_sched_type
+    return type_of_sched.schedule_for_today(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 34, in schedule_for_today
+    todays_shed = sched[day]
+TypeError: 'int' object is not subscriptable
+[2021-04-09 00:41:32,015:loader:36:INFO] Bot has stopped
+[2021-04-09 00:41:32,893:main:18:DEBUG] Bot started
+[2021-04-09 00:41:35,777:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 00:41:35,781:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:41:35,783:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:41:35,784:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 00:41:35,786:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:41:35,787:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not str (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+ValueError: dictionary update sequence element #0 has length 1; 2 is required
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not str (type=type_error)
+[2021-04-09 00:41:35,792:get_schedule_object:61:INFO] User - 0 update_1
+[2021-04-09 00:41:35,793:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:41:35,793:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 00:41:35,793:get_schedule:64:ERROR] 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'int' object is not subscriptable
+[2021-04-09 00:41:41,745:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:41:41,747:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:41:41,749:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 00:41:41,749:get_schedule_object:80:ERROR] invalid syntax (<string>, line 1)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1
+    eyd0dWVzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTA6NDAnLCBlbmQ9JzExOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Ch0JjQodCh0JjQkSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KHQmNCh0KHQmNCRINC70LXQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICd3ZWRuZXNkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQnNCw0YHQsNC90L7QstCwINCQLiDQli4g0LTQvtGGLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCS0JjQnNChINC/0YDQsNC6LicsIHRlYWNoZXI9J9Cc0LDRgdCw0L3QvtCy0LAg0JAuINCWLiDQtNC+0YYuJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTE6NDAnLCBlbmQ9JzEyOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Cm0KEg0LvQtdC6LicsIHRlYWNoZXI9J9CR0LXRgNC00LjQsdCw0LXQsiDQoC4g0KguINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMjo0MCcsIGVuZD0nMTM6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KTQmiDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQk9C+0LvQvtCy0LDRhyDQnS4g0JguINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKSwgJ3RodXJzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMDk6NDAnLCBlbmQ9JzEwOjIwJyksIHN1Ymdyb3VwPScxJywgbGVzc29uPSfQptChINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Cm0KEg0LvQsNCxLicsIHRlYWNoZXI9J9CU0LzQuNGC0YDQuNC10LLQsCDQnC4g0JIuINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzExOjQwJywgZW5kPScxMjoyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCX0JrQmCDQu9C10LouJywgdGVhY2hlcj0n0JTQvNC40YLRgNC40LXQstCwINCcLiDQki4g0YHRgi4g0L/RgNC10L8uJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTQ6NDAnLCBlbmQ9JzE1OjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9CR0J7QoSDQu9C10LouJywgdGVhY2hlcj0n0KHQsNGC0LjQvNC+0LLQsCDQlS4g0JMuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdmcmlkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQu9C10LouJywgdGVhY2hlcj0n0JzQsNGB0LDQvdC+0LLQsCDQkC4g0JYuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdzYXR1cmRheSc6IERheV9vZl93ZWVrKGxlc3NvbnM9W0xlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzA5OjQwJywgZW5kPScxMDoyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKX0=
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+SyntaxError: invalid syntax
+[2021-04-09 00:41:41,749:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:41:41,749:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 00:41:41,750:get_schedule:50:ERROR] 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 45, in get_next_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=3, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 18, in get_sched_type
+    return type_of_sched.current_lesson(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 87, in current_lesson
+    if sched[day] is None:
+TypeError: 'NoneType' object is not subscriptable
+[2021-04-09 00:41:58,757:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:41:58,759:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:41:58,760:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 00:41:58,760:get_schedule_object:80:ERROR] invalid syntax (<string>, line 1)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1
+    eyd0dWVzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTA6NDAnLCBlbmQ9JzExOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Ch0JjQodCh0JjQkSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KHQmNCh0KHQmNCRINC70LXQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICd3ZWRuZXNkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQnNCw0YHQsNC90L7QstCwINCQLiDQli4g0LTQvtGGLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCS0JjQnNChINC/0YDQsNC6LicsIHRlYWNoZXI9J9Cc0LDRgdCw0L3QvtCy0LAg0JAuINCWLiDQtNC+0YYuJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTE6NDAnLCBlbmQ9JzEyOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Cm0KEg0LvQtdC6LicsIHRlYWNoZXI9J9CR0LXRgNC00LjQsdCw0LXQsiDQoC4g0KguINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMjo0MCcsIGVuZD0nMTM6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KTQmiDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQk9C+0LvQvtCy0LDRhyDQnS4g0JguINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKSwgJ3RodXJzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMDk6NDAnLCBlbmQ9JzEwOjIwJyksIHN1Ymdyb3VwPScxJywgbGVzc29uPSfQptChINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Cm0KEg0LvQsNCxLicsIHRlYWNoZXI9J9CU0LzQuNGC0YDQuNC10LLQsCDQnC4g0JIuINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzExOjQwJywgZW5kPScxMjoyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCX0JrQmCDQu9C10LouJywgdGVhY2hlcj0n0JTQvNC40YLRgNC40LXQstCwINCcLiDQki4g0YHRgi4g0L/RgNC10L8uJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTQ6NDAnLCBlbmQ9JzE1OjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9CR0J7QoSDQu9C10LouJywgdGVhY2hlcj0n0KHQsNGC0LjQvNC+0LLQsCDQlS4g0JMuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdmcmlkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQu9C10LouJywgdGVhY2hlcj0n0JzQsNGB0LDQvdC+0LLQsCDQkC4g0JYuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdzYXR1cmRheSc6IERheV9vZl93ZWVrKGxlc3NvbnM9W0xlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzA5OjQwJywgZW5kPScxMDoyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKX0=
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+SyntaxError: invalid syntax
+[2021-04-09 00:41:58,761:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:41:58,761:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 00:41:58,761:get_schedule:36:ERROR] 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 31, in get_todays_shedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=2, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 16, in get_sched_type
+    return type_of_sched.schedule_for_today(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 34, in schedule_for_today
+    todays_shed = sched[day]
+TypeError: 'NoneType' object is not subscriptable
+[2021-04-09 00:42:00,411:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:42:00,413:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:42:00,415:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 00:42:00,415:get_schedule_object:80:ERROR] invalid syntax (<string>, line 1)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1
+    eyd0dWVzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTA6NDAnLCBlbmQ9JzExOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Ch0JjQodCh0JjQkSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KHQmNCh0KHQmNCRINC70LXQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICd3ZWRuZXNkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQnNCw0YHQsNC90L7QstCwINCQLiDQli4g0LTQvtGGLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCS0JjQnNChINC/0YDQsNC6LicsIHRlYWNoZXI9J9Cc0LDRgdCw0L3QvtCy0LAg0JAuINCWLiDQtNC+0YYuJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTE6NDAnLCBlbmQ9JzEyOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Cm0KEg0LvQtdC6LicsIHRlYWNoZXI9J9CR0LXRgNC00LjQsdCw0LXQsiDQoC4g0KguINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMjo0MCcsIGVuZD0nMTM6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KTQmiDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQk9C+0LvQvtCy0LDRhyDQnS4g0JguINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKSwgJ3RodXJzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMDk6NDAnLCBlbmQ9JzEwOjIwJyksIHN1Ymdyb3VwPScxJywgbGVzc29uPSfQptChINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Cm0KEg0LvQsNCxLicsIHRlYWNoZXI9J9CU0LzQuNGC0YDQuNC10LLQsCDQnC4g0JIuINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzExOjQwJywgZW5kPScxMjoyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCX0JrQmCDQu9C10LouJywgdGVhY2hlcj0n0JTQvNC40YLRgNC40LXQstCwINCcLiDQki4g0YHRgi4g0L/RgNC10L8uJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTQ6NDAnLCBlbmQ9JzE1OjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9CR0J7QoSDQu9C10LouJywgdGVhY2hlcj0n0KHQsNGC0LjQvNC+0LLQsCDQlS4g0JMuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdmcmlkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQu9C10LouJywgdGVhY2hlcj0n0JzQsNGB0LDQvdC+0LLQsCDQkC4g0JYuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdzYXR1cmRheSc6IERheV9vZl93ZWVrKGxlc3NvbnM9W0xlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzA5OjQwJywgZW5kPScxMDoyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKX0=
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+SyntaxError: invalid syntax
+[2021-04-09 00:42:00,415:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:42:00,415:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 00:42:00,416:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 00:42:04,108:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:42:04,110:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:42:04,112:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 00:42:04,112:get_schedule_object:80:ERROR] invalid syntax (<string>, line 1)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1
+    eyd0dWVzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTA6NDAnLCBlbmQ9JzExOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Ch0JjQodCh0JjQkSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KHQmNCh0KHQmNCRINC70LXQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICd3ZWRuZXNkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQnNCw0YHQsNC90L7QstCwINCQLiDQli4g0LTQvtGGLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCS0JjQnNChINC/0YDQsNC6LicsIHRlYWNoZXI9J9Cc0LDRgdCw0L3QvtCy0LAg0JAuINCWLiDQtNC+0YYuJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTE6NDAnLCBlbmQ9JzEyOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Cm0KEg0LvQtdC6LicsIHRlYWNoZXI9J9CR0LXRgNC00LjQsdCw0LXQsiDQoC4g0KguINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMjo0MCcsIGVuZD0nMTM6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KTQmiDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQk9C+0LvQvtCy0LDRhyDQnS4g0JguINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKSwgJ3RodXJzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMDk6NDAnLCBlbmQ9JzEwOjIwJyksIHN1Ymdyb3VwPScxJywgbGVzc29uPSfQptChINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Cm0KEg0LvQsNCxLicsIHRlYWNoZXI9J9CU0LzQuNGC0YDQuNC10LLQsCDQnC4g0JIuINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzExOjQwJywgZW5kPScxMjoyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCX0JrQmCDQu9C10LouJywgdGVhY2hlcj0n0JTQvNC40YLRgNC40LXQstCwINCcLiDQki4g0YHRgi4g0L/RgNC10L8uJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTQ6NDAnLCBlbmQ9JzE1OjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9CR0J7QoSDQu9C10LouJywgdGVhY2hlcj0n0KHQsNGC0LjQvNC+0LLQsCDQlS4g0JMuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdmcmlkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQu9C10LouJywgdGVhY2hlcj0n0JzQsNGB0LDQvdC+0LLQsCDQkC4g0JYuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdzYXR1cmRheSc6IERheV9vZl93ZWVrKGxlc3NvbnM9W0xlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzA5OjQwJywgZW5kPScxMDoyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKX0=
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+SyntaxError: invalid syntax
+[2021-04-09 00:42:04,112:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:42:04,113:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 00:42:04,113:get_schedule:64:ERROR] 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'NoneType' object is not subscriptable
+[2021-04-09 00:43:02,197:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:43:02,199:pgsql:94:INFO] User - 690976128 get_user_sched
+[2021-04-09 00:43:02,200:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 00:43:02,200:get_schedule_object:80:ERROR] invalid syntax (<string>, line 1)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1
+    eyd0dWVzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTA6NDAnLCBlbmQ9JzExOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Ch0JjQodCh0JjQkSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KHQmNCh0KHQmNCRINC70LXQui4nLCB0ZWFjaGVyPSfQodGD0LnQtdGD0LHQsNC10LIg0J4uINCRLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICd3ZWRuZXNkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQnNCw0YHQsNC90L7QstCwINCQLiDQli4g0LTQvtGGLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCS0JjQnNChINC/0YDQsNC6LicsIHRlYWNoZXI9J9Cc0LDRgdCw0L3QvtCy0LAg0JAuINCWLiDQtNC+0YYuJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTE6NDAnLCBlbmQ9JzEyOjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9Cm0KEg0LvQtdC6LicsIHRlYWNoZXI9J9CR0LXRgNC00LjQsdCw0LXQsiDQoC4g0KguINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMjo0MCcsIGVuZD0nMTM6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KTQmiDQv9GA0LDQui4nLCB0ZWFjaGVyPSfQk9C+0LvQvtCy0LDRhyDQnS4g0JguINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKSwgJ3RodXJzZGF5JzogRGF5X29mX3dlZWsobGVzc29ucz1bTGVzc29uKHRpbWU9VGltZShzdGFydD0nMDk6NDAnLCBlbmQ9JzEwOjIwJyksIHN1Ymdyb3VwPScxJywgbGVzc29uPSfQptChINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Cm0KEg0LvQsNCxLicsIHRlYWNoZXI9J9CU0LzQuNGC0YDQuNC10LLQsCDQnC4g0JIuINGB0YIuINC/0YDQtdC/LicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzExOjQwJywgZW5kPScxMjoyMCcpLCBzdWJncm91cD0nJywgbGVzc29uPSfQotCX0JrQmCDQu9C10LouJywgdGVhY2hlcj0n0JTQvNC40YLRgNC40LXQstCwINCcLiDQki4g0YHRgi4g0L/RgNC10L8uJywgY2xhc3Nyb29tPSfQntC90LvQsNC50L0nKSwgTGVzc29uKHRpbWU9VGltZShzdGFydD0nMTQ6NDAnLCBlbmQ9JzE1OjIwJyksIHN1Ymdyb3VwPScnLCBsZXNzb249J9CR0J7QoSDQu9C10LouJywgdGVhY2hlcj0n0KHQsNGC0LjQvNC+0LLQsCDQlS4g0JMuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdmcmlkYXknOiBEYXlfb2Zfd2VlayhsZXNzb25zPVtMZXNzb24odGltZT1UaW1lKHN0YXJ0PScwOTo0MCcsIGVuZD0nMTA6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMDo0MCcsIGVuZD0nMTE6MjAnKSwgc3ViZ3JvdXA9JzEnLCBsZXNzb249J9Ci0JfQmtCYINC70LDQsS4nLCB0ZWFjaGVyPSfQlNC80LjRgtGA0LjQtdCy0LAg0JwuINCSLiDRgdGCLiDQv9GA0LXQvy4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpLCBMZXNzb24odGltZT1UaW1lKHN0YXJ0PScxMTo0MCcsIGVuZD0nMTI6MjAnKSwgc3ViZ3JvdXA9JycsIGxlc3Nvbj0n0KLQktCY0JzQoSDQu9C10LouJywgdGVhY2hlcj0n0JzQsNGB0LDQvdC+0LLQsCDQkC4g0JYuINC00L7Rhi4nLCBjbGFzc3Jvb209J9Ce0L3Qu9Cw0LnQvScpXSksICdzYXR1cmRheSc6IERheV9vZl93ZWVrKGxlc3NvbnM9W0xlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzA5OjQwJywgZW5kPScxMDoyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyksIExlc3Nvbih0aW1lPVRpbWUoc3RhcnQ9JzEwOjQwJywgZW5kPScxMToyMCcpLCBzdWJncm91cD0nMScsIGxlc3Nvbj0n0JHQntChINC70LDQsS4nLCB0ZWFjaGVyPSfQl9C40LzQuNC9INCYLicsIGNsYXNzcm9vbT0n0J7QvdC70LDQudC9JyldKX0=
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^
+SyntaxError: invalid syntax
+[2021-04-09 00:43:02,201:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 00:43:02,201:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 00:43:02,201:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 00:43:55,428:pgsql:202:INFO] User - 690976128 delete_account
+[2021-04-09 00:44:06,752:Registration:44:INFO] User - 0 is finding himself group - b'\xd1\x81\xd0\xb8\xd0\xb1 19 6'
+[2021-04-09 00:44:09,639:pgsql:150:INFO] User - 690976128 add_user
+[2021-04-09 00:44:10,535:Registration:125:INFO] New user: name - 0 surname - 1 group - 2
+[2021-04-09 00:44:11,519:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:44:11,521:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 00:44:11,524:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 00:44:11,524:get_schedule:64:ERROR] 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'int' object is not subscriptable
+[2021-04-09 00:44:18,145:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:44:18,147:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 00:44:18,149:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 00:44:18,149:get_schedule:22:ERROR] 'int' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'int' object is not iterable
+[2021-04-09 00:58:45,325:harvest_main:112:DEBUG] Harvest schedule has been ended
+[2021-04-09 00:58:57,654:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 00:58:57,656:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 00:58:57,659:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 00:58:57,659:get_schedule:22:ERROR] 'int' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'int' object is not iterable
+[2021-04-09 01:04:24,389:loader:36:INFO] Bot has stopped
+[2021-04-09 01:04:25,843:main:18:DEBUG] Bot started
+[2021-04-09 01:04:27,911:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:04:27,915:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:04:27,917:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:04:27,921:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 01:04:27,921:get_schedule:64:ERROR] 'int' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'int' object is not subscriptable
+[2021-04-09 01:04:32,493:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:04:32,494:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:04:32,497:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 01:04:32,497:get_schedule:22:ERROR] 'int' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    for k in sched:
+TypeError: 'int' object is not iterable
+[2021-04-09 01:07:30,844:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:07:30,846:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:07:30,848:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:07:30,848:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:07:30,848:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:07:30,848:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:07:30,849:get_schedule:64:ERROR] 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'NoneType' object is not subscriptable
+[2021-04-09 01:07:40,524:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:07:40,526:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:07:40,528:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:07:40,528:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:07:40,528:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:07:40,528:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:07:40,529:get_schedule:64:ERROR] 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 59, in get_tommorow_lesson
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=4, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 20, in get_sched_type
+    return type_of_sched.schedule_for_tommorow(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 54, in schedule_for_tommorow
+    todays_shed = sched[day]
+TypeError: 'NoneType' object is not subscriptable
+[2021-04-09 01:07:41,367:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:07:41,369:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:07:41,371:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:07:41,371:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:07:41,371:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:07:41,371:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:07:41,371:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    result += '\n' + str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------'
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:07:53,728:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:07:53,730:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:07:53,731:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:07:53,731:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:07:53,731:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:07:53,731:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:07:53,732:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    result += '\n' + str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------'
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:08:10,090:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:08:16,249:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:08:16,251:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:08:16,252:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:08:16,252:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:08:16,253:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:08:16,253:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:08:16,253:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    result += '\n' + str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------'
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:08:59,797:loader:36:INFO] Bot has stopped
+[2021-04-09 01:09:00,710:main:18:DEBUG] Bot started
+[2021-04-09 01:09:02,474:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:09:02,478:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:09:02,479:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:09:02,481:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:09:02,481:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:09:02,482:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:09:02,482:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:09:02,482:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:09:08,184:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:09:08,186:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:09:08,187:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:09:08,187:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:09:08,187:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:09:08,188:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:09:08,188:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:09:59,871:loader:36:INFO] Bot has stopped
+[2021-04-09 01:10:00,737:main:18:DEBUG] Bot started
+[2021-04-09 01:10:03,629:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:10:03,633:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:10:03,635:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:10:03,637:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:10:03,637:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:10:03,637:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:10:03,637:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:10:03,638:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 70, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:11:47,322:loader:36:INFO] Bot has stopped
+[2021-04-09 01:11:48,151:main:18:DEBUG] Bot started
+[2021-04-09 01:11:51,107:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:11:51,111:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:11:51,112:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:11:51,114:get_schedule_object:80:WARNING] Can't decode schedule - 
+[2021-04-09 01:11:51,115:get_schedule_object:81:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 78, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:11:51,115:get_schedule_object:69:WARNING] The schedule does not meet the standard
+[2021-04-09 01:11:51,115:get_schedule_object:70:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 67, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:11:51,116:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:11:53,748:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:11:53,749:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:11:53,751:get_schedule_object:80:WARNING] Can't decode schedule - 
+[2021-04-09 01:11:53,751:get_schedule_object:81:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 78, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:11:53,752:get_schedule_object:69:WARNING] The schedule does not meet the standard
+[2021-04-09 01:11:53,752:get_schedule_object:70:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 67, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:11:53,752:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:12:29,971:loader:36:INFO] Bot has stopped
+[2021-04-09 01:12:30,820:main:18:DEBUG] Bot started
+[2021-04-09 01:12:32,289:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:12:32,293:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:12:32,294:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:12:32,296:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:12:32,296:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:12:32,297:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:12:32,297:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:12:32,297:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:12:46,599:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:12:46,601:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:12:46,603:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:12:46,603:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:12:46,603:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:12:46,603:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:12:46,603:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:12:48,662:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:12:48,663:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:12:48,665:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:12:48,665:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:12:48,665:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:12:48,665:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:12:48,665:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:23:00,970:harvest_main:112:DEBUG] Harvest schedule has been ended
+[2021-04-09 01:37:51,464:loader:36:INFO] Bot has stopped
+[2021-04-09 01:37:52,372:main:18:DEBUG] Bot started
+[2021-04-09 01:37:55,652:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:37:55,656:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:37:55,657:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:37:55,659:get_schedule_object:79:WARNING] Can't decode schedule - 
+[2021-04-09 01:37:55,659:get_schedule_object:80:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 77, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:37:55,660:get_schedule_object:68:WARNING] The schedule does not meet the standard
+[2021-04-09 01:37:55,660:get_schedule_object:69:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 66, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:37:55,660:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:38:23,675:loader:36:INFO] Bot has stopped
+[2021-04-09 01:38:24,603:main:18:DEBUG] Bot started
+[2021-04-09 01:38:26,780:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:38:26,783:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:38:26,785:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:38:26,787:get_schedule_object:80:WARNING] Can't decode schedule - 
+[2021-04-09 01:38:26,787:get_schedule_object:81:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 78, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:38:26,787:get_schedule_object:69:WARNING] The schedule does not meet the standard
+[2021-04-09 01:38:26,787:get_schedule_object:70:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 67, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:38:26,788:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:39:15,165:loader:36:INFO] Bot has stopped
+[2021-04-09 01:39:15,967:main:18:DEBUG] Bot started
+[2021-04-09 01:39:17,221:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:39:17,224:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:39:17,225:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:39:17,228:get_schedule_object:81:WARNING] Can't decode schedule - 
+[2021-04-09 01:39:17,228:get_schedule_object:82:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 79, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:39:17,228:get_schedule_object:70:WARNING] The schedule does not meet the standard
+[2021-04-09 01:39:17,228:get_schedule_object:71:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 68, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:39:17,229:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:39:53,493:loader:36:INFO] Bot has stopped
+[2021-04-09 01:39:54,243:main:18:DEBUG] Bot started
+[2021-04-09 01:39:57,009:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:39:57,013:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:39:57,014:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:39:57,016:get_schedule_object:81:WARNING] Can't decode schedule - 
+[2021-04-09 01:39:57,016:get_schedule_object:82:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 79, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:39:57,016:get_schedule_object:70:WARNING] The schedule does not meet the standard
+[2021-04-09 01:39:57,017:get_schedule_object:71:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 68, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:39:57,017:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:40:46,377:loader:36:INFO] Bot has stopped
+[2021-04-09 01:40:47,559:main:18:DEBUG] Bot started
+[2021-04-09 01:40:48,790:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:40:48,793:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:40:48,795:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:40:48,797:get_schedule_object:82:WARNING] Can't decode schedule - 
+[2021-04-09 01:40:48,797:get_schedule_object:83:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 80, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:40:48,797:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 01:40:48,798:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:40:48,798:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:41:43,667:loader:36:INFO] Bot has stopped
+[2021-04-09 01:41:44,512:main:18:DEBUG] Bot started
+[2021-04-09 01:41:46,636:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:41:46,639:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:41:46,641:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:41:46,642:get_schedule_object:82:WARNING] Can't decode schedule - 
+[2021-04-09 01:41:46,643:get_schedule_object:83:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 80, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:41:46,643:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 01:41:46,643:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:41:46,644:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:42:08,066:loader:36:INFO] Bot has stopped
+[2021-04-09 01:42:08,933:main:18:DEBUG] Bot started
+[2021-04-09 01:42:09,849:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:42:09,853:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:42:09,854:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:42:09,856:get_schedule_object:82:WARNING] Can't decode schedule - 
+[2021-04-09 01:42:09,856:get_schedule_object:83:ERROR] unexpected EOF while parsing (<string>, line 0)
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 80, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 0
+    
+    ^
+SyntaxError: unexpected EOF while parsing
+[2021-04-09 01:42:09,856:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 01:42:09,857:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:42:09,857:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:43:43,126:loader:36:INFO] Bot has stopped
+[2021-04-09 01:43:44,024:main:18:DEBUG] Bot started
+[2021-04-09 01:43:44,922:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:43:44,926:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:43:44,927:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:43:44,929:get_schedule:22:ERROR] '>=' not supported between instances of 'str' and 'int'
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 12, in get_sched_type
+    sched = await get_sched(id_chat, whose_sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 41, in get_sched
+    if sched >= 3:
+TypeError: '>=' not supported between instances of 'str' and 'int'
+[2021-04-09 01:44:43,057:loader:36:INFO] Bot has stopped
+[2021-04-09 01:44:43,930:main:18:DEBUG] Bot started
+[2021-04-09 01:44:45,549:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:44:45,553:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:44:45,554:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:44:45,556:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 01:44:45,558:get_schedule_object:83:WARNING] Can't decode schedule - 
+[2021-04-09 01:44:45,558:get_schedule_object:84:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 81, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 01:44:45,559:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:44:45,559:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:44:45,559:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:44:45,559:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:44:45,563:get_schedule_object:65:INFO] User - 0 update_1
+[2021-04-09 01:44:45,563:get_schedule_object:50:INFO] User - 0, has created personal schedule 1
+[2021-04-09 01:44:45,564:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:45:32,617:loader:36:INFO] Bot has stopped
+[2021-04-09 01:45:33,452:main:18:DEBUG] Bot started
+[2021-04-09 01:45:35,713:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:45:35,717:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:45:35,718:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:45:35,720:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:45:35,720:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:45:35,721:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:52:00,003:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:52:00,011:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:52:00,013:get_schedule:22:ERROR] object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 12, in get_sched_type
+    sched = await get_sched(id_chat, whose_sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 41, in get_sched
+    if len(sched) >= 3:
+TypeError: object of type 'NoneType' has no len()
+[2021-04-09 01:52:49,912:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:52:49,914:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:52:49,915:get_schedule:22:ERROR] object of type 'NoneType' has no len()
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 12, in get_sched_type
+    sched = await get_sched(id_chat, whose_sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 41, in get_sched
+    #if len(sched) >= 3:
+TypeError: object of type 'NoneType' has no len()
+[2021-04-09 01:53:15,399:loader:36:INFO] Bot has stopped
+[2021-04-09 01:53:16,340:main:18:DEBUG] Bot started
+[2021-04-09 01:53:19,537:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:53:19,541:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:53:19,543:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:53:19,545:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 01:53:19,547:get_schedule_object:83:WARNING] Can't decode schedule - 
+[2021-04-09 01:53:19,547:get_schedule_object:84:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 81, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 01:53:19,548:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:53:19,548:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:53:19,548:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:53:19,548:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:53:19,552:get_schedule_object:65:INFO] User - 0 update_1
+[2021-04-09 01:53:19,552:get_schedule_object:50:INFO] User - 0, has created personal schedule 1
+[2021-04-09 01:53:19,552:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:55:10,718:loader:36:INFO] Bot has stopped
+[2021-04-09 01:55:11,617:main:18:DEBUG] Bot started
+[2021-04-09 01:55:15,780:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:55:15,783:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:55:15,785:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:55:15,787:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 01:55:15,787:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:55:15,788:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:55:44,069:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:55:44,070:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:55:44,071:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 01:55:44,074:get_schedule_object:82:WARNING] Can't decode schedule - 
+[2021-04-09 01:55:44,074:get_schedule_object:83:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 80, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 01:55:44,074:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 01:55:44,074:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:55:44,075:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 01:55:44,075:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:55:44,078:get_schedule_object:64:INFO] User - 0 update_1
+[2021-04-09 01:55:44,078:get_schedule_object:49:INFO] User - 0, has created personal schedule 1
+[2021-04-09 01:55:44,079:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:56:31,800:loader:36:INFO] Bot has stopped
+[2021-04-09 01:56:32,640:main:18:DEBUG] Bot started
+[2021-04-09 01:56:34,756:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 01:56:34,760:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:56:34,762:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:56:34,764:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:56:34,764:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:56:34,764:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 01:56:50,720:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 01:56:50,722:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 01:56:50,723:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 01:56:50,725:get_schedule_object:83:WARNING] Can't decode schedule - 
+[2021-04-09 01:56:50,726:get_schedule_object:84:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 81, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 01:56:50,726:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:56:50,726:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:56:50,727:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 01:56:50,727:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 01:56:50,730:get_schedule_object:65:INFO] User - 0 update_1
+[2021-04-09 01:56:50,730:get_schedule_object:50:INFO] User - 0, has created personal schedule 1
+[2021-04-09 01:56:50,730:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 02:00:48,241:loader:36:INFO] Bot has stopped
+[2021-04-09 02:00:49,098:main:18:DEBUG] Bot started
+[2021-04-09 02:00:52,801:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:00:52,805:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:00:52,807:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:00:52,809:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 02:00:52,809:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:00:52,809:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 02:01:09,961:loader:36:INFO] Bot has stopped
+[2021-04-09 02:01:10,837:main:18:DEBUG] Bot started
+[2021-04-09 02:01:12,566:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:01:12,570:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:01:12,571:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:01:12,573:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:01:12,576:get_schedule_object:83:WARNING] Can't decode schedule - 
+[2021-04-09 02:01:12,576:get_schedule_object:84:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 81, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:01:12,576:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 02:01:12,576:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:01:12,577:get_schedule_object:72:WARNING] The schedule does not meet the standard
+[2021-04-09 02:01:12,577:get_schedule_object:73:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 70, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:01:12,580:get_schedule_object:65:INFO] User - 0 update_1
+[2021-04-09 02:01:12,580:get_schedule_object:50:INFO] User - 0, has created personal schedule 1
+[2021-04-09 02:01:12,581:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 02:01:47,955:loader:36:INFO] Bot has stopped
+[2021-04-09 02:01:49,008:main:18:DEBUG] Bot started
+[2021-04-09 02:01:52,699:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:01:52,702:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:01:52,704:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:01:52,706:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 02:01:52,706:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:01:52,706:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 02:02:06,611:loader:36:INFO] Bot has stopped
+[2021-04-09 02:02:07,445:main:18:DEBUG] Bot started
+[2021-04-09 02:02:09,870:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:02:09,874:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:02:09,876:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:02:09,878:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:02:09,880:get_schedule_object:82:WARNING] Can't decode schedule - 
+[2021-04-09 02:02:09,880:get_schedule_object:83:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 80, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:02:09,881:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 02:02:09,881:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:02:09,881:get_schedule_object:71:WARNING] The schedule does not meet the standard
+[2021-04-09 02:02:09,881:get_schedule_object:72:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 69, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:02:09,885:get_schedule_object:64:INFO] User - 0 update_1
+[2021-04-09 02:02:09,885:get_schedule_object:49:INFO] User - 0, has created personal schedule 1
+[2021-04-09 02:02:09,885:get_schedule:22:ERROR] 'NoneType' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'NoneType' object is not iterable
+[2021-04-09 02:06:55,998:loader:36:INFO] Bot has stopped
+[2021-04-09 02:06:56,939:main:18:DEBUG] Bot started
+[2021-04-09 02:07:09,786:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:07:09,790:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:07:09,791:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:07:09,793:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:07:09,795:get_schedule_object:80:WARNING] Can't decode schedule - 
+[2021-04-09 02:07:09,795:get_schedule_object:81:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 78, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:07:09,796:get_schedule_object:69:WARNING] The schedule does not meet the standard
+[2021-04-09 02:07:09,796:get_schedule_object:70:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 67, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:07:09,796:get_schedule_object:95:WARNING] The schedule does not meet the standard
+[2021-04-09 02:07:09,796:get_schedule_object:69:WARNING] The schedule does not meet the standard
+[2021-04-09 02:07:09,796:get_schedule_object:70:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 67, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 02:07:09,797:get_schedule_object:103:WARNING] The schedule does not meet the standard
+[2021-04-09 02:07:09,798:get_schedule:22:ERROR] invalid input for query argument $1: -1 (expected str, got int)
+Traceback (most recent call last):
+  File "asyncpg/protocol/prepared_stmt.pyx", line 155, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+  File "asyncpg/protocol/codecs/base.pyx", line 193, in asyncpg.protocol.protocol.Codec.encode
+  File "asyncpg/protocol/codecs/base.pyx", line 104, in asyncpg.protocol.protocol.Codec.encode_scalar
+  File "asyncpg/pgproto/./codecs/text.pyx", line 29, in asyncpg.pgproto.pgproto.text_encode
+  File "asyncpg/pgproto/./codecs/text.pyx", line 12, in asyncpg.pgproto.pgproto.as_pg_string_and_size
+TypeError: expected str, got int
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 12, in get_sched_type
+    sched = await get_sched(id_chat, whose_sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 46, in get_sched
+    await update_sched(id_chat, sched, sched_type)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 54, in update_sched
+    await loader.db.update_group_sched(sched, id_chat)
+  File "/home/zabava/bot_versions/StudentHUB/DB/pgsql.py", line 185, in update_group_sched
+    return await self.pool.execute(sql_query, sched, id_chat)
+  File "/usr/local/lib64/python3.8/site-packages/asyncpg/pool.py", line 530, in execute
+    return await con.execute(query, *args, timeout=timeout)
+  File "/usr/local/lib64/python3.8/site-packages/asyncpg/connection.py", line 299, in execute
+    _, status, _ = await self._execute(
+  File "/usr/local/lib64/python3.8/site-packages/asyncpg/connection.py", line 1625, in _execute
+    result, _ = await self.__execute(
+  File "/usr/local/lib64/python3.8/site-packages/asyncpg/connection.py", line 1650, in __execute
+    return await self._do_execute(
+  File "/usr/local/lib64/python3.8/site-packages/asyncpg/connection.py", line 1697, in _do_execute
+    result = await executor(stmt, None)
+  File "asyncpg/protocol/protocol.pyx", line 181, in bind_execute
+  File "asyncpg/protocol/prepared_stmt.pyx", line 171, in asyncpg.protocol.protocol.PreparedStatementState._encode_bind_msg
+asyncpg.exceptions.DataError: invalid input for query argument $1: -1 (expected str, got int)
+[2021-04-09 02:08:49,147:loader:36:INFO] Bot has stopped
+[2021-04-09 02:08:50,613:main:18:DEBUG] Bot started
+[2021-04-09 02:08:52,407:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:08:52,410:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:08:52,411:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:08:52,413:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:08:52,416:get_schedule_object:84:WARNING] Can't decode schedule - 
+[2021-04-09 02:08:52,416:get_schedule_object:85:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 82, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:08:52,416:get_schedule_object:73:WARNING] The schedule does not meet the standard
+[2021-04-09 02:08:52,416:get_schedule_object:74:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 71, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:08:52,416:get_schedule_object:99:WARNING] The schedule does not meet the standard
+[2021-04-09 02:08:52,417:get_schedule:22:ERROR] 'int' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 14, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'int' object is not iterable
+[2021-04-09 02:09:43,455:loader:36:INFO] Bot has stopped
+[2021-04-09 02:09:44,461:main:18:DEBUG] Bot started
+[2021-04-09 02:09:46,266:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:09:46,270:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:09:46,273:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:09:46,275:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:09:46,278:get_schedule_object:85:WARNING] Can't decode schedule - 
+[2021-04-09 02:09:46,278:get_schedule_object:86:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 83, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:09:46,279:get_schedule_object:74:WARNING] The schedule does not meet the standard
+[2021-04-09 02:09:46,279:get_schedule_object:75:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 72, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:09:46,279:get_schedule_object:100:WARNING] The schedule does not meet the standard
+[2021-04-09 02:09:46,279:get_schedule:22:ERROR] 'int' object is not iterable
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/functions/student/get_schedule.py", line 20, in get_all_schedule
+    resp = await get_sched_type(id_chat=message.chat.id, type_of_shed=1, whose_sched=whose)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 15, in get_sched_type
+    return type_of_sched.all_schedule(sched)
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/type_of_sched.py", line 69, in all_schedule
+    for k in sched:
+TypeError: 'int' object is not iterable
+[2021-04-09 02:10:36,122:loader:36:INFO] Bot has stopped
+[2021-04-09 02:10:37,019:main:18:DEBUG] Bot started
+[2021-04-09 02:10:38,069:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:10:38,072:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:10:38,074:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:10:38,076:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:10:38,078:get_schedule_object:86:WARNING] Can't decode schedule - 
+[2021-04-09 02:10:38,078:get_schedule_object:87:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 84, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:10:38,079:get_schedule_object:75:WARNING] The schedule does not meet the standard
+[2021-04-09 02:10:38,079:get_schedule_object:76:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 73, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:10:38,079:get_schedule_object:101:WARNING] The schedule does not meet the standard
+[2021-04-09 02:11:38,045:loader:36:INFO] Bot has stopped
+[2021-04-09 02:11:39,620:main:18:DEBUG] Bot started
+[2021-04-09 02:11:42,748:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:11:42,752:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:11:42,753:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:11:42,755:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:11:42,757:get_schedule_object:86:WARNING] Can't decode schedule - 
+[2021-04-09 02:11:42,757:get_schedule_object:87:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 84, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:11:42,758:get_schedule_object:75:WARNING] The schedule does not meet the standard
+[2021-04-09 02:11:42,758:get_schedule_object:76:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 73, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:11:42,758:get_schedule_object:101:WARNING] The schedule does not meet the standard
+[2021-04-09 02:12:45,990:loader:36:INFO] Bot has stopped
+[2021-04-09 02:12:46,895:main:18:DEBUG] Bot started
+[2021-04-09 02:12:48,497:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:12:48,500:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:12:48,502:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:12:48,503:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:12:48,506:get_schedule_object:86:WARNING] Can't decode schedule - 
+[2021-04-09 02:12:48,506:get_schedule_object:87:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 84, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:12:48,506:get_schedule_object:75:WARNING] The schedule does not meet the standard
+[2021-04-09 02:12:48,506:get_schedule_object:76:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 73, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:12:48,507:get_schedule_object:102:WARNING] The schedule does not meet the standard
+[2021-04-09 02:13:48,152:loader:36:INFO] Bot has stopped
+[2021-04-09 02:13:49,292:main:18:DEBUG] Bot started
+[2021-04-09 02:13:50,561:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:13:50,565:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:13:50,567:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:13:50,569:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:13:50,572:get_schedule_object:85:WARNING] Can't decode schedule - 
+[2021-04-09 02:13:50,572:get_schedule_object:86:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 83, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:13:50,572:get_schedule_object:74:WARNING] The schedule does not meet the standard
+[2021-04-09 02:13:50,573:get_schedule_object:75:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 72, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:13:50,573:get_schedule_object:100:WARNING] The schedule does not meet the standard
+[2021-04-09 02:18:23,242:loader:36:INFO] Bot has stopped
+[2021-04-09 02:18:24,084:main:18:DEBUG] Bot started
+[2021-04-09 02:18:30,127:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 02:28:35,126:harvest_main:112:DEBUG] Harvest schedule has been ended
+[2021-04-09 02:28:46,248:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-09 02:28:46,250:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-09 02:28:46,251:pgsql:83:INFO] User - 690976128 get_arhit_sched
+[2021-04-09 02:28:46,253:get_schedule_object:85:WARNING] Can't decode schedule - 
+[2021-04-09 02:28:46,253:get_schedule_object:86:ERROR] name 'Day_of_week' is not defined
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 83, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+  File "<string>", line 1, in <module>
+NameError: name 'Day_of_week' is not defined
+[2021-04-09 02:28:46,254:get_schedule_object:74:WARNING] The schedule does not meet the standard
+[2021-04-09 02:28:46,254:get_schedule_object:75:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+Traceback (most recent call last):
+  File "pydantic/main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'NoneType' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zabava/bot_versions/StudentHUB/schedule_json/output/get_schedule_object.py", line 72, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic/main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not NoneType (type=type_error)
+[2021-04-09 02:28:46,254:get_schedule_object:100:WARNING] The schedule does not meet the standard
+[2021-04-09 02:29:00,759:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-09 06:28:25,708:harvest_main:112:DEBUG] Harvest schedule has been ended
+[2021-04-09 10:38:27,924:harvest_main:112:DEBUG] Harvest schedule has been ended
