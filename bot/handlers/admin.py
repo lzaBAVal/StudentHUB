@@ -7,7 +7,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import IDFilter
 
 from bot.handlers.handlers import def_user
-from bot.states.states import AdminCheckUser, AdminGiveRights, AdminTakeAwayRights
+from bot.states.states import AdminCheckUser, AdminGiveRights, AdminTakeAwayRights, AdminPrintArhit
 from config import myid
 from functions.admin.admin_func import get_list_of_users, output_bio, create_hash
 from loader import dp, db
@@ -16,14 +16,15 @@ from schedule_json.harvest.harvest_main import harvest_arhit_sched
 
 logger = init_logger()
 
-
+'''
 @dp.message_handler(commands=['harvest'], state='*')
 async def harvest(message: types.Message):
     await harvest_arhit_sched(db)
     await message.answer('Test')
+'''
 
 
-@dp.message_handler(IDFilter(myid), commands=['help_admin'], state='*')
+@dp.message_handler(IDFilter(myid), commands=['helpadmin'], state='*')
 async def check_user(message: types.Message):
     await message.answer(help_admin_str)
 
@@ -43,6 +44,21 @@ async def check_user(message: types.Message):
 async def cancel_func(message: types.Message):
     await message.answer('Вы отменили операцию')
     await def_user(message)
+
+
+@dp.message_handler(IDFilter(myid), commands=['print_arhit', 'print_group'], state='*')
+async def print_arhit(message: types.Message, state: FSMContext):
+    await message.answer('Введите id группы чье расписание вы хотите увидеть')
+    type_sched = message.text
+    if type_sched == '/print_arhit':
+        type_sched = 'sched_arhit'
+    elif type_sched == '/print_group':
+        type_sched = 'sched_group'
+    else:
+        await message.answer('Error')
+        return 0
+    await state.set_data({'type': type_sched})
+    await AdminPrintArhit.select.set()
 
 
 @dp.message_handler(IDFilter(myid), commands=['users_list'], state='*')
@@ -161,4 +177,3 @@ async def give_rights(message: types.Message, state: FSMContext):
 async def give_rights(message: types.Message, state: FSMContext):
     await state.finish()
     await def_user(message)
-

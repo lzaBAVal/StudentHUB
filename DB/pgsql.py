@@ -12,7 +12,7 @@ class Database:
             asyncpg.create_pool(
                 user='samplerole',
                 password='Cyberark!123',
-                database='db_bot',
+                database='testDB',
                 host='localhost',
                 port='5432'
             )
@@ -88,6 +88,16 @@ class Database:
                     'id_chat = $1) as INT) '
         logger.info(f'User - {id_chat} get_group_sched')
         return await self.pool.fetchrow(sql_query, id_chat)
+
+    ####
+    async def get_group_sched_by_group_id(self, group_id: int):
+        sql_query = 'select sched_group from groups_students where id_inc=$1'
+        return await self.pool.fetchrow(sql_query, group_id)
+
+    async def get_arhit_sched_by_group_id(self, group_id: int):
+        sql_query = 'select sched_arhit from groups_students where id_inc=$1'
+        return await self.pool.fetchrow(sql_query, group_id)
+    ####
 
     async def get_user_sched(self, id_chat: int):
         sql_query = 'select sched_user from student where id_chat = $1'

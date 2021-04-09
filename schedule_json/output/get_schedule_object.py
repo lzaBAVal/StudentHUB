@@ -35,35 +35,56 @@ async def get_sched(id_chat: int, sched_type: str) -> [dict, int]:
     else:
         return -1
     sched = dict(sched)[sched_type]
-    print(sched_type)
-    #if sched == 'LTE=':
-    #    await update_sched(id_chat, dict(await loader.db.get_arhit_sched(id_chat))['sched_arhit'], sched_type)
-    if sched is not None:
+    if isinstance(sched, str):
         sched = decode_normalise_sched(sched)
-        if sched == -1:
+        if isinstance(sched, int):
             return -1
         return sched
-    else:
+    elif sched is None:
+        logger.info(f'User - {0}. Empty schedule'.format(id_chat, type(sched)))
         sched_raw = dict(await loader.db.get_arhit_sched(id_chat))['sched_arhit']
         sched = decode_normalise_sched(sched_raw)
-        if sched == -1:
+        if isinstance(sched, int):
             return -1
-        await update_sched(id_chat, sched, sched_type)
-        logger.info(f'User - {0}, has created personal schedule {1}'.format(id_chat, sched_type))
-        return sched
+        elif isinstance(sched, str):
+            await update_sched(id_chat, sched, sched_type)
+            logger.info(f'User - {id_chat}, has created {sched_type}')
+            return sched
+        else:
+            return -1
+    else:
+        return -1
+
+
+async def check_raw_sched(group_id: int, sched_type: str):
+    if sched_type == 'sched_group':
+        _sched = await loader.db.get_group_sched_by_group_id(group_id)
+    elif sched_type == 'sched_arhit':
+        _sched = await loader.db.get_arhit_sched_by_group_id(group_id)
+    else:
+        return -1
+    _sched = dict(_sched)[sched_type]
+    sched = decode_normalise_sched(_sched)
+    if isinstance(sched, dict):
+        return str(sched) + '\nPOSITIVE. Валидная структурв'
+    logger.warn(f'Broken schedule: {group_id}')
+    sched = decode_sched(_sched)
+    return str(sched) + '\nNEGATIVE. Проверка на валидность структуры не пройдена'
 
 
 async def update_sched(id_chat: int, sched: dict, sched_type: str):
     sched = encode_normalise_sched(sched)
-    if sched_type == 'sched_group':
-        await loader.db.update_group_sched(sched, id_chat)
-    elif sched_type == 'sched_arhit':
-        await loader.db.update_arhit_sched(sched, id_chat)
-    elif sched_type == 'sched_user':
-        await loader.db.update_user_sched(sched, id_chat)
+    if isinstance(sched, str):
+        if sched_type == 'sched_group':
+            await loader.db.update_group_sched(sched, id_chat)
+        elif sched_type == 'sched_arhit':
+            await loader.db.update_arhit_sched(sched, id_chat)
+        elif sched_type == 'sched_user':
+            await loader.db.update_user_sched(sched, id_chat)
+        else:
+            return -1
     else:
         return -1
-
     logger.info(f'User - {0} update_{1}'.format(id_chat, sched_type))
 
 
@@ -84,6 +105,7 @@ def decode_sched(sched: str) -> dict:
     except Exception as exc:
         logger.warn('Can\'t decode schedule - ')
         logger.exception(exc)
+        return -1
 
 
 def encode_sched(sched: dict) -> str:
@@ -96,7 +118,7 @@ def encode_sched(sched: dict) -> str:
 
 def decode_normalise_sched(sched: str):
     sched: dict = decode_sched(sched)
-    if check_sched(sched) == False:
+    if not check_sched(sched):
         logger.warn('The schedule does not meet the standard')
         return -1
     else:
@@ -104,7 +126,7 @@ def decode_normalise_sched(sched: str):
 
 
 def encode_normalise_sched(sched: dict):
-    if check_sched(sched) == False:
+    if not check_sched(sched):
         logger.warn('The schedule does not meet the standard')
         return -1
     else:

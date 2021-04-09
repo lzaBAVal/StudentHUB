@@ -12,13 +12,16 @@ class TestStates(Helper):
     TEST_STATE_5 = ListItem()
 '''
 
+
 class TesterState(StatesGroup):
     tester = State()
     start_add = State()
     finish_add = State()
 
+
 class AnonStates(StatesGroup):
     anon = State()
+
 
 class StudentStates(StatesGroup):
     student = State()
@@ -33,6 +36,7 @@ class RegistrationStates(StatesGroup):
     insert_sql = State()
     final = State()
 
+
 class AddLesson(StatesGroup):
     time = State()
     lesson = State()
@@ -40,8 +44,9 @@ class AddLesson(StatesGroup):
     subgroup = State()
     classroom = State()
     check = State()
-    process= State()
+    process = State()
     final = State()
+
 
 class DeleteLesson(StatesGroup):
     lesson = State()
@@ -49,43 +54,37 @@ class DeleteLesson(StatesGroup):
     process = State()
     final = State()
 
+
 class DiscoverFreeTime(StatesGroup):
     output = State()
+
 
 class AdminCheckUser(StatesGroup):
     user_id = State()
     output = State()
 
+
 class AdminGiveRights(StatesGroup):
     user_id = State()
     issue = State()
+
 
 class AdminTakeAwayRights(StatesGroup):
     user_id = State()
     issue = State()
 
+
 class CaptainSchedule(StatesGroup):
     select = State()
 
+
 class ConfigWhoseScheduleState(StatesGroup):
     select = State()
+
 
 class SetCaptainState(StatesGroup):
     set = State()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+class AdminPrintArhit(StatesGroup):
+    select = State()

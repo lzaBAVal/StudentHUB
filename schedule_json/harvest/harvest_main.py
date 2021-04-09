@@ -7,6 +7,7 @@ import aioschedule
 from logs.scripts.logging_core import init_logger
 from schedule_json.harvest.harvest_groups import search_group
 from schedule_json.harvest.harvest_schedules import search_schedule
+from schedule_json.output.get_schedule_object import update_sched, get_sched
 
 logger = init_logger()
 
@@ -105,11 +106,16 @@ async def harvest_arhit_sched(db):
                 exist_sched = dict(list(await db.get_groups_sched_name_arhit(id_inc))[0])
                 if sched64 != exist_sched['sched_arhit']:
                     logger.debug('Changed the schedule id = ' + str(str(id_inc).encode('utf-8')))
-                await db.update_arhit_sched(sched64, id_inc)
+                    await db.update_arhit_sched(sched64, id_inc)
             except Exception as exc:
                 logger.warn('Institution id - ' + str(i) + ', group_value: ' + group_url_value)
                 logger.exception(exc)
     logger.debug('Harvest schedule has been ended')
+
+
+async def fix_schedule(id_chat, sched_type):
+    sched = await get_sched(id_chat, 'sched_arhit')
+    await update_sched(id_chat, sched, sched_type)
 
 
 '''
@@ -130,8 +136,9 @@ async def harvest_group_sched(db):
     logger.debug('Harvest schedule has been ended')
 '''
 
+
 async def scheduler(db):
-    #aioschedule.every(12).hours.do(harvest_groups, db)
+    # aioschedule.every(12).hours.do(harvest_groups, db)
     aioschedule.every(4).hours.do(harvest_arhit_sched, db)
     while True:
         await aioschedule.run_pending()

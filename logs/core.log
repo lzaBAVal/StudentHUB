@@ -2464,3 +2464,169 @@ __root__
 [2021-04-09 02:29:00,759:ratelimit:111:WARNING] User - 690976128 send many messages
 [2021-04-09 06:28:25,708:harvest_main:112:DEBUG] Harvest schedule has been ended
 [2021-04-09 10:38:27,924:harvest_main:112:DEBUG] Harvest schedule has been ended
+[2021-04-09 12:19:02,060:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:19:10,183:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:19:41,290:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:19:41,869:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:19:52,647:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:19:53,229:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:19:53,230:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:19:53,244:pgsql:77:INFO] User - 690976128 get_user
+[2021-04-09 12:21:07,234:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:21:07,787:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:27:05,695:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:27:06,289:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:27:53,091:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:27:53,657:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:28:42,381:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:28:43,050:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:29:29,553:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:29:30,121:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:30:11,838:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:30:15,031:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:30:54,810:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:30:57,964:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:34:06,957:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:34:19,149:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:35:22,563:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:35:24,781:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:36:14,950:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:36:55,079:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:36:55,712:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:37:52,038:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:37:57,947:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:46:31,164:main_polling:14:DEBUG] Bot started
+[2021-04-09 12:46:37,456:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 12:46:58,929:get_schedule_object:105:WARNING] Can't decode schedule - 
+[2021-04-09 12:46:58,929:get_schedule_object:106:ERROR] 'asyncpg.Record' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 103, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+AttributeError: 'asyncpg.Record' object has no attribute 'encode'
+[2021-04-09 12:46:58,930:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 12:46:58,930:get_schedule_object:95:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic\main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 92, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic\main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 12:46:58,933:get_schedule_object:121:WARNING] The schedule does not meet the standard
+[2021-04-09 12:46:58,933:get_schedule_object:105:WARNING] Can't decode schedule - 
+[2021-04-09 12:46:58,933:get_schedule_object:106:ERROR] 'int' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 103, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+AttributeError: 'int' object has no attribute 'encode'
+[2021-04-09 13:00:39,899:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 13:00:43,658:get_schedule_object:105:WARNING] Can't decode schedule - 
+[2021-04-09 13:00:43,658:get_schedule_object:106:ERROR] 'asyncpg.Record' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 103, in decode_sched
+    try:
+AttributeError: 'asyncpg.Record' object has no attribute 'encode'
+[2021-04-09 13:00:43,659:get_schedule_object:94:WARNING] The schedule does not meet the standard
+[2021-04-09 13:00:43,659:get_schedule_object:95:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic\main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 92, in check_sched
+    try:
+  File "pydantic\main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 13:00:43,660:get_schedule_object:121:WARNING] The schedule does not meet the standard
+[2021-04-09 13:00:43,660:get_schedule_object:105:WARNING] Can't decode schedule - 
+[2021-04-09 13:00:43,660:get_schedule_object:106:ERROR] 'int' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 103, in decode_sched
+    try:
+AttributeError: 'int' object has no attribute 'encode'
+[2021-04-09 13:02:45,321:main_polling:14:DEBUG] Bot started
+[2021-04-09 13:02:45,902:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 13:03:07,348:get_schedule_object:106:WARNING] Can't decode schedule - 
+[2021-04-09 13:03:07,348:get_schedule_object:107:ERROR] 'asyncpg.Record' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 104, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+AttributeError: 'asyncpg.Record' object has no attribute 'encode'
+[2021-04-09 13:03:07,349:get_schedule_object:95:WARNING] The schedule does not meet the standard
+[2021-04-09 13:03:07,349:get_schedule_object:96:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic\main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 93, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic\main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 13:03:07,350:get_schedule_object:122:WARNING] The schedule does not meet the standard
+[2021-04-09 13:03:07,350:get_schedule_object:70:WARNING] Broken schedule: 463
+[2021-04-09 13:03:07,350:get_schedule_object:106:WARNING] Can't decode schedule - 
+[2021-04-09 13:03:07,350:get_schedule_object:107:ERROR] 'asyncpg.Record' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 104, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+AttributeError: 'asyncpg.Record' object has no attribute 'encode'
+[2021-04-09 13:03:38,132:main_polling:14:DEBUG] Bot started
+[2021-04-09 13:03:38,849:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 13:04:00,302:get_schedule_object:107:WARNING] Can't decode schedule - 
+[2021-04-09 13:04:00,302:get_schedule_object:108:ERROR] 'asyncpg.Record' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 105, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+AttributeError: 'asyncpg.Record' object has no attribute 'encode'
+[2021-04-09 13:04:00,303:get_schedule_object:96:WARNING] The schedule does not meet the standard
+[2021-04-09 13:04:00,303:get_schedule_object:97:ERROR] 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+Traceback (most recent call last):
+  File "pydantic\main.py", line 568, in pydantic.main.BaseModel.parse_obj
+TypeError: 'int' object is not iterable
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 94, in check_sched
+    Sched.parse_obj(sched)
+  File "pydantic\main.py", line 571, in pydantic.main.BaseModel.parse_obj
+pydantic.error_wrappers.ValidationError: 1 validation error for Sched
+__root__
+  Sched expected dict not int (type=type_error)
+[2021-04-09 13:04:00,304:get_schedule_object:123:WARNING] The schedule does not meet the standard
+[2021-04-09 13:04:00,304:get_schedule_object:70:WARNING] Broken schedule: 463
+[2021-04-09 13:04:00,304:get_schedule_object:107:WARNING] Can't decode schedule - 
+[2021-04-09 13:04:00,304:get_schedule_object:108:ERROR] 'asyncpg.Record' object has no attribute 'encode'
+Traceback (most recent call last):
+  File "C:\Users\zaBAVa\PycharmProjects\prod_bot\schedule_json\output\get_schedule_object.py", line 105, in decode_sched
+    return eval(base64.b64decode(sched.encode('utf-8')).decode("utf-8"))
+AttributeError: 'asyncpg.Record' object has no attribute 'encode'
+[2021-04-09 13:04:33,703:main_polling:14:DEBUG] Bot started
+[2021-04-09 13:04:39,905:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 13:05:20,477:main_polling:14:DEBUG] Bot started
+[2021-04-09 13:05:21,181:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-09 13:06:05,289:main_polling:14:DEBUG] Bot started
+[2021-04-09 13:06:05,877:pgsql:34:INFO] User - 690976128 check_user

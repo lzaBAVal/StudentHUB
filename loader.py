@@ -10,7 +10,7 @@ from config import token, TOKEN
 from logs.scripts.logging_core import init_logger
 from schedule_json.harvest.harvest_main import Harvest, scheduler
 
-API_TOKEN = TOKEN
+API_TOKEN = token
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
