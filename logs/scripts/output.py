@@ -19,8 +19,10 @@ def get_last_logs():
         file = open(out_log, 'r')
         linelist = file.readlines()
         file.close()
+        linelist = list(reversed(linelist))
         for i in reversed(range(1, 5 + additional_lines*iter)):
             result += linelist[i]
+        print(result)
         if len(result) > 3000:
             return old_result
         elif 3000 > len(result) > 2800 or 5 + additional_lines*iter >= len(linelist) - 7:

@@ -10,7 +10,7 @@ from config import token, TOKEN
 from logs.scripts.logging_core import init_logger
 from schedule_json.harvest.harvest_main import Harvest, scheduler
 
-API_TOKEN = token
+API_TOKEN = TOKEN
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -20,6 +20,7 @@ logger = init_logger()
 bot = Bot(token=API_TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
+dp.skip_updates()
 loop = asyncio.get_event_loop()
 db = Database(loop)
 hrvst = Harvest(db)

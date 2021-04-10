@@ -16,12 +16,11 @@ from schedule_json.harvest.harvest_main import harvest_arhit_sched
 
 logger = init_logger()
 
-'''
+
 @dp.message_handler(commands=['harvest'], state='*')
 async def harvest(message: types.Message):
     await harvest_arhit_sched(db)
     await message.answer('Test')
-'''
 
 
 @dp.message_handler(IDFilter(myid), commands=['helpadmin'], state='*')

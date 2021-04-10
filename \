@@ -41,13 +41,12 @@ async def get_sched(id_chat: int, sched_type: str) -> [dict, int]:
             return -1
         return sched
     elif sched is None:
-        logger.info(f'User - {id_chat}. Empty schedule')
+        logger.info(f'User - {0}. Empty schedule'.format(id_chat, type(sched)))
         sched_raw = dict(await loader.db.get_arhit_sched(id_chat))['sched_arhit']
         sched = decode_normalise_sched(sched_raw)
-        print(sched)
         if isinstance(sched, int):
             return -1
-        elif isinstance(sched, dict):
+        elif isinstance(sched, str):
             await update_sched(id_chat, sched, sched_type)
             logger.info(f'User - {id_chat}, has created {sched_type}')
             return sched

@@ -11,7 +11,7 @@ import time as tm
 from bs4 import BeautifulSoup
 
 from schedule_json.output.get_schedule_object import check_sched
-from vars import days, Time, Day_of_week, Lesson
+from vars import days, Time, Day_of_week, Lesson, Sched
 from logs.scripts.logging_core import init_logger
 
 
@@ -76,5 +76,6 @@ def search_schedule(url: str):
                         sched_json.setdefault(list(days.keys())[list(days.values()).index(current_day)], day_o)
     if check_sched(sched_json) is False:
         return -1
-
-    return sched_json
+    sched_dict = Sched.parse_obj(sched_json)
+    sched_dict = sched_dict.dict()
+    return sched_dict

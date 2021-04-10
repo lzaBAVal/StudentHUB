@@ -12,7 +12,7 @@ class Database:
             asyncpg.create_pool(
                 user='samplerole',
                 password='Cyberark!123',
-                database='testDB',
+                database='db_bot',
                 host='localhost',
                 port='5432'
             )

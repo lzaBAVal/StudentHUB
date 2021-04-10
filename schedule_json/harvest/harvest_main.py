@@ -93,19 +93,20 @@ async def harvest_arhit_sched(db):
         print('Institution: ' + str(i))
         url_group = str(dict(list(await db.get_institution_url_groups(i))[0])['url_for_groups'])
         groups_values = await db.get_groups_values(i)
-
+        
         for j in groups_values:
             group_url_value: str = str(list(j)[0])
-            id_inc: int = list(j)[1]
+            id_inc: int = int(list(j)[1])
             try:
                 url = str(url_group.replace('{value}', group_url_value))
                 sched = str(search_schedule(url))
+                sched
                 if sched == -1:
                     continue
                 sched64 = str(base64.b64encode(sched.encode('utf-8')), 'utf-8')
-                exist_sched = dict(list(await db.get_groups_sched_name_arhit(id_inc))[0])
-                if sched64 != exist_sched['sched_arhit']:
-                    logger.debug('Changed the schedule id = ' + str(str(id_inc).encode('utf-8')))
+                exist_sched = dict(list(await db.get_groups_sched_name_arhit(id_inc))[0])['sched_arhit']
+                if hash(sched64) != hash(exist_sched):
+                    logger.debug(f'Changed the schedule id = {id_inc}')
                     await db.update_arhit_sched(sched64, id_inc)
             except Exception as exc:
                 logger.warn('Institution id - ' + str(i) + ', group_value: ' + group_url_value)
