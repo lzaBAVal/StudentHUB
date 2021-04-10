@@ -4682,3 +4682,64 @@ AttributeError: 'NoneType' object has no attribute 'encode'
 [2021-04-10 17:53:22,646:pgsql:180:INFO] User - 856122032 update_whose_schedule, privilege - general
 [2021-04-10 17:53:26,095:pgsql:72:INFO] User - 856122032 get_whose_sched
 [2021-04-10 17:53:26,097:pgsql:89:INFO] User - 856122032 get_group_sched
+[2021-04-10 19:17:40,084:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:17:53,346:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:18:15,865:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:18:16,480:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 19:18:27,958:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:18:28,614:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:18:34,520:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 19:20:30,049:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:20:32,871:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:20:56,862:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:20:57,512:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:20:57,513:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:20:57,917:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 19:21:34,354:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:21:35,002:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:21:49,684:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:21:50,246:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:24:16,849:main_polling:14:DEBUG] Bot started
+[2021-04-10 19:24:17,391:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 19:24:17,858:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-10 19:24:17,884:pgsql:89:INFO] User - 690976128 get_group_sched
+[2021-04-10 19:24:20,697:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-10 19:24:24,564:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-10 19:24:26,423:pgsql:180:INFO] User - 690976128 update_whose_schedule, privilege - personal
+[2021-04-10 19:24:28,578:pgsql:72:INFO] User - 690976128 get_whose_sched
+[2021-04-10 20:37:58,369:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:13,567:main_polling:14:DEBUG] Bot started
+[2021-04-10 20:43:14,169:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:14,170:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:14,171:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:14,175:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:14,176:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:14,632:ratelimit:111:WARNING] User - 354203111 send many messages
+[2021-04-10 20:43:14,658:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 20:43:14,684:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 20:43:33,969:main_polling:14:DEBUG] Bot started
+[2021-04-10 20:43:34,672:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,675:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,676:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:34,677:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:34,678:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,679:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,680:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,681:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:34,683:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,684:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:34,685:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:34,686:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 20:43:34,687:pgsql:34:INFO] User - 354203111 check_user
+[2021-04-10 20:43:35,182:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 20:43:35,264:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 20:43:35,284:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 20:43:35,318:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 20:43:35,329:ratelimit:111:WARNING] User - 354203111 send many messages
+[2021-04-10 20:43:35,358:ratelimit:111:WARNING] User - 354203111 send many messages
+[2021-04-10 21:27:15,964:main_polling:14:DEBUG] Bot started
+[2021-04-10 21:27:16,568:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 21:27:16,575:pgsql:34:INFO] User - 690976128 check_user
+[2021-04-10 21:27:22,730:ratelimit:111:WARNING] User - 690976128 send many messages
+[2021-04-10 21:27:57,074:main:18:DEBUG] Bot started
+[2021-04-10 21:28:19,486:main:18:DEBUG] Bot started

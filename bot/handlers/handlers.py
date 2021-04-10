@@ -1,3 +1,5 @@
+from aiogram.dispatcher import FSMContext
+
 from bot.strings.messages import *
 
 from aiogram import types
@@ -18,7 +20,8 @@ async def state_none(message: types.Message):
 
 
 @dp.message_handler(state=None)
-async def def_user(message: types.Message):
+async def def_user(message: types.Message, state: FSMContext):
+    await state.finish()
     try:
         if not (await db.check_user(message.chat.id)):
             await AnonStates.anon.set()
@@ -29,9 +32,9 @@ async def def_user(message: types.Message):
         await message.answer(text='Что то пошло не так! Ошибка', reply_markup=kb.anon_kb)
 
 
-@dp.message_handler(commands=['start'], state=AnonStates.anon)
+@dp.message_handler(commands=['start'], state=None)
 async def start(message: types.Message):
-    await AnonState.anon.set()
+    await AnonStates.anon.set()
     await message.answer(text=start_text, reply_markup=kb.anon_kb)
 
 
@@ -40,27 +43,3 @@ async def start(message: types.Message):
 @dp.message_handler(commands=['id'], state='*')
 async def chat_id(message: types.Message):
     await message.answer(text=message.chat.id)
-
-
-'''
-@dp.message_handler(commands=['setstate'])
-async def process_setstate(message: types.Message):
-    argument = message.get_args()
-    state = dp.current_state(user=message.from_user.id)
-    if not argument:
-        await state.reset_state()
-        return await message.reply(MESSAGES['state_reset'])
-
-    if (not argument.isdigit()) or (not int(argument) < len(TestStates.all())):
-        return await message.reply(MESSAGES['invalid_key'].format(key=argument))
-
-    await state.set_state(TestStates.all()[int(argument)])
-    await message.reply(MESSAGES['state_change'], reply=False)
-'''
-
-'''
-@dp.callback_query_handler(lambda c: c.data == 'button1')
-async def process_callback_query(callback_query: types.CallbackQuery):
-    await bot.answer_callback_query(callback_query.id)
-    await bot.send_message(callback_query.from_user.id, 'Нажата первая кнопка!')
-'''

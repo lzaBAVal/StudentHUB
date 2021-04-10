@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import IDFilter
 
+from bot.handlers.Admin import cancel_func
 from bot.states.states import AdminPrintArhit
 from config import myid
 from loader import dp
@@ -17,5 +18,4 @@ async def print_arhit(message: types.Message, state: FSMContext):
         await message.answer(res)
     else:
         await message.answer('Некорректное id группы')
-
-    await state.finish()
+    await cancel_func()

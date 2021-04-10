@@ -1,6 +1,7 @@
 from aiogram.dispatcher import FSMContext
 
 import bot.keyboard as kb
+from functions.command import cancel
 from functions.whois import whois_str
 from logs.scripts.logging_core import init_logger
 
@@ -11,20 +12,6 @@ from bot.strings.commands import whose_schedule_str, back_to_menu_str, personal_
 from loader import dp, db
 
 logger = init_logger()
-
-
-@dp.message_handler(commands=['/cancel'], state=ConfigWhoseScheduleState.states)
-async def cancel_config(message: types.message, state: FSMContext):
-    await message.answer('Вы в главном меню', reply_markup=kb.stud_kb)
-    await state.finish()
-    await StudentStates.student.set()
-
-
-@dp.message_handler(text=back_to_menu_str, state=ConfigWhoseScheduleState.states)
-async def cancel_config(message: types.message, state: FSMContext):
-    await message.answer('Вы в главном меню', reply_markup=kb.stud_kb)
-    await state.finish()
-    await StudentStates.student.set()
 
 
 @dp.message_handler(text=whose_schedule_str, state=StudentStates.student)
@@ -41,6 +28,11 @@ async def select_schedule(message: types.message):
                              f'нажмите на одну из кнопок ниже',
                              reply_markup=kb.select_whose_schedule_kb)
         await ConfigWhoseScheduleState.select.set()
+
+
+@dp.message_handler(text=back_to_menu_str, state=ConfigWhoseScheduleState.states)
+async def cancel_config(message: types.message, state: FSMContext):
+    await cancel()
 
 
 @dp.message_handler(text=personal_schedule_str, state=ConfigWhoseScheduleState.select)

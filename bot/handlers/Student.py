@@ -1,6 +1,7 @@
 import datetime
 
 from aiogram import types
+from aiogram.dispatcher import FSMContext
 
 from bot import keyboard as kb
 from bot.states.states import StudentStates, AddLesson, DeleteLesson, DiscoverFreeTime, SetCaptainState
@@ -20,7 +21,7 @@ logger = init_logger()
 
 
 @dp.message_handler(text=back_to_menu_str, state=StudentStates.student)
-async def all_shedule(message: types.Message):
+async def back_to_menu(message: types.Message):
     await message.answer('Вы в главном меню', reply_markup=kb.stud_kb)
 
 

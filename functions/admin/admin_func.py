@@ -7,8 +7,8 @@ logger = init_logger()
 
 async def get_list_of_users(db, chat_id):
     result = ''
-    responce = await db.admin_get_users_list(chat_id)
-    for user in responce:
+    response = await db.admin_get_users_list(chat_id)
+    for user in response:
         result += str(output_bio(dict(user), id_chat=True, name=True, surname=True, group=True, privilege=True)) + '\n'
     return result
 

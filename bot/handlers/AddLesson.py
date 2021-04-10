@@ -3,16 +3,17 @@ from aiogram.dispatcher import FSMContext
 
 from bot import keyboard as kb
 from bot.states.states import StudentStates, AddLesson
+from bot.strings.commands import back_to_menu_str
+from functions.command import cancel
 from functions.student.add_lesson import add_lesson_time, add_lesson_lesson, add_lesson_teacher, add_lesson_subgroup, \
     add_lesson_classroom, add_lesson_check, add_lesson_process
 from loader import dp
 
 
-@dp.message_handler(lambda message: message.text.lower() == "отмена", state=AddLesson.states)
-async def add_lesson_cancel(message: types.message, state: FSMContext):
+@dp.message_handler(lambda message: message.text.lower() == "отмена", text=back_to_menu_str, state=AddLesson.states)
+async def add_lesson_cancel(message: types.message):
     await message.answer(text='Добавьте урок заново', reply_markup=kb.stud_kb)
-    await state.finish()
-    await StudentStates.student.set()
+    await cancel()
 
 
 @dp.message_handler(state=AddLesson.time)
@@ -52,14 +53,12 @@ async def lesson_process(message: types.message, state: FSMContext):
 
 
 @dp.message_handler(lambda message: message.text.lower() == "нет", state=AddLesson.process)
-async def add_lesson_process_no(message: types.message, state: FSMContext):
+async def add_lesson_process_no(message: types.message):
     await message.answer(text='Добавьте урок заново')
-    await state.finish()
-    await StudentStates.student.set()
+    await cancel()
 
 
 @dp.message_handler(state=AddLesson.final)
-async def add_lesson_process_yes(message: types.message, state: FSMContext):
+async def add_lesson_process_yes(message: types.message):
     await message.answer('Урок добавлен', reply_markup=kb.stud_kb)
-    await state.finish()
-    await StudentStates.student.set()
+    await cancel()
