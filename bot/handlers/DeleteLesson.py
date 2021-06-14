@@ -1,10 +1,10 @@
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 
-from bot import keyboard as kb
+from bot.keyboard.keyboard import stud_kb, cat_kb, question_kb, free_time
 from bot.states.states import StudentStates, DeleteLesson
-from loader import dp
-from logs.scripts.logging_core import init_logger
+from misc import dp
+from utils.log.logging_core import init_logger
 from schedule_json.change.change_sched import delete_lesson
 from schedule_json.change.change_sched import get_lessons_time
 from schedule_json.output.get_schedule_object import get_sched, update_sched
@@ -14,7 +14,7 @@ logger = init_logger()
 
 @dp.message_handler(lambda message: message.text.lower() == "отмена", state=DeleteLesson.states)
 async def cancel_delete_lesson(message: types.message, state: FSMContext):
-    await message.answer('Вы прервали процесс удаления', reply_markup=kb.stud_kb)
+    await message.answer('Вы прервали процесс удаления', reply_markup=stud_kb())
     await state.finish()
     await StudentStates.student.set()
 
@@ -27,12 +27,12 @@ async def delete_lesson_lesson(message: types.message, state: FSMContext):
         data['sched'] = sched
     lessons_time = await get_lessons_time(data['day'], sched)
     if isinstance(lessons_time, tuple):
-        await message.answer(lessons_time[1] + '\nВы в главном меню', reply_markup=kb.stud_kb)
+        await message.answer(lessons_time[1] + '\nВы в главном меню', reply_markup=stud_kb())
         await state.finish()
         await StudentStates.student.set()
         return 0
 
-    await message.answer('Какой предмет вы желаете удалить?', reply_markup=kb.free_time(lessons_time))
+    await message.answer('Какой предмет вы желаете удалить?', reply_markup=free_time(lessons_time))
     await DeleteLesson.next()
 
 
@@ -41,7 +41,7 @@ async def delete_lesson_check(message: types.message, state: FSMContext):
     async with state.proxy() as data:
         data['deletelesson'] = message.text
     await message.answer('Вы уверены что хотите удалить "' + data['deletelesson'] + '" из расписания?',
-                         reply_markup=kb.question_kb)
+                         reply_markup=question_kb)
     await DeleteLesson.next()
 
 
@@ -50,10 +50,10 @@ async def delete_lesson_check(message: types.message, state: FSMContext):
     data = await state.get_data()
     await message.answer('Идет процесс удаления записи из расписания... \n'
                          'Тыкните на котика чтобы завержить процесс удаления',
-                         reply_markup=kb.cat_kb)
+                         reply_markup=cat_kb)
     new_sched = delete_lesson(data['sched'], data['deletelesson'], day=data['day'])
     if new_sched == -1:
-        await message.answer('В этот день нет пар!\nВы в главном меню', reply_markup=kb.stud_kb)
+        await message.answer('В этот день нет пар!\nВы в главном меню', reply_markup=stud_kb())
         await state.finish()
         await StudentStates.student.set()
         return 0
@@ -64,13 +64,13 @@ async def delete_lesson_check(message: types.message, state: FSMContext):
 
 @dp.message_handler(lambda message: message.text.lower() == "нет", state=DeleteLesson.process)
 async def delete_lesson_check(message: types.message, state: FSMContext):
-    await message.answer('Вы прервали процесс удаления', reply_markup=kb.stud_kb)
+    await message.answer('Вы прервали процесс удаления', reply_markup=stud_kb())
     await state.finish()
     await StudentStates.student.set()
 
 
 @dp.message_handler(state=DeleteLesson.final)
 async def delete_lesson_check(message: types.message, state: FSMContext):
-    await message.answer('Вы удалили запись из расписания', reply_markup=kb.stud_kb)
+    await message.answer('Вы удалили запись из расписания', reply_markup=stud_kb())
     await state.finish()
     await StudentStates.student.set()

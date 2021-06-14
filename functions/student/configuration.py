@@ -1,4 +1,4 @@
-import bot.keyboard as kb
+import bot.keyboard.keyboard as kb
 
 from aiogram import types
 

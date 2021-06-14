@@ -15,7 +15,12 @@ def calc_basic(rating: float, target: float = 0):
             for i in target:
                 interm_res = (i - 0.6 * rating) / 0.4
                 result.append(interm_res)
-            return target, result
+            res = ''
+            for i in range(len(target)):
+                if i == 0:
+                    res += f'Чтобы получить {target[i]} необходимо получит на экзамене {result[i]}\n'
+                res += f'{target[i]} => {result[i]}\n'
+            return res
         else:
             return (target - 0.6 * rating) / 0.4
     else:
@@ -24,6 +29,3 @@ def calc_basic(rating: float, target: float = 0):
 
 def calc_advanced():
     pass
-
-
-print(calc_basic(50, 100))

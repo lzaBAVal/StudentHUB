@@ -1,8 +1,10 @@
 import re
 
 from datetime import datetime, time
+
 from schedule_json.output.type_of_sched import WeekDays_RU
-from vars import WeekDays_EN, Time, Sched, Lesson, first_lesson
+from tmp_files.flexible_time import test_minus_time
+from vars import WeekDays_EN, Time, Sched, Lesson, first_lesson, last_lesson
 
 
 # ----------------------------------------------------------------------------------------------------
@@ -42,13 +44,14 @@ def check_input(day: int = None, time_start: str = None, time_end: str = None, n
                 return -1, 'Имя предмета не должно содержать спец символов и должно быть короче 30 символов'
 
 
+# TODO finish flexible time
 async def get_free_time(day_of_week: str, sched: dict):
     day_of_week = WeekDays_RU.index(day_of_week)
     if check_input(day_of_week) == -1:
         return -1
     day = WeekDays_EN[day_of_week]
     sched: dict = Sched.parse_obj(sched).dict()
-    start, end = [], []
+    start, end, t_start, t_end = [], [], [], []
     free_time = []
     if sched[day] is None:
         for t in range(13):
@@ -57,42 +60,52 @@ async def get_free_time(day_of_week: str, sched: dict):
             free_time.append(t_start.strftime("%H:%M") + ' - ' + t_end.strftime("%H:%M"))
     else:
         for i in range(len(sched[day]['lessons'])):
-            start.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['start']), "%H:%M").time())
+            start.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['start']), "%H:%M"))
             end.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['end']), "%H:%M"))
 
         for t in range(13):
-            t_start = time(hour=first_lesson.hour + 1 * t, minute=first_lesson.minute)
-            t_end = time(hour=first_lesson.hour + 1 * (t + 1), minute=first_lesson.minute - 20)
-            if t_start not in start:
-                free_time.append(t_start.strftime("%H:%M") + ' - ' + t_end.strftime("%H:%M"))
+            t_start.append(
+                datetime(year=1970, month=1, day=1, hour=first_lesson.hour + 1 * t, minute=first_lesson.minute))
+            t_end.append(datetime(year=1970, month=1, day=1, hour=first_lesson.hour + 1 * (t + 1),
+                                  minute=first_lesson.minute - 20))
+
+            # if t_start not in start and t_end not in end:
+            #    free_time.append(t_start.strftime("%H:%M") + ' - ' + t_end.strftime("%H:%M"))
+
+        #print(f'start: {start}')
+        #print(f'end: {end}')
+        #print(f't_start: {t_start}')
+        #print(f't_end: {t_end}')
+
+        free_time = test_minus_time(start, end, t_start, t_end)
+        #print(free_time)
     return free_time
 
 
+# TODO repair
 async def get_lessons_time(day_of_week: str, sched: dict):
     day_of_week = WeekDays_RU.index(day_of_week)
     if check_input(day_of_week) == -1:
         return -1
     day = WeekDays_EN[day_of_week]
     start, end, lesson_time, lessons = [], [], [], []
-    print('get_lessons_time: ' + str(sched[day]))
     if sched[day] is None:
         return -1, 'Нет занятий'
     else:
         for i in range(len(sched[day]['lessons'])):
             lessons.append(sched[day]['lessons'][i])
-            start.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['start']), "%H:%M").time())
-            end.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['end']), "%H:%M").time())
-        for t in range(13):
-            t_start = time(hour=first_lesson.hour + 1 * t, minute=first_lesson.minute)
-            t_end = time(hour=first_lesson.hour + 1 * (t + 1), minute=first_lesson.minute - 20)
-            if t_start in start:
-                lesson_time.append(str(lessons[(start.index(t_start))]['lesson']) + ' ' +
-                                   str(lessons[(start.index(t_start))]['time']['start']) + ' - ' +
-                                   str(lessons[(start.index(t_start))]['time']['end']))
-                # lesson_time.append(t_start.strftime("%H:%M") + ' - ' + t_end.strftime("%H:%M"))
+            start.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['start']), "%H:%M"))
+            end.append(datetime.strptime(str(sched[day]['lessons'][i]['time']['end']), "%H:%M"))
+        for i in range(len(start)):
+            time_lesson = f'{start[i].strftime("%H:%M")}:{end[i].strftime("%H:%M")}'
+            lesson_time.append(str(lessons[i]['lesson']) + ' ' +
+                               str(lessons[i]['time']['start']) + ' - ' +
+                               str(lessons[i]['time']['end']))
+            # lesson_time.append(t_start.strftime("%H:%M") + ' - ' + t_end.strftime("%H:%M"))
     return lesson_time
 
 
+# TODO order of lessons
 async def add_lesson(sched, day: int = None, complex_time: str = None, time_start: str = None,
                      time_end: str = None, name_lesson: str = None, teacher: str = None,
                      subgroup: int = None, classroom: str = None):
@@ -122,28 +135,33 @@ async def add_lesson(sched, day: int = None, complex_time: str = None, time_star
         'teacher': teacher,
         'classroom': classroom
     }
-
-    if sched[day] is not None:
+    if sched[day] is not None and sched[day]['lessons'] != []:
         for item_lesson in sched[day]['lessons']:
             if item_lesson['time']['start'] == time_start:
                 return -1
         lessons = sched[day]['lessons']
         for counter in range(len(lessons)):
-            print(len(lessons))
-            print('counter: ', counter)
-            if counter == len(lessons) - 1:
-                sched[day]['lessons'].append(lesson)
-                break
+            print(lessons[counter])
+
             start_old = lessons[counter]['time']['start']
             start_new = lesson['time']['start']
+
             start_old = datetime.strptime(start_old, "%H:%M")
             start_new = datetime.strptime(start_new, "%H:%M")
+
+            print(f'start_old: {start_old}')
+            print(f'start_new: {start_new}')
+
             if start_new < start_old:
+                print('ok')
                 sched[day]['lessons'].insert(counter, lesson)
                 break
 
+            if counter == len(lessons) - 1:
+                sched[day]['lessons'].append(lesson)
+                break
 
-        #sched[day]['lessons'].append(lesson)
+        # sched[day]['lessons'].append(lesson)
     else:
         sched[day] = {'lessons': [lesson]}
 
@@ -177,7 +195,7 @@ def update_lesson(sched, day: int = None, time_start: str = None, time_end: str 
         for l in range(len(sched[day]['lessons'])):
             sched_local = sched[day]['lessons'][l]
             if sched_local['time']['start'] == time_start:
-                print('check')
+                # print('check')
                 sched[day]['lessons'][l] = lesson
                 return sched
     return -1

@@ -2,8 +2,8 @@ import loader
 import ssl
 from aiogram.dispatcher.webhook import get_new_configured_app
 from aiohttp import web
-from config import WEBHOOK_URL_PATH, WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV, WEBAPP_HOST, WEBAPP_PORT
-from logs.scripts.logging_core import init_logger
+from old_config import WEBHOOK_URL_PATH, WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV, WEBAPP_HOST, WEBAPP_PORT
+from utils.log.logging_core import init_logger
 
 # ----------------------------------------------------------------------------------------------------
 

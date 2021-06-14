@@ -5,12 +5,13 @@ from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 from DB.pgsql import Database
-from bot.middleware.ratelimit import ThrottlingMiddleware, CheckStateMiddleware, CheckCaptainMiddleware
-from config import token, TOKEN
-from logs.scripts.logging_core import init_logger
+from bot.middleware.ratelimit import ThrottlingMiddleware, CheckStateMiddleware, CheckBannedUser, CheckCaptainMiddleware
+from old_config import token
+from utils.log.logging_core import init_logger
 from schedule_json.harvest.harvest_main import Harvest, scheduler
 
 API_TOKEN = token
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = init_logger()
@@ -24,6 +25,7 @@ db = Database(loop)
 hrvst = Harvest(db)
 dp.middleware.setup(ThrottlingMiddleware())
 dp.middleware.setup(CheckStateMiddleware())
+dp.middleware.setup(CheckBannedUser())
 dp.middleware.setup(CheckCaptainMiddleware())
 
 

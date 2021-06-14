@@ -1,5 +1,5 @@
 core.log
-test/*
+tmp_files/*
 *.log
 *.pyc
 *.swp

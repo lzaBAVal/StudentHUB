@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 from typing import Optional, List
-from datetime import time
+from datetime import time, datetime
 
-first_lesson = time(hour=8, minute=40)
-last_lesson = time(hour=18, minute=40)
+first_lesson = datetime(year=1970, month=1, day=1, hour=8, minute=40)
+last_lesson = datetime(year=1970, month=1, day=1, hour=22, minute=20)
 
 WeekDays_RU = ('понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота', 'воскресенье')
 WeekDays_EN = ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday')
@@ -18,6 +18,7 @@ days = {
     'friday': 'пятница',
     'saturday': 'суббота'
 }
+
 
 class StudentRole(BaseModel):
     sched: str

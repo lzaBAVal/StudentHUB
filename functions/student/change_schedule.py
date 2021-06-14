@@ -1,13 +1,12 @@
-import bot.keyboard as kb
-
 from aiogram import types
 
 from loader import db
+from models import Student
 
 
-async def check_privilege_whose(message: types.message):
-    whose = (await db.get_whose_sched(message.chat.id))[0]['whose_schedule']
-    privilege = dict((await db.check_captain(message.chat.id))[0])['privilege']
+async def check_privilege_whose(message: types.message, privilege):
+    whose = (await Student.filter(id_chat=message.chat.id).values_list('whose_schedule'))
+    whose = whose[0][0]
     if whose == 'general' and privilege == 1:
         return 0
     elif whose == 'personal':

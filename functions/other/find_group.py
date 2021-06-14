@@ -1,12 +1,14 @@
 '''
 
-    Функция group_search принимает строковое значение (наименование группы) и отдает id_inc БД в случае
+    Функция group_search принимает строковое значение (наименование группы) и отдает id БД в случае
      точного нахождения группы, в случае если найдено несколько групп, отдает списки
 
 '''
 
 import re
-from logs.scripts.logging_core import init_logger
+
+from models import Group
+from utils.log.logging_core import init_logger
 
 '''
 def search_shed_using_group(require_group: str):
@@ -100,8 +102,8 @@ def search_shed_using_group(require_group: str):
 logger = init_logger()
 bad_chars = r'\\\|\'\"!@#\$%\^&\*<>\{}\[]\?\.,'
 
+
 async def group_search(group: str):
-    from loader import db
     comp_match, match, other_match = [], [], []
     try:
         req_g_list = list(re.findall(r'([a-z а-я()\-\w]{1,10})[\-|" *]+(\d{2})[\-|" *]+(\d{1,2})', group.lower())[0])
@@ -116,9 +118,9 @@ async def group_search(group: str):
         logger.warn('Group value - ' + str(group.encode('utf-8')))
         return -1
     branch_mame = "".join(re.findall(r'^[а-я А-Яa-zA-Z]{2}', group))
-    response = await db.get_all_groups()
-    for i in response:
-        name = dict(i)['group_name']
+    group_names = await Group.all().values_list('group_name')
+    for name in group_names:
+        name = name[0]
         if re.search(rf"{req_g_list[1]}", name) and re.search(rf"{req_g_list[2]}", name):
             if re.search(rf"{req_g_list[0]}", name):
                 comp_match.append(name)

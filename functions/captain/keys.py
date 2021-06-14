@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from logs.scripts.logging_core import init_logger
+from utils.log.logging_core import init_logger
 
 logger = init_logger()
 

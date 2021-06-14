@@ -1,13 +1,25 @@
-from .Admin import dp
-from .AdminPrint import dp
-from .errors import dp
-from .handlers import dp
-from .configuration import dp
-from .DeleteLesson import dp
-from .Registration import dp
-from .AddLesson import dp
-from .Anon import dp
-from .Captain import dp
-from .Student import dp
+from . import Admin
+from . import Errors
+from . import InitialHandler
+from . import Configuration
+from . import DeleteLesson
+from . import Registration
+from . import AddLesson
+from . import Anon
+from . import Captain
+from . import Сallback_query
+from . import Student
 
-__all__ = ["dp"]
+__all__ = [
+    Admin,
+    Errors,
+    InitialHandler,
+    Configuration,
+    DeleteLesson,
+    Registration,
+    AddLesson,
+    Anon,
+    Captain,
+    Сallback_query,
+    Student
+]

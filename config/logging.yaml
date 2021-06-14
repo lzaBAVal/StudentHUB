@@ -1,0 +1,15 @@
+version: 1
+formatters:
+  simple:
+    format: '{asctime} - {name}:{lineno} - {levelname} - {message}'
+    style: '{'
+loggers:
+  aiosqlite:
+    level: INFO
+  aiogram:
+    level: INFO
+  tortoise:
+    level: INFO
+  db_client:
+    level: INFO
+disable_existing_loggers: false

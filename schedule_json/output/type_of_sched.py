@@ -10,22 +10,22 @@ import re
 from vars import WeekDays_EN, WeekDays_RU
 
 
-def construct_lesson(future_lesson, result, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
-    if lesson:
+def construct_lesson(future_lesson, result, **parts):
+    if parts['lesson']:
         result += '\nПредмет: ' + str(future_lesson['lesson'])
-    if time:
+    if parts['time']:
         result += '\nВремя: ' + str(future_lesson['time']['start'] + ' - ' + str(future_lesson['time']['end']))
-    if subgroup:
+    if parts['subgroup']:
         result += '\nПодгруппа: ' + str(future_lesson['subgroup'])
-    if teacher:
+    if parts['teacher']:
         result += '\nПреподаватель: ' + str(future_lesson['teacher'])
-    if classroom:
+    if parts['classroom']:
         result += '\nАудитория: ' + str(future_lesson['classroom'])
         
     return result
 
 
-def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
+def schedule_for_today(sched, parts):
     now = dt.datetime.now()
     weekday = now.isoweekday() - 1
     day = WeekDays_EN[weekday]
@@ -37,13 +37,13 @@ def schedule_for_today(sched, time=True, subgroup=False, lesson=True, teacher=Tr
         result += 'Нет занятий'
     else:
         for i in todays_shed['lessons']:
-            result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
+            result = construct_lesson(i, result, **parts)
             result += '\n-------------------\n'
     result = ''.join(result)
     return result
 
 
-def schedule_for_tommorow(sched, time=True, subgroup=False, lesson=True, teacher=True, classroom=False):
+def schedule_for_tommorow(sched, parts):
     now = dt.datetime.now()
     weekday = now.isoweekday()
     if weekday == 7:
@@ -57,14 +57,14 @@ def schedule_for_tommorow(sched, time=True, subgroup=False, lesson=True, teacher
         result += 'Нет занятий'
     else:
         for i in todays_shed['lessons']:
-            result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
+            result = construct_lesson(i, result, **parts)
             result += '\n-------------------\n'
     result = ''.join(result)
 
     return result
 
 
-def all_schedule(sched, time=True, subgroup=False, lesson=True, teacher=False, classroom=False):
+def all_schedule(sched, **parts):
     result = ''
     for k in sched:
         result += '\n' + str(WeekDays_RU[WeekDays_EN.index(k)]).title() + '\n-------------------'
@@ -72,13 +72,13 @@ def all_schedule(sched, time=True, subgroup=False, lesson=True, teacher=False, c
             result += '\nНет занятий\n\n'
             continue
         for i in sched[k]['lessons']:
-            result = construct_lesson(i, result, time, subgroup, lesson, teacher, classroom)
+            result = construct_lesson(i, result, **parts)
             result = ''.join(result) + '\n'
 
     return result
 
 
-def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, classroom=True):
+def current_lesson(sched, parts):
     now = dt.datetime.now()
     weekday = now.isoweekday() - 1
     day = WeekDays_EN[weekday]
@@ -112,6 +112,6 @@ def current_lesson(sched, time=True, subgroup=True, lesson=True, teacher=True, c
 
     future_lesson = today_sched['lessons'][counter_lessons - 1]
     result = 'Следующая пара наченется через ' + str(delta.seconds // 60) + ' минуты'
-    result = construct_lesson(future_lesson, result, time, subgroup, lesson, teacher, classroom)
+    result = construct_lesson(future_lesson, result, **parts)
 
     return result

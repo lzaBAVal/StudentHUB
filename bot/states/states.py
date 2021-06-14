@@ -59,9 +59,21 @@ class DiscoverFreeTime(StatesGroup):
     output = State()
 
 
+class Calculate(StatesGroup):
+    score = State()
+
+
 class AdminCheckUser(StatesGroup):
     user_id = State()
     output = State()
+
+
+class AdminBanUser(StatesGroup):
+    user_id = State()
+
+
+class AdminUnbanUser(StatesGroup):
+    user_id = State()
 
 
 class AdminGiveRights(StatesGroup):
@@ -88,3 +100,39 @@ class SetCaptainState(StatesGroup):
 
 class AdminPrintArhit(StatesGroup):
     select = State()
+
+
+class CreateNewTask(StatesGroup):
+    # Object
+    name = State()
+    description = State()
+    variants = State()
+    photo_start = State()
+    photo_upload = State()
+    check_question = State()
+    End = State()
+    create_subject = State()
+
+
+class DeleteTask(StatesGroup):
+    question = State()
+    confirm = State()
+
+
+class ShowTask(StatesGroup):
+    choose = State()
+
+
+class ConfigureScheduleParts(StatesGroup):
+    # menu
+    choose_part = State()
+
+
+class DeleteSubject(StatesGroup):
+    # choose_object = State()
+    question = State()
+    confirm = State()
+
+
+class AddSubject(StatesGroup):
+    add = State()

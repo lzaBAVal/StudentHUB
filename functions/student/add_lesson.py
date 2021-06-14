@@ -1,9 +1,9 @@
 import re
 
 from loader import db
-from logs.scripts.logging_core import init_logger
+from utils.log.logging_core import init_logger
 
-import bot.keyboard as kb
+import bot.keyboard.keyboard as kb
 
 from aiogram import types
 from aiogram.dispatcher import FSMContext
@@ -11,9 +11,9 @@ from aiogram.dispatcher import FSMContext
 from bot.states.states import AddLesson
 from schedule_json.change.change_sched import get_free_time, add_lesson
 from schedule_json.output.get_schedule_object import get_sched, update_sched
+from tmp_files.flexible_time import check_flex_time
 from vars import WeekDays_RU, special_chars, special_chars_digit
 from functions.whois import whois
-
 
 logger = init_logger()
 
@@ -24,7 +24,7 @@ async def add_lesson_time(message: types.message, state: FSMContext, completed: 
             await message.answer(text='Введите день недели!')
             return 0
         try:
-            whose = await whois(db, message)
+            whose = await whois(message)
         except Exception as exc:
             logger.exception(exc)
             return -1
@@ -41,9 +41,11 @@ async def add_lesson_time(message: types.message, state: FSMContext, completed: 
 
 async def add_lesson_lesson(message: types.message, state: FSMContext, completed: bool = False):
     if not completed:
-        data = await state.get_data()
-        if message.text not in data['free_time']:
-            await message.answer(text='Введите время на которое хотите назначить урок!')
+        if not check_flex_time(message.text):
+            await message.answer(text='Введите время на которое хотите назначить урок! '
+                                      'Вы можете выбрать время которое представлено ниже либо ввести его самому .'
+                                      'Если вы хотите ввести свое время формат сообщения должен быть таким:\n'
+                                      '\t12:15 - 14:40')
             await AddLesson.time.set()
             return 0
 
@@ -122,7 +124,7 @@ async def add_lesson_process(message: types.message, state: FSMContext):
     data = await state.get_data()
     try:
         sched = await add_lesson(sched=data['sched'], day=WeekDays_RU.index(data['day']), complex_time=data['time'],
-                             classroom=data['classroom'], name_lesson=data['lesson'], teacher=data['teacher'])
+                                 classroom=data['classroom'], name_lesson=data['lesson'], teacher=data['teacher'])
         await update_sched(message.chat.id, sched, 'sched_user')
         await AddLesson.next()
         await message.answer('Идет процесс занесения урока в базу! Для завершения тыкните на котика',
@@ -131,8 +133,3 @@ async def add_lesson_process(message: types.message, state: FSMContext):
         logger.exception(exc)
         await message.answer('При добавлении предмета произошло логическая ошибка.')
         return 1
-
-
-
-
-

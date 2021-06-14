@@ -12,7 +12,6 @@ def search_group(url: str):
     groups_dict = {}
     resp = get(url)
     soup = BeautifulSoup(resp.text, 'lxml')
-
     for opt in soup.find_all('option'):
         groups_dict.setdefault(str(opt.string).lower().strip(), opt['value'])
     groups_dict.pop('- группа -')

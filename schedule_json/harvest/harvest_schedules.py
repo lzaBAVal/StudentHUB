@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 
 from schedule_json.output.get_schedule_object import check_sched
 from vars import days, Time, Day_of_week, Lesson, Sched
-from logs.scripts.logging_core import init_logger
+from utils.log.logging_core import init_logger
 
 
 logger = init_logger()

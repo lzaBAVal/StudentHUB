@@ -1,20 +1,26 @@
-from logs.scripts.logging_core import init_logger
+from models import Student
+from utils.log.logging_core import init_logger
 
 logger = init_logger()
 
+personal = 'p'
+general = 'g'
+arhit = 'a'
 
-async def whois(db, message) -> str:
+
+async def whois(message) -> str:
     try:
-        whose = ((await db.get_whose_sched(message.chat.id))[0]['whose_schedule'])
+        whose = (await Student.filter(chat_id=message.chat.id).values_list('whose_schedule'))
+        whose = whose[0][0]
     except Exception as exc:
         logger.exception(exc)
         raise ValueError
     else:
-        if whose == 'personal':
+        if whose == personal:            # personal
             whose = 'sched_user'
-        elif whose == 'general':
+        elif whose == general:          # general
             whose = 'sched_group'
-        elif whose == 'arhit':
+        elif whose == arhit:          # arhit
             whose = 'sched_arhit'
         else:
             raise ValueError
@@ -22,11 +28,11 @@ async def whois(db, message) -> str:
 
 
 def whois_str(whose):
-    if whose == 'personal':
+    if whose == personal:
         whose = 'Личное расписание'
-    elif whose == 'general':
+    elif whose == general:
         whose = 'Расписание группы'
-    elif whose == 'arhit':
+    elif whose == arhit:
         whose = 'Расписание с https://aues.arhit.kz/'
     else:
         raise ValueError
@@ -34,11 +40,11 @@ def whois_str(whose):
 
 
 def whois_update(whose):
-    if whose == 'personal':
+    if whose == personal:
         whose = 'Личное расписание'
-    elif whose == 'general':
+    elif whose == general:
         whose = 'Расписание группы'
-    elif whose == 'arhit':
+    elif whose == arhit:
         whose = 'Расписание с https://aues.arhit.kz/'
     else:
         raise ValueError

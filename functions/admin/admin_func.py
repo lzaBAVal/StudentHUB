@@ -1,6 +1,6 @@
 import hashlib
 from datetime import datetime
-from logs.scripts.logging_core import init_logger
+from utils.log.logging_core import init_logger
 
 logger = init_logger()
 
@@ -13,10 +13,10 @@ async def get_list_of_users(db, chat_id):
     return result
 
 
-def output_bio(user: dict, id_chat=False, name=False, surname=False, group=False, privilege=False):
+def output_bio(user: dict, id_chat=False, name=False, surname=False, group=False, privilege=False, ban=False):
     result = ''
     if id_chat:
-        result += f'id = {user["id_chat"]} |'
+        result += f'id = {user["chat_id"]} |'
     if name:
         result += f'name = {user["u_name"]} | '
     if surname:
@@ -25,6 +25,8 @@ def output_bio(user: dict, id_chat=False, name=False, surname=False, group=False
         result += f'group = {user["group_id"]} | '
     if privilege:
         result += f'privilege = {user["privilege"]} | '
+    if ban:
+        result += f'ban = {user["ban"]} | '
     result += '\n'
     return result
 
