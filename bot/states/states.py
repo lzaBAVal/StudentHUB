@@ -136,3 +136,16 @@ class DeleteSubject(StatesGroup):
 
 class AddSubject(StatesGroup):
     add = State()
+
+
+class Subjects(StatesGroup):
+    # Shows all subjects
+    select_subject = State()
+    select_task = State()
+    task_menu = State()
+    select_item_menu = State()
+
+
+class TakeVariant(StatesGroup):
+    take_variant = State()
+    confirm_to_take_variant = State()

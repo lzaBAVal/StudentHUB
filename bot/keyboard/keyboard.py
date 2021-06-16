@@ -54,6 +54,9 @@ whose_schedule_btn = KeyboardButton(whose_schedule_str)
 add_task_btn = KeyboardButton(add_task_str)
 delete_task_btn = KeyboardButton(delete_task_str)
 show_tasks_btn = KeyboardButton(show_tasks_str)
+subjects_btn = KeyboardButton(subjects_str)
+show_task_info_btn = KeyboardButton(show_task_info_str)
+take_variant_btn = KeyboardButton(take_variant_str)
 
 finish_configuration_btn = KeyboardButton(finish_configuration_str)
 
@@ -175,8 +178,14 @@ select_whose_schedule_kb.add(back_to_menu_btn)
 # Manage tasks
 manage_task_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 manage_task_kb.row(add_task_btn, delete_task_btn)
+manage_task_kb.add(subjects_btn)
 manage_task_kb.add(show_tasks_btn)
 manage_task_kb.add(back_to_menu_btn)
+
+# Task menu
+task_menu_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+task_menu_kb.row(show_task_info_btn, take_variant_btn)
+task_menu_kb.add(cancel_btn)
 
 
 def createButtons(btns_l: list):
@@ -184,13 +193,28 @@ def createButtons(btns_l: list):
     for i in btns_l:
         group.append(i)
     test = ReplyKeyboardMarkup(resize_keyboard=True)
-    for i in range(len(group)):
-        if i % 2 == 0:
-            test.row(KeyboardButton(str(group[i])))
-        else:
-            test.add(KeyboardButton(str(group[i])))
+    for i in group:
+        test.add(KeyboardButton(str(i)))
     test.add(cancel_btn)
     return test
+
+
+def createX3Buttons(btns_l: list):
+    row = []
+    flag = False
+    kb = ReplyKeyboardMarkup(resize_keyboard=True)
+    for i in range(len(btns_l)):
+        if i % 3 == 0:
+            kb.row(row)
+            row = [KeyboardButton(str(btns_l[i]))]
+            flag = False
+        else:
+            row.append(KeyboardButton(str(btns_l[i])))
+            flag = True
+    if flag:
+        kb.row(row)
+    kb.add(cancel_btn)
+    return kb
 
 
 def days():
@@ -291,7 +315,6 @@ def show_subjects_kb(subjects: dict):
                 subjects_dict.setdefault(result_str, task[name])
     markup.add(cancel_btn)
     return markup, subjects_dict
-
 
 ##################
 # InlineKeyboard #

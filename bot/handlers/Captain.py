@@ -21,7 +21,7 @@ from misc import dp, bot
 from models import Student, Task, Subject
 from task_subject.harvest import add_object_for_group, add_subject
 from task_subject.education import deleteSubject
-from task_subject.education import get_academic_tasks, get_subjects, exclude_variant, check_existed_task, get_task_info
+from task_subject.education import get_all_tasks, get_subjects, exclude_variant, check_existed_task, get_task_info
 from utils.log.logging_core import init_logger
 
 logger = init_logger()
@@ -302,20 +302,10 @@ async def delete_task(message: types.Message, state: FSMContext):
     await StudentStates.student.set()
 
 
-# SHOW SUBJECTS
-@dp.message_handler(Text(equals=show_subjects_str, ignore_case=True), state=StudentStates.student)
-async def show_subjects(message: types.Message):
-    subjects = await get_subjects(message)
-    result_str = ''
-    for subject in subjects:
-        result_str += f'{subject}\n'
-    await message.answer(result_str, reply_markup=stud_kb())
-
-
 # SHOW ALL ACADEMIC TASKS
 @dp.message_handler(Text(equals=show_tasks_str, ignore_case=True), state=StudentStates.student)
 async def show_academic_tasks(message: types.Message, state: FSMContext):
-    obj_task = await get_academic_tasks(message)
+    obj_task = await get_all_tasks(message)
     markup, tasks = show_tasks_kb(obj_task)
     async with state.proxy() as data:
         data['tasks'] = tasks

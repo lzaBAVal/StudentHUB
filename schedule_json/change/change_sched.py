@@ -105,7 +105,6 @@ async def get_lessons_time(day_of_week: str, sched: dict):
     return lesson_time
 
 
-# TODO order of lessons
 async def add_lesson(sched, day: int = None, complex_time: str = None, time_start: str = None,
                      time_end: str = None, name_lesson: str = None, teacher: str = None,
                      subgroup: int = None, classroom: str = None):

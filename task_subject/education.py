@@ -2,12 +2,12 @@ import json
 
 from aiogram import types
 from models import Student, Subject, Task, Photo, Document
+from models.student import get_all_students
 
 chat_id = 690976128
 
 
-# TODO CONFIGURE LAST
-async def get_academic_tasks(message: types.Message):
+async def get_all_tasks(message: types.Message):
     group_id = await Student.filter(chat_id=message.chat.id).values_list('group_id')
     group_id = group_id[0][0]
     subjects = await Subject.filter(group_id=group_id).values('id', 'name')
@@ -64,10 +64,64 @@ async def get_task_info(task_id):
 
 
 async def deleteSubject(message: types.Message, task_subject):
-    result = await Student.filter(chat_id=chat_id).prefetch_related('user_id')
+    result = await Student.filter(chat_id=message.chat.id).prefetch_related('user_id')
     for i in result:
         for j in i.user_id:
             if j.name == task_subject:
                 await Subject.filter(id=j.id).delete()
     await Subject.filter()
     return 0
+
+
+async def get_tasks_of_subject(message: types.Message, subject: str) -> dict:
+    group_id = await Student.filter(chat_id=message.chat.id).values_list('group_id')
+    group_id = group_id[0][0]
+    subjects = await Subject.filter(group_id=group_id, name=subject).values('id', 'name')
+    all_tasks = {}
+    for i in subjects:
+        name_task = await Task.filter(subject_id=i['id']).values_list('name', 'id')
+        if name_task:
+            for name, task_id in name_task:
+                all_tasks.update({name: task_id})
+    return all_tasks
+
+
+async def get_taken_variants(task_id) -> dict:
+    variants = await Task.filter(id=task_id).values_list('user_variant')
+    variants = variants[0][0]
+    return variants
+
+
+# TODO LAST POINT
+async def get_variants_and_users(task_id, msg: types.Message) -> dict:
+    variants = await Task.filter(id=task_id).values_list('user_variant')
+    variants = variants[0][0]
+    users = await get_all_students(msg)
+    print(users)
+    result = "Вариант - студент:"
+    for key, value in variants:
+        if value == "excluded":
+            result += f"{int(key)} - "
+        #else:
+
+    return variants
+
+
+async def check_available_variant(all_variants: dict = None, variant=None, task_id: int = None):
+    range_variants = await Task.filter(id=task_id).values_list('variant_start', 'variant_end')
+    range_variants = range_variants[0][:]
+    if variant < range_variants[0] or variant > range_variants[1]:
+        return False
+    taken = all_variants.get(str(variant))
+    if taken is None:
+        return True
+    else:
+        return False
+
+
+async def add_variant(task_id=None, msg: types.Message = None):
+    variants = await Task.filter(id=task_id).values_list('user_variant')
+    variants: dict = variants[0][0]
+    student_id = await Student.filter(chat_id=chat_id).values_list('id')
+    variants.update({msg.text: str(student_id[0][0])})
+    await Task.filter(id=task_id).update(user_variant=json.dumps(variants))

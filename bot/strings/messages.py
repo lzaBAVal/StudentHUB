@@ -76,3 +76,32 @@ def calc_output(rating) -> str:
         return "\n".join(res)
     else:
         return wtf_error
+
+
+def inaccessible_variants_output(variants):
+    excluded = []
+    taken = []
+    sep = ' ,'
+    result = ''
+    for i in variants:
+        if variants[i] == 'excluded':
+            excluded.append(i)
+        else:
+            taken.append(f'{i}')
+    if excluded:
+        result += f'Варианты которые брать нельзя: {sep.join(map(str, excluded))}.'
+    if taken:
+        result += f'\nЗанятые варианты: {sep.join(map(str, taken))}.'
+    return result
+
+
+def taken_variants_output(variants):
+    taken = []
+    sep = ' ,'
+    result = ''
+    for i in variants:
+        if variants[i] != 'excluded':
+            taken.append(f'{i}')
+    if taken:
+        result += f'\nЗанятые варианты: {sep.join(map(str, taken))}.'
+    return result

@@ -36,7 +36,6 @@ async def cancel_func(message: types.Message, state: FSMContext):
     await def_user(message, state)
 
 
-# TODO harvest groups
 # HARVEST GROUPS
 @dp.message_handler(IDFilter(myid),
                     commands=['harvest_groups'],
@@ -142,7 +141,6 @@ async def get_free_hashes(message: types.Message):
 
 
 # BAN USER 1
-# TODO ban user
 @dp.message_handler(IDFilter(myid), commands=['ban'], state='*')
 async def ban_user(message: types.Message):
     await message.answer('Введите id студента, которого вы хотите забанить')
@@ -173,7 +171,6 @@ async def ban_user_select(message: types.Message, state: FSMContext):
 
 
 # UNBAN USER 1
-# TODO unban user
 @dp.message_handler(IDFilter(myid), commands=['unban'], state='*')
 async def unban_user(message: types.Message):
     await message.answer('Введите id студента, которого вы хотите разбанить')

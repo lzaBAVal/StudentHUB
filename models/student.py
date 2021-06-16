@@ -7,6 +7,14 @@ from models import Group
 import models.subject
 
 
+async def get_all_students(msg: types.Message) -> tuple:
+    group_id = await Student.filter(chat_id=msg.chat.id).values_list('group_id')
+    group_id = group_id[0][0]
+    users = await Student.filter(group=group_id).values_list('id', 'name')
+    users = users[0]
+    return users
+
+
 class Student(Model):
     id = fields.IntField(pk=True)
     chat_id = fields.BigIntField(unique=True)

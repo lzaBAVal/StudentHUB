@@ -51,7 +51,9 @@ finish_configuration_str = 'Закончить настройку'
 subject_add_str = "Добавить предмет"
 subject_delete_str = "Удалить предмет"
 configure_subject_str = "Настройка предметов"
-
+subjects_str = "Предметы (уроки)"
+show_task_info_str = "Посмотреть задание"
+take_variant_str = "Занять вариант"
 
 
 

@@ -25,7 +25,6 @@ def rate_limit(limit: int, key=None):
     return decorator
 
 
-# TODO Find bugs and add new users
 class CheckBannedUser(BaseMiddleware):
     async def on_pre_process_message(self, message: types.Message, data: dict):
         data = await misc.dp.current_state(user=message.from_user.id).get_data()

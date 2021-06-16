@@ -7,9 +7,10 @@ from aiogram.dispatcher.filters import Text
 from aiogram.types import InputFile
 
 from bot.keyboard.keyboard import configuration_kb, change_sched_kb, days, stud_kb, question_kb, other_kb, \
-    configure_schedule_kb, cancel_kb, skip_finish_kb, skip_btn, skip_kb, manage_task_kb
+    configure_schedule_kb, cancel_kb, skip_finish_kb, skip_btn, skip_kb, manage_task_kb, createButtons, task_menu_kb, \
+    createX3Buttons
 from bot.states.states import StudentStates, AddLesson, DeleteLesson, DiscoverFreeTime, SetCaptainState, \
-    Calculate, CreateNewTask
+    Calculate, CreateNewTask, Subjects, TakeVariant
 from bot.strings.messages import *
 from bot.strings.commands import *
 from functions.command import delete_user
@@ -23,7 +24,10 @@ from functions.student.get_schedule import get_all_schedule, get_todays_shedule,
 from loader import db
 from misc import dp
 from models import Group, Student, Photo, Subject
+from models.student import get_all_students
 from models.task import Task
+from task_subject.education import get_subjects, get_tasks_of_subject, get_taken_variants, get_task_info, \
+    check_available_variant, add_variant
 from task_subject.harvest import add_object_for_group
 from old_config import PATH_WIN
 
@@ -160,10 +164,145 @@ async def calculate_score(message: types.message):
     await Calculate.score.set()
 
 
+# SHOW ALL SUBJECTS
+@dp.message_handler(Text(equals=subjects_str,
+                         ignore_case=True),
+                    state=StudentStates.student)
+async def show_all_subjects(message: types.message, state: FSMContext):
+    subjects = await get_subjects(message)
+    async with state.proxy() as data:
+        data['subjects'] = subjects
+    await message.answer('Все ваши предметы', reply_markup=createButtons(subjects))
+    await Subjects.select_task.set()
+
+
+# SUBJECTS CANCEL
+@dp.message_handler(Text(equals=cancel_str,
+                         ignore_case=True),
+                    state=Subjects.states)
+async def show_all_subjects(message: types.message, state: FSMContext):
+    await message.answer('Вы в главном меню', reply_markup=stud_kb())
+    await state.reset_data()
+    await StudentStates.student.set()
+
+
+# TASK SELECT
+@dp.message_handler(state=Subjects.select_task)
+async def show_all_subjects(message: types.message, state: FSMContext):
+    subject = message.text
+    subjects = (await state.get_data())['subjects']
+    if subject in subjects:
+        tasks = await get_tasks_of_subject(message, subject)
+        tasks_list = [name_task for name_task in tasks]
+        await message.answer(f"Задания - \"{subject}\"", reply_markup=createButtons(tasks_list))
+        async with state.proxy() as data:
+            data['tasks'] = tasks
+            data['subject'] = subject
+        await Subjects.next()
+    else:
+        await message.answer("Выберите предмет из списка!", reply_markup=createButtons(subjects))
+
+
+##################################
+# BIG BLOCK ABOUT TAKE THE VARIANT
+##################################
+# TASK MENU
+@dp.message_handler(state=Subjects.task_menu)
+async def take_variant_start(message: types.message, state: FSMContext):
+    if message.text in (await state.get_data())['tasks']:
+        await message.answer(f"Что хотите сделать с заданием - \"{message.text}\"?", reply_markup=task_menu_kb)
+        async with state.proxy() as data:
+            data['task'] = message.text
+        await Subjects.next()
+    else:
+        await message.answer(f"Выберите один из тасков ниже")
+
+
+# SELECT MENU ITEM -> SHOW TASK INFO
+@dp.message_handler(Text(equals=show_task_info_str, ignore_case=True), state=Subjects.select_item_menu)
+async def take_variant_start(message: types.message, state: FSMContext):
+    media_group = types.MediaGroup()
+    async with state.proxy() as data:
+        pass
+    task = data['task']
+    tasks = data['tasks']
+    task_info, photo_id, document_id = await get_task_info(tasks[task])
+    for pic in photo_id:
+        media_group.attach(({"media": pic[0][2:-1], "type": 'photo'}))
+    for doc in document_id:
+        await message.answer_document(doc[0])
+    if not media_group:
+        await message.answer_media_group(media_group)
+    await message.answer(text=task_info, reply_markup=task_menu_kb)
+    await Subjects.select_item_menu.set()
+
+
+# SELECT MENU ITEM -> TAKE VARIANT
+@dp.message_handler(Text(equals=take_variant_str, ignore_case=True), state=Subjects.select_item_menu)
+async def take_variant_start(message: types.message, state: FSMContext):
+    async with state.proxy() as data:
+        pass
+    tasks = data['tasks']
+    task = data['task']
+    variants = await get_taken_variants(tasks[task])
+    variants_list = [var for var in variants]
+    print(f'variants_list: {variants_list}')
+    async with state.proxy() as data:
+        data['variants'] = variants
+    await message.answer(f'Напишите вариант который желаете занять.\n'
+                         f'Имеющиеся варианты:\n'
+                         f'{inaccessible_variants_output(variants)}')
+    # , reply_markup=createX3Buttons(variants_list)
+    await TakeVariant.confirm_to_take_variant.set()
+
+
+# TAKE VARIANT CANCEL
+@dp.message_handler(Text(equals=cancel_str, ignore_case=True), state=TakeVariant.states)
+async def take_variant_cancel(message: types.message, state: FSMContext):
+    await message.answer('Вы в главном меню', reply_markup=stud_kb())
+    await state.reset_data()
+    await StudentStates.student.set()
+
+
+# TAKE VARIANT CONFIRM
+@dp.message_handler(state=TakeVariant.confirm_to_take_variant)
+async def take_variant_start(message: types.message, state: FSMContext):
+    if message.text.isdigit():
+        msg = int(message.text)
+        async with state.proxy() as data:
+            pass
+        tasks = data['tasks']
+        task = data['task']
+        variants = data['variants']
+
+        if await check_available_variant(task_id=tasks[task], variant=msg, all_variants=variants):
+            await add_variant(task_id=tasks[task], msg=message)
+            varinats_info = await get_taken_variants(tasks[task])
+            await message.answer(f'Вы заняли вариант\n'
+                                 f'{taken_variants_output(varinats_info)}')
+            await state.reset_data()
+            await StudentStates.student.set()
+        else:
+            '''
+                In one moment some users can take the same variant. Need view logs 
+            '''
+            await message.answer("Данный вариант занят или вовсе отсутствует")
+    else:
+        await message.answer('Введите номер варианта!')
+
+
+# GET USERS AND VARIANTS
+@dp.message_handler(Text(equals='Показать студентов и варианты', ignore_case=True), state=StudentStates.student)
+async def variants_and_users(message: types.message):
+    vars_users = await get_all_students(message)
+    print(vars_users)
+
+
+
 # INPUT SCORE
 @dp.message_handler(state=Calculate.score)
 async def calculate_score(message: types.message):
-    if isinstance(int(message.text), int):
+    if message.text.isdigit():
         score = calc_basic(int(message.text))
         await message.answer(score, reply_markup=stud_kb())
     else:

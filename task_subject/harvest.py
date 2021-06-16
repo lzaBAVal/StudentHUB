@@ -65,7 +65,6 @@ async def add_subject(lessons, message):
                       date_creation=datetime.now().strftime('%Y-%m-%d')).save()
 
 
-# TODO implement
 async def delete_subject(message, subject_name):
     student_info = await Student.filter(chat_id=message.chat.id).values_list('id', 'group_id')
     student_info = student_info[0]
