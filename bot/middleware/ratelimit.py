@@ -1,16 +1,16 @@
 import asyncio
 
-import bot.keyboard.keyboard as kb
-import misc
-
 from aiogram import Dispatcher, types
 from aiogram.dispatcher.handler import CancelHandler, current_handler
 from aiogram.dispatcher.middlewares import BaseMiddleware
 from aiogram.utils.exceptions import Throttled
 
+import bot.keyboard.keyboard as kb
+import misc
+from DB.models import Student
 from bot.states.states import AnonStates, StudentStates
-from models import Student
-from utils.log.logging_core import init_logger
+from log.logging_core import init_logger
+from log.prometheus import prom_app_click, prom_handler_click, prom_thottled
 
 logger = init_logger()
 
@@ -23,6 +23,11 @@ def rate_limit(limit: int, key=None):
         return func
 
     return decorator
+
+
+class CountClick(BaseMiddleware):
+    async def on_pre_process_message(self, message: types.Message, data: dict):
+        prom_app_click()
 
 
 class CheckBannedUser(BaseMiddleware):
@@ -126,8 +131,6 @@ class ThrottlingMiddleware(BaseMiddleware):
             limit = self.rate_limit
             key = f"{self.prefix}_message"
 
-        print(handler.__name__)
-
         if handler.__name__ != 'upload_photo':
             try:
                 await dispatcher.throttle(key, rate=limit)
@@ -159,6 +162,7 @@ class ThrottlingMiddleware(BaseMiddleware):
         # Prevent flooding
         if throttled.exceeded_count <= 3:
             await message.reply('Не отправляйте сообщения слишком часто!')
+            prom_thottled()
             logger.warn('Student - ' + str(message.chat.id) + ' send many messages')
         # Sleep.
         await asyncio.sleep(delta)
@@ -169,3 +173,9 @@ class ThrottlingMiddleware(BaseMiddleware):
         # If current message is not last with current key - do not send message
         if thr.exceeded_count == throttled.exceeded_count:
             await message.reply('Unlocked.')
+
+
+class HandlerCounter(BaseMiddleware):
+    async def on_process_message(self, message: types.Message, data: dict):
+        handler = current_handler.get()
+        prom_handler_click(handler.__name__)

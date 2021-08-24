@@ -149,3 +149,7 @@ class Subjects(StatesGroup):
 class TakeVariant(StatesGroup):
     take_variant = State()
     confirm_to_take_variant = State()
+
+
+class TakeAwayVariant(StatesGroup):
+    confirm = State()

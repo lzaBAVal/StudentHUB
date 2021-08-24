@@ -2,9 +2,10 @@ from aiogram import types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils.callback_data import CallbackData
 
+from bot.schedule.output.get_schedule_object import parse_sched_parts, compose_sched_parts
 from bot.strings.commands import *
-from schedule_json.output.get_schedule_object import parse_sched_parts, compose_sched_parts
-from vars import WeekDays_RU
+from bot.vars import WeekDays_RU
+from misc import bot, dp
 
 schedule_output_btn = KeyboardButton(schedule_output_str)
 all_shedule_btn = KeyboardButton(all_schedule_str)
@@ -57,8 +58,12 @@ show_tasks_btn = KeyboardButton(show_tasks_str)
 subjects_btn = KeyboardButton(subjects_str)
 show_task_info_btn = KeyboardButton(show_task_info_str)
 take_variant_btn = KeyboardButton(take_variant_str)
+show_variant_of_task_btn = KeyboardButton(show_variant_of_task_str)
+take_away_variant_btn = KeyboardButton(take_away_variant_str)
 
 finish_configuration_btn = KeyboardButton(finish_configuration_str)
+
+discover_free_time_btn = KeyboardButton(discover_free_time_str)
 
 subgroup_no_btn = KeyboardButton("Нет подгрупп")
 subgroup1_btn = KeyboardButton("1")
@@ -66,6 +71,7 @@ subgroup2_btn = KeyboardButton("2")
 subgroup3_btn = KeyboardButton("3")
 
 classroom_online_btn = KeyboardButton("Онлайн")
+configure_parts_of_sched_btn = KeyboardButton(configure_parts_of_sched_str)
 
 cat_btn = '🐈'
 
@@ -79,17 +85,18 @@ stud_kb.add(configuration_btn)
 
 
 # Students keyboard
-def stud_kb(privilege='u'):
+async def stud_kb(state):
     _stud_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-    if privilege == 'c':
-        _stud_kb.add(next_lesson_btn, schedule_output_btn)
+    list_data: dict = (await state.get_data())
+    if list_data.get('captain_middleware'):
+        _stud_kb.add(todays_shedule_btn, schedule_output_btn)
         _stud_kb.add(academic_task_btn)
         _stud_kb.add(manage_group_btn)
-        _stud_kb.add(other_btn)
+        _stud_kb.add(other_btn, configuration_btn)
     else:
-        _stud_kb.add(next_lesson_btn, schedule_output_btn)
+        _stud_kb.add(todays_shedule_btn, schedule_output_btn)
         _stud_kb.add(academic_task_btn)
-        _stud_kb.add(other_btn)
+        _stud_kb.add(other_btn, configuration_btn)
     return _stud_kb
 
 
@@ -110,8 +117,6 @@ skip_finish_kb.add(cancel_btn)
 # Other menu
 other_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 other_kb.row(calculator_btn, calendar_plan_btn)
-other_kb.add(configure_subject_btn)
-other_kb.add(configuration_btn)
 other_kb.add(back_to_menu_btn)
 
 # Configure objects
@@ -121,14 +126,15 @@ subject_kb.add(back_to_menu_btn)
 
 # General configuration
 configuration_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-configuration_kb.add(configure_schedule_btn)
+configuration_kb.add(configure_schedule_btn, configure_subject_btn)
 configuration_kb.add(notifications_btn, switch_language_btn)
 configuration_kb.add(about_authors_btn)
 configuration_kb.add(back_to_menu_btn)
 
 # Configure schedule
 configure_schedule_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-configure_schedule_kb.add(whose_schedule_btn)
+configure_schedule_kb.add(whose_schedule_btn, discover_free_time_btn)
+configure_schedule_kb.add(change_sched_btn, configure_parts_of_sched_btn)
 configure_schedule_kb.add(back_to_menu_btn)
 
 # Testers keyboard
@@ -183,8 +189,9 @@ manage_task_kb.add(show_tasks_btn)
 manage_task_kb.add(back_to_menu_btn)
 
 # Task menu
-task_menu_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+task_menu_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 task_menu_kb.row(show_task_info_btn, take_variant_btn)
+task_menu_kb.row(show_variant_of_task_btn, take_away_variant_btn)
 task_menu_kb.add(cancel_btn)
 
 
@@ -219,21 +226,28 @@ def createX3Buttons(btns_l: list):
 
 def days():
     days_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    for i in range(len(WeekDays_RU) - 1):
-        days_kb.add(WeekDays_RU[i].capitalize())
-        if i == 3:
-            days_kb.row()
+    for i in range(0, len(WeekDays_RU) - 1, 2):
+        days_kb.row(WeekDays_RU[i].capitalize(), WeekDays_RU[i + 1].capitalize())
+    if not len(WeekDays_RU) % 2:
+        days_kb.add(WeekDays_RU[-1].capitalize())
     days_kb.add(cancel_btn)
     return days_kb
 
 
 def free_time(time: list):
     free_time_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    for i in range(len(time)):
-        if i % 2 != 0:
-            free_time_kb.row(time[i])
-        else:
-            free_time_kb.add(time[i])
+    flag = 0
+    list_length = len(time)
+    if len(time) % 2:
+        list_length -= 1
+    else:
+        flag = 1
+    for i in range(0, list_length, 2):
+        if i < len(time):
+            free_time_kb.row(time[i], time[i + 1])
+    if flag == 0:
+        free_time_kb.add(time[-1])
+
     free_time_kb.add(cancel_btn)
     return free_time_kb
 

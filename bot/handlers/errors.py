@@ -1,6 +1,6 @@
 from aiogram import types
 
-from utils.log.logging_core import init_logger
+from log.logging_core import init_logger
 from misc import dp
 
 logger = init_logger()
@@ -8,6 +8,7 @@ logger = init_logger()
 
 @dp.errors_handler()
 async def errors_handler(update, exception, message: types.Message):
+    print('ErrorHandler')
     """
     Exceptions handler. Catches all exceptions within task factory tasks.
     :param message:
@@ -18,7 +19,7 @@ async def errors_handler(update, exception, message: types.Message):
     from aiogram.utils.exceptions import (Unauthorized, InvalidQueryID, TelegramAPIError,
                                           CantDemoteChatCreator, MessageNotModified, MessageToDeleteNotFound,
                                           MessageTextIsEmpty, RetryAfter,
-                                          CantParseEntities, MessageCantBeDeleted)
+                                          CantParseEntities, MessageCantBeDeleted, BadRequest)
 
     if isinstance(exception, CantDemoteChatCreator):
         logger.debug("Can't demote chat creator")
@@ -61,4 +62,7 @@ async def errors_handler(update, exception, message: types.Message):
         return True
     if isinstance(exception, MessageNotModified):
         logger.exception(f'MessageNotModified: {exception} \nUpdate: {update}')
+        return True
+    if isinstance(exception, BadRequest):
+        logger.exception(f'BadRequest: {exception} \nUpdate: {update}')
         return True

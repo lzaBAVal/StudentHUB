@@ -2,19 +2,23 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 
+from bot.functions.command import cancel
+from bot.functions.student.add_lesson import add_lesson_time, add_lesson_lesson, add_lesson_teacher, \
+    add_lesson_subgroup, \
+    add_lesson_classroom, add_lesson_check, add_lesson_process
 from bot.keyboard.keyboard import stud_kb
 from bot.states.states import AddLesson
-from functions.command import cancel
-from functions.student.add_lesson import add_lesson_time, add_lesson_lesson, add_lesson_teacher, add_lesson_subgroup, \
-    add_lesson_classroom, add_lesson_check, add_lesson_process
+from log.logging_core import init_logger
 from misc import dp
+
+logger = init_logger()
 
 
 # CANCEL ADD LESSON
 # @dp.message_handler(lambda message: message.text.lower() == "отмена", state=AddLesson.states)
 @dp.message_handler(Text(equals='Отмена', ignore_case=True), state=AddLesson.states)
 async def add_lesson_cancel(message: types.message, state: FSMContext):
-    await message.answer(text='Добавьте урок заново', reply_markup=stud_kb())
+    await message.answer(text='Добавьте урок заново', reply_markup=await stud_kb(state))
     await cancel(message, state)
 
 
@@ -71,5 +75,6 @@ async def add_lesson_process_no(message: types.message, state: FSMContext):
 # FINAL ADD LESSON
 @dp.message_handler(state=AddLesson.final)
 async def add_lesson_process_yes(message: types.message, state: FSMContext):
-    await message.answer('Урок добавлен', reply_markup=stud_kb())
+    await message.answer('Урок добавлен', reply_markup= await stud_kb(state))
+    logger.info(f'User - {message.chat.id} has added new lesson in schedule')
     await cancel(message, state)

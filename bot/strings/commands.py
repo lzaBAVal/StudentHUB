@@ -18,7 +18,7 @@ back_to_menu_str = "Вернуться на главное меню"
 
 discover_free_time_str = "Узнать свободное время"
 rating_str = "Расчитать итоговую оценку"
-alert_str = "Настройка уведомлений"
+alert_str = "Настройка уведомлений (Будет позже)"
 find_group_str = "Найти группу"
 register_str = "Регистрация"
 keys_str = "У меня есть ключ"
@@ -32,11 +32,11 @@ configuration_str = "Настройки"
 whose_schedule_str = "Тип расписания"
 
 calculator_str = "Калькулятор оценок"
-calendar_plan_str = "Календарный план"
+calendar_plan_str = "Календарный план (Будет позже)"
 
-notifications_str = "Оповещения"
+notifications_str = "Оповещения (Будет позже)"
 configure_schedule_str = "Настройки расписания"
-switch_language_str = "Поменять язык"
+switch_language_str = "Поменять язык (Будет позже)"
 about_authors_str = "Об авторах"
 
 skip_str = "Пропустить"
@@ -46,14 +46,14 @@ add_task_str = "Добавить новое задание"
 delete_task_str = "Удалить задаие"
 show_tasks_str = "Показать все задания"
 show_subjects_str = "Показать все предметы"
-finish_configuration_str = 'Закончить настройку'
+finish_configuration_str = "Закончить настройку"
 
 subject_add_str = "Добавить предмет"
 subject_delete_str = "Удалить предмет"
 configure_subject_str = "Настройка предметов"
-subjects_str = "Предметы (уроки)"
+subjects_str = "Предметы"
 show_task_info_str = "Посмотреть задание"
 take_variant_str = "Занять вариант"
-
-
-
+show_variant_of_task_str = "Показать студентов и варианты"
+take_away_variant_str = "Убрать вариант"
+configure_parts_of_sched_str = 'Настройка вывода расписания'

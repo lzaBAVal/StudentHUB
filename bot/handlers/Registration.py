@@ -1,21 +1,20 @@
 import aiogram.utils.markdown as md
-
 from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.types import ParseMode
 
-from bot.keyboard.keyboard import anon_kb, register_kb, createButtons, question_kb, cat_kb, stud_kb
+from DB.models import Group, Student
+from bot.functions.other.find_group import group_search
+from bot.keyboard.keyboard import anon_kb, register_kb, createButtons, question_kb, stud_kb
 from bot.states.states import AnonStates, RegistrationStates, StudentStates
-
-from functions.other.find_group import group_search
-
-from loader import db, bot
-from misc import dp
-from models import Group, Student
-from utils.log.logging_core import init_logger, log_encode
+from config.main import load_config
+from log.logging_core import init_logger, log_encode
+from log.prometheus import prom_new_user
+from misc import dp, bot
 
 logger = init_logger()
+current_config = load_config()
 
 
 # CANCEL REGISTRATION
@@ -115,38 +114,40 @@ async def accept_all_data(message: types.Message, state: FSMContext):
 async def reg_final(message: types.Message, state: FSMContext):
     data = await state.get_data()
     lock = await Group.filter(id=data['group_id']).values_list('lock')
-    if lock[0][0] is True:
+    if lock[0][0]:
         await message.answer(text='Вход в данную группу закрыт старостой этой группы, '
                                   'обратитесь к нему, чтобы он открыл её',
                              reply_markup=anon_kb)
         await state.finish()
         await AnonStates.anon.set()
-    try:
-        await Student.create(chat_id=int(message.chat.id),
-                             name=str(data['name']),
-                             surname=str(data['surname']),
-                             group_id=int(data['group_id']),
-                             group_name=str(data['group_name']),
-                             sched_parts='11111',
-                             whose_schedule='g',
-                             ban=False,
-                             privilege='u')
-    except Exception as e:
-        await message.answer(text='Произошла ошибка, обратитесь к разработчику)', reply_markup=anon_kb)
-        logger.exception(e)
-        await state.finish()
-        await AnonStates.anon.set()
     else:
-        # await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)',
-        #                     reply_markup=cat_kb)
+        try:
+            await Student.create(chat_id=int(message.chat.id),
+                                 name=str(data['name']),
+                                 surname=str(data['surname']),
+                                 group_id=int(data['group_id']),
+                                 group_name=str(data['group_name']),
+                                 sched_parts='11111',
+                                 whose_schedule='g',
+                                 ban=False,
+                                 privilege='u')
+        except Exception as e:
+            await message.answer(text='Произошла ошибка, обратитесь к разработчику)', reply_markup=anon_kb)
+            logger.exception(e)
+            await state.finish()
+            await AnonStates.anon.set()
+        else:
+            # await message.answer(text='Идет процесс регистрации...\nДля завершения нажми на котика)',
+            #                     reply_markup=cat_kb)
 
-        await message.answer(text='Все отлично! Теперь вы зарегестрированы.', reply_markup=stud_kb())
-        logger.info(f'New user: '
-                    f'name - {0} surname - {1} group - {2}'.format(log_encode(data['name']),
-                                                                   log_encode(data['surname']),
-                                                                   log_encode(data['group_id'])))
-        await state.finish()
-        await StudentStates.student.set()
+            await message.answer(text='Все отлично! Теперь вы зарегестрированы.', reply_markup= await stud_kb(state))
+            logger.info(f'New user: '
+                        f'name - {0} surname - {1} group - {2}'.format(log_encode(data['name']),
+                                                                       log_encode(data['surname']),
+                                                                       log_encode(data['group_id'])))
+            prom_new_user()
+            await state.finish()
+            await StudentStates.student.set()
 
 
 '''

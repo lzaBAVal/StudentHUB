@@ -2,18 +2,19 @@ from contextlib import suppress
 from functools import partial
 
 from aiogram import Dispatcher
+from aiogram.dispatcher import FSMContext
 from aiogram.utils.exceptions import TelegramAPIError
 from aiogram.utils.executor import Executor
 
+from DB.models.db import db
 from bot.keyboard.keyboard import stud_kb
+from config import Config
+from config import WebhookConfig
+from log.logging_core import init_logger
 from misc import dp
-from models.config import Config
-from models.config.webhook import WebhookConfig
-from models.db import db
 
-from utils.log.logging_core import Logger
-
-logger = Logger(__name__)
+# logger = Logger(__name__)
+logger = init_logger()
 runner = Executor(dp)
 
 
@@ -28,7 +29,7 @@ async def on_startup_notify(dispatcher: Dispatcher, config: Config):
     with suppress(TelegramAPIError):
         await dispatcher.bot.send_message(chat_id=config.log.log_chat_id,
                                           text="Bot started",
-                                          disable_notification=True, reply_markup=stud_kb())
+                                          disable_notification=True)
         logger.info("Notified about bot is started.")
 
 
